@@ -13,8 +13,8 @@ namespace ProgrammersBlog.Shared.Data.Abstract
         //Predicate filtremiz
         Task<T> GetAsync(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includeProperties); //GET Async method. || Expression -> var kullanici = repository.GetAsync(k=>k.Id ==15); gibi"
         Task<IList<T>> GetAllAsync(Expression<Func<T, bool>> predicate = null, params Expression<Func<T, object>>[] includeProperties); //Predicate null verdik çünkü bütün makaleleri de isteyebiliriz, veya sadece C# kategorisini isteyebiliriz.   
-        Task AddAsync(T entity);
-        Task UpdateAsync(T entity);
+        Task<T> AddAsync(T entity);
+        Task<T> UpdateAsync(T entity);
         Task DeleteAsync(T entity);
         Task<bool> AnyAsync(Expression<Func<T, bool>> predicate); //Any var mı anlamında kullanılmaktadır. Alper isimli bir kullanıcı var mı? .AnyAsync(u=>u.FirstName=="Alper"); gibi.
         Task<int> CountAsync(Expression<Func<T, bool>> predicate);

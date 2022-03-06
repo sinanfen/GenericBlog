@@ -15,8 +15,8 @@ namespace ProgrammersBlog.Services.Abstract
         Task<IDataResult<CategoryListDto>> GetAll();                                        // Istersek de IList türünde Kategori lisetsi getirebiliyoruz.
         Task<IDataResult<CategoryListDto>> GetAllByNoneDeleted();                           // Silinmemiş olan kategorileri getirecek.
         Task<IDataResult<CategoryListDto>> GetAllByNoneDeletedAndActive();
-        Task<IResult> Add(CategoryAddDto categoryAddDto, string createdByName);             //Data Transfer Object (ViewModel gibi)
-        Task<IResult> Update(CategoryUpdateDto categoryUpdateDto, string modifiedByName);
+        Task<IDataResult<CategoryDto>> Add(CategoryAddDto categoryAddDto, string createdByName);             //Data Transfer Object (ViewModel gibi)
+        Task<IDataResult<CategoryDto>> Update(CategoryUpdateDto categoryUpdateDto, string modifiedByName);
         Task<IResult> Delete(int categoryId, string modifiedByName);                        //Durumunu False yapacak
         Task<IResult> HardDelete(int categoryId);                                           //Tamamen veritabanından silecek. Tehlikeli
     }
