@@ -132,6 +132,7 @@
                 }
             });
             @* DataTables Ends Here *@
+            @* Ajax GET / Getting the _CategoryAddPartial as Modal Form starts from here. *@
             $(function () {
                 const url = '@Url.Action("Add","Category")';
                 const placeHolderDiv = $('#modalPlaceHolder');
@@ -141,6 +142,45 @@
                         placeHolderDiv.find(".modal").modal('show');
                     });
                 });
+                @* Ajax GET / Getting the _CategoryAddPartial as Modal Form ends here. *@
+                @* Ajax POST / Posting the FormData as CategoryAddDto starts from here *@
+                placeHolderDiv.on('click', '#btnSave', function (event)
+                {
+                    event.preventDefault(); //Kendi click işlemini engelleyecek - sayfanın yenilenmemesi sağlandı
+                    const form = $('#form-category-add'); //Formu seçtik jQuery Selector ile
+                    const actionUrl = form.attr('action'); // form asp-action Add actionunu alıyoruz
+                    const dataToSend = form.serialize();
+                    $.post(actionUrl, dataToSend).done(function (data) { //jQuery.Post
+                        console.log(data);
+                        const categoryAddAjaxModel = jQuery.parseJSON(data);  // CategoryAddAjaxViewModel i parse etmiş olduk.
+                        console.log(categoryAddAjaxModel);
+                        const newFormBody = $('.modal-body', categoryAddAjaxModel.CategoryAddParial); //<div class:"modal-body"> seçtik.
+                        placeHolderDiv.find('.modal-body').replaceWith(newFormBody); // modal-body seç ve newFormBody ile değiştir
+                        const isValid = newFormBody.find('[name="IsValid"]').val() === 'True';//İnputun değerini okuyoruz.. jQuery.Val ile
+                        if (isValid) {
+                            placeHolderDiv.find('.modal').modal('hide'); //Modal ı bul. Modal haline getir ve Gizle.
+                            const newTableRow =
+                                `<tr>
+                                    <td>${categoryAddAjaxModel.CategoryDto.Category.Id}</td>
+                                    <td>${categoryAddAjaxModel.CategoryDto.Category.Name}</td>
+                                    <td>${categoryAddAjaxModel.CategoryDto.Category.Description}</td>
+                                    <td>${categoryAddAjaxModel.CategoryDto.Category.IsActive}</td>
+                                    <td>${categoryAddAjaxModel.CategoryDto.Category.IsDeleted}</td>
+                                    <td>${categoryAddAjaxModel.CategoryDto.Category.Note}</td>
+                                    <td>${categoryAddAjaxModel.CategoryDto.Category.CreatedDate}</td>
+                                    <td>${categoryAddAjaxModel.CategoryDto.Category.CreatedByName}</td>
+                                    <td>${categoryAddAjaxModel.CategoryDto.Category.ModifiedDate}</td>
+                                    <td>${categoryAddAjaxModel.CategoryDto.Category.ModifiedByName}</td>
+                                </tr>`;
+                            const newTableRowObject = $(newTableRow);
+                            newTableRowObject.hide();
+                            $('#categoriesTable').append(newTableRowObject); //BU tablo satırını ekleyebilmek için append fonksiyonu kullandık.
+                            newTableRowObject.fadeIn(3500);
+                            toastr.success(`${categoryAddAjaxModel.CategoryDto.Message}`, 'İşlem Başarılı!');
+                        }
+                    });
+                });
+
             });
         });
     </script>
