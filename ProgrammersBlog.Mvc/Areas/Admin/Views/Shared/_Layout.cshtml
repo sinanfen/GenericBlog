@@ -36,7 +36,7 @@
         </ul>
     </nav>
     <div id="layoutSidenav">
-        @await Html.PartialAsync("_LayoutSideBarNavPartial") 
+        @await Component.InvokeAsync("AdminMenu")
         <div id="layoutSidenav_content">
             <main>
                 <div class="container-fluid">
@@ -57,6 +57,6 @@
         </div>
     </div>
     @await Html.PartialAsync("_LayoutJsPartial")
-    @await RenderSectionAsync("Scripts", false) //False olmasının sebebi her sayfa için bu scriptler zorunlu olmamasından dolayıdır.
+    @await RenderSectionAsync("Scripts", false) // False olmasının sebebi her sayfa için bu scriptler zorunlu olmamasından dolayıdır. 
 </body>
 </html>
