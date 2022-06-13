@@ -17,6 +17,7 @@ using ProgrammersBlog.Mvc.Areas.Admin.Models;
 using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authorization;
+using ProgrammersBlog.Mvc.Helpers.Abstract;
 
 namespace ProgrammersBlog.Mvc.Areas.Admin.Controllers
 {
@@ -25,15 +26,15 @@ namespace ProgrammersBlog.Mvc.Areas.Admin.Controllers
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
-        private readonly IWebHostEnvironment _env;
         private readonly IMapper _mapper;
+        private readonly IImageHelper _imageHelper;
 
-        public UserController(UserManager<User> userManager, IWebHostEnvironment env, IMapper mapper, SignInManager<User> signInManager)
+        public UserController(UserManager<User> userManager, IMapper mapper, SignInManager<User> signInManager, IImageHelper imageHelper)
         {
             _userManager = userManager;
-            _env = env;
             _mapper = mapper;
             _signInManager = signInManager;
+            _imageHelper = imageHelper;
         }
 
         [Authorize(Roles = "admin")]
@@ -121,7 +122,8 @@ namespace ProgrammersBlog.Mvc.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                userAddDto.Picture = await ImageUpload(userAddDto.UserName, userAddDto.PictureFile);
+                var uploadedImadeDtoResult = await _imageHelper.UploadUserImage(userAddDto.UserName, userAddDto.PictureFile);
+                userAddDto.Picture = uploadedImadeDtoResult.ResultStatus == ResultStatus.Success ? uploadedImadeDtoResult.Data.FullName : "userImages/defaultUser.png";
                 var user = _mapper.Map<User>(userAddDto);
                 var result = await _userManager.CreateAsync(user, userAddDto.Password);
                 if (result.Succeeded)
@@ -218,8 +220,12 @@ namespace ProgrammersBlog.Mvc.Areas.Admin.Controllers
                 var oldUserPicture = oldUser.Picture;
                 if (userUpdateDto.PictureFile != null)
                 {
-                    userUpdateDto.Picture = await ImageUpload(userUpdateDto.UserName, userUpdateDto.PictureFile);
-                    isNewPictureUploaded = true;
+                    var uploadedImadeDtoResult = await _imageHelper.UploadUserImage(userUpdateDto.UserName, userUpdateDto.PictureFile);
+                    userUpdateDto.Picture = uploadedImadeDtoResult.ResultStatus == ResultStatus.Success ? uploadedImadeDtoResult.Data.FullName : "userImages/defaultUser.png";
+                    if (oldUserPicture != "userImages/defaultUser.png")
+                    {
+                        isNewPictureUploaded = true;
+                    }
                 }
                 var updatedUser = _mapper.Map<UserUpdateDto, User>(userUpdateDto, oldUser);
                 var result = await _userManager.UpdateAsync(updatedUser);
@@ -227,7 +233,7 @@ namespace ProgrammersBlog.Mvc.Areas.Admin.Controllers
                 {
                     if (isNewPictureUploaded)
                     {
-                        ImageDelete(oldUserPicture);
+                        _imageHelper.Delete(oldUserPicture);
                     }
                     var userUpdateViewModel = JsonSerializer.Serialize(new UserUpdateAjaxViewModel
                     {
@@ -286,8 +292,9 @@ namespace ProgrammersBlog.Mvc.Areas.Admin.Controllers
                 var oldUserPicture = oldUser.Picture;
                 if (userUpdateDto.PictureFile != null)
                 {
-                    userUpdateDto.Picture = await ImageUpload(userUpdateDto.UserName, userUpdateDto.PictureFile);
-                    if (oldUserPicture != "defaultUser.png")
+                    var uploadedImadeDtoResult = await _imageHelper.UploadUserImage(userUpdateDto.UserName, userUpdateDto.PictureFile);
+                    userUpdateDto.Picture = uploadedImadeDtoResult.ResultStatus == ResultStatus.Success ? uploadedImadeDtoResult.Data.FullName : "userImages/defaultUser.png";
+                    if (oldUserPicture != "userImages/defaultUser.png")
                     {
                         isNewPictureUploaded = true;
                     }
@@ -298,7 +305,7 @@ namespace ProgrammersBlog.Mvc.Areas.Admin.Controllers
                 {
                     if (isNewPictureUploaded)
                     {
-                        ImageDelete(oldUserPicture);
+                        _imageHelper.Delete(oldUserPicture);
                     }
                     TempData.Add("SuccessMessage", $"{updatedUser.UserName} adlı kullanıcı başarıyla güncellenmiştir.");
                     return View(userUpdateDto);
@@ -325,41 +332,46 @@ namespace ProgrammersBlog.Mvc.Areas.Admin.Controllers
             return View();
         }
 
-        [Authorize(Roles = "admin,editor")]
-        public async Task<string> ImageUpload(string userName, IFormFile pictureFile)
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> PasswordChange(UserPasswordChangeDto userPasswordChangeDto)
         {
-            // ~/img/user.Picture
-            string wwwroot = _env.WebRootPath; //dinamik şekilde wwwroot yolunu aldı
-            // sinanfen.png ama uzantısı farketmeksizin aldı
-            //string fileName = Path.GetFileNameWithoutExtension(PictureFile.FileName);
-            // .png
-            string fileExtension = Path.GetExtension(pictureFile.FileName);
-            DateTime dateTime = DateTime.Now;
-            // SinanFen_587_5_12_3_10_2020.png
-            string fileName = $"{userName}_{dateTime.FullDateAndTimeStringWithUnderscore()}{fileExtension}";
-            var path = Path.Combine($"{wwwroot}/img", fileName);
-            await using (var stream = new FileStream(path, FileMode.Create))
+            if (ModelState.IsValid)
             {
-                await pictureFile.CopyToAsync(stream);
-            }
-            return fileName;
-        }
-
-
-        [Authorize(Roles = "admin,editor")]
-        public bool ImageDelete(string pictureName)
-        {
-            string wwwroot = _env.WebRootPath; //dinamik şekilde wwwroot yolunu aldı
-            var fileToDelete = Path.Combine($"{wwwroot}/img", pictureName);
-            if (System.IO.File.Exists(fileToDelete))
-            {
-                System.IO.File.Delete(fileToDelete);
-                return true;
+                var user = await _userManager.GetUserAsync(HttpContext.User);
+                var isVerified = await _userManager.CheckPasswordAsync(user, userPasswordChangeDto.CurrentPassword);
+                if (isVerified)
+                {
+                    var result = await _userManager.ChangePasswordAsync(user, userPasswordChangeDto.CurrentPassword, userPasswordChangeDto.NewPassword);
+                    if (result.Succeeded)
+                    {
+                        await _userManager.UpdateSecurityStampAsync(user);//SecurityStamp-> Yakın zamanda önemli bir değeri değiştirdiğimizi belirtir.
+                        await _signInManager.SignOutAsync();//Kullanıcı çıkış yapacak. Güvenli giriş tekrar gerekecek.
+                        await _signInManager.PasswordSignInAsync(user, userPasswordChangeDto.NewPassword, true, false); //RememberMe değeri -> true . | Güvenli giriş sağlanıyor
+                        TempData.Add("SuccessMessage", $"Şifreniz başarıyla değiştirilmiştir.");
+                        return View();
+                    }
+                    else
+                    {
+                        foreach (var error in result.Errors)
+                        {
+                            ModelState.AddModelError("", error.Description);
+                        }
+                        return View(userPasswordChangeDto);
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Lütfen girmiş olduğunuz şu anki şifrenizi kontrol ediniz.");
+                    return View(userPasswordChangeDto);
+                }
             }
             else
             {
-                return false;
+                return View(userPasswordChangeDto);
             }
         }
+
+
     }
 }

@@ -6,6 +6,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ProgrammersBlog.Mvc.AutoMapper.Profiles;
+using ProgrammersBlog.Mvc.Helpers.Abstract;
+using ProgrammersBlog.Mvc.Helpers.Concrete;
 using ProgrammersBlog.Services.AutoMapper.Profiles;
 using ProgrammersBlog.Services.Extensions;
 using System;
@@ -36,6 +38,7 @@ namespace ProgrammersBlog.Mvc
             services.AddSession();
             services.AddAutoMapper(typeof(CategoryProfile), typeof(ArticleProfile),typeof(UserProfile));
             services.LoadMyServices();
+            services.AddScoped<IImageHelper, ImageHelper>();
             services.ConfigureApplicationCookie(options =>
             {
                 options.LoginPath = new PathString("/Admin/User/Login");
@@ -45,7 +48,7 @@ namespace ProgrammersBlog.Mvc
                     Name = "ProgrammersBlog",
                     HttpOnly = true,
                     SameSite = SameSiteMode.Strict,
-                    SecurePolicy = CookieSecurePolicy.SameAsRequest //SameAsRequest ve None kalmamalý. Always olmalý. (Test olduðu için böyle býraktýk.)
+                    SecurePolicy = CookieSecurePolicy.SameAsRequest //SameAsRequest veya None kalmamalý. Always olmalý. (Test olduðu için böyle býraktýk.)
                 };
                 options.SlidingExpiration = true;
                 options.ExpireTimeSpan = System.TimeSpan.FromDays(1); //Cookie bilgileri 1 gün boyunca etkin olacak.
