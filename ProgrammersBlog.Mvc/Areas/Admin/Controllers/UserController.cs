@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Linq;
-using System.Collections.Generic;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -8,8 +6,6 @@ using ProgrammersBlog.Entities.Concrete;
 using System.Threading.Tasks;
 using ProgrammersBlog.Entities.Dtos;
 using ProgrammersBlog.Shared.Utilities.Results.ComplexTypes;
-using Microsoft.AspNetCore.Hosting;
-using System.IO;
 using ProgrammersBlog.Shared.Utilities.Extensions;
 using AutoMapper;
 using System.Text.Json;

@@ -239,6 +239,8 @@
         placeHolderDiv.on('click', '#btnUpdate',
             function (event) {
                 event.preventDefault();
+                let id;
+                let tableRow;
                 const form = $('#form-user-update');
                 const actionUrl = form.attr('action');
                 const dataToSend = new FormData(form.get(0));
@@ -252,8 +254,8 @@
                         const userUpdateAjaxModel = jQuery.parseJSON(data);
                         console.log(userUpdateAjaxModel);
                         if (userUpdateAjaxModel.UserDto !== null) {
-                            const id = userUpdateAjaxModel.UserDto.User.Id;
-                            const tableRow = $(`[name="${id}"]`);
+                            id = userUpdateAjaxModel.UserDto.User.Id;
+                            tableRow = $(`[name="${id}"]`);
                         }
                         const newFormBody = $('.modal-body', userUpdateAjaxModel.UserUpdatePartial);
                         placeHolderDiv.find('.modal-body').replaceWith(newFormBody);
