@@ -17,6 +17,6 @@ namespace ProgrammersBlog.Shared.Data.Abstract
         Task<T> UpdateAsync(T entity);
         Task DeleteAsync(T entity);
         Task<bool> AnyAsync(Expression<Func<T, bool>> predicate); //Any var mı anlamında kullanılmaktadır. Alper isimli bir kullanıcı var mı? .AnyAsync(u=>u.FirstName=="Alper"); gibi.
-        Task<int> CountAsync(Expression<Func<T, bool>> predicate);
+        Task<int> CountAsync(Expression<Func<T, bool>> predicate=null);
     }
 }

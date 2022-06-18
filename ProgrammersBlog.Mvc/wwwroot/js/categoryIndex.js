@@ -13,7 +13,6 @@
                 },
                 className: 'btn btn-success',
                 action: function (e, dt, node, config) {
-
                 }
             },
             {
@@ -31,33 +30,32 @@
                         success: function (data) {
                             const categoryListDto = jQuery.parseJSON(data);
                             console.log(categoryListDto);
-                            if (categoryListDto.ResultStatus === 0) { //hem değerini hem tipini kontrol eder
+                            if (categoryListDto.ResultStatus === 0) {
                                 let tableBody = "";
                                 $.each(categoryListDto.Categories.$values,
                                     function (index, category) {
                                         tableBody += `
-                                            <tr>
-                                                <td>${category.Id}</td>
-                                                <td>${category.Name}</td>
-                                                <td>${category.Description}</td>
-                                                <td>${convertFirstLetterToUpperCase(category.IsActive.toString())}</td>
-                                                <td>${convertFirstLetterToUpperCase(category.IsDeleted.toString())}</td>
-                                                <td>${category.Note}</td>
-                                                <td>${convertToShortDate(category.CreatedDate)}</td>
-                                                <td>${category.CreatedByName}</td>
-                                                <td>${convertToShortDate(category.ModifiedDate)}</td>
-                                                <td>${category.ModifiedByName}</td>
-                                                <td>
-                                                    <button class="btn btn-primary btn-sm btn-update" data-id="${category.Id}"><span class="fas fa-edit"></span></button>
-                                                    <button class="btn btn-danger btn-sm btn-delete" data-id="${category.Id}"><span class="fas fa-minus-circle"></span></button>
-                                                </td>
+                                                <tr>
+                                    <td>${category.Id}</td>
+                                    <td>${category.Name}</td>
+                                    <td>${category.Description}</td>
+                                    <td>${convertFirstLetterToUpperCase(category.IsActive.toString())}</td>
+                                    <td>${convertFirstLetterToUpperCase(category.IsDeleted.toString())}</td>
+                                    <td>${category.Note}</td>
+                                    <td>${convertToShortDate(category.CreatedDate)}</td>
+                                    <td>${category.CreatedByName}</td>
+                                    <td>${convertToShortDate(category.ModifiedDate)}</td>
+                                    <td>${category.ModifiedByName}</td>
+                                    <td>
+                                <button class="btn btn-primary btn-sm btn-update" data-id="${category.Id}"><span class="fas fa-edit"></span></button>
+                                <button class="btn btn-danger btn-sm btn-delete" data-id="${category.Id}"><span class="fas fa-minus-circle"></span></button>
+                                    </td>
                                             </tr>`;
                                     });
                                 $('#categoriesTable > tbody').replaceWith(tableBody);
                                 $('.spinner-border').hide();
                                 $('#categoriesTable').fadeIn(1400);
-                            }
-                            else {
+                            } else {
                                 toastr.error(`${categoryListDto.Message}`, 'İşlem Başarısız!');
                             }
                         },
@@ -67,7 +65,7 @@
                             $('#categoriesTable').fadeIn(1000);
                             toastr.error(`${err.responseText}`, 'Hata!');
                         }
-                    })
+                    });
                 }
             }
         ],
@@ -101,8 +99,10 @@
                     "1": "1 kayıt seçildi"
                 }
             }
-        }
-    });
+        },
+        "order": [[6, "desc"]]
+    }
+    );
     /* DataTables end here */
     /* Ajax GET / Getting the _CategoryAddPartial as Modal Form starts from here. */
 

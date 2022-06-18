@@ -149,5 +149,31 @@ namespace ProgrammersBlog.Services.Concrete
             await _unitOfWork.SaveAsync();
             return new Result(ResultStatus.Success, Messages.Article.Update(article.Title));
         }
+
+        public async Task<IDataResult<int>> Count()
+        {
+            var articlesCount = await _unitOfWork.Articles.CountAsync();
+            if (articlesCount > -1)
+            {
+                return new DataResult<int>(ResultStatus.Success, articlesCount);
+            }
+            else
+            {
+                return new DataResult<int>(ResultStatus.Error, $"Beklenmeyen bir hata ile karşılaşıldı.", -1);
+            }
+        }
+
+        public async Task<IDataResult<int>> CountByIsDeleted()
+        {
+            var articlesCount = await _unitOfWork.Articles.CountAsync(a => !a.IsDeleted); //Silinmemiş olanları getir
+            if (articlesCount > -1)
+            {
+                return new DataResult<int>(ResultStatus.Success, articlesCount);
+            }
+            else
+            {
+                return new DataResult<int>(ResultStatus.Error, $"Beklenmeyen bir hata ile karşılaşıldı.", -1);
+            }
+        }
     }
 }

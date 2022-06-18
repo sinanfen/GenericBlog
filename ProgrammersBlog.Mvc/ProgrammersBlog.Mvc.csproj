@@ -12,6 +12,10 @@
     <PackageReference Include="AutoMapper" Version="11.0.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
@@ -23,6 +27,56 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\ComingSoon\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.svg" />
+    <None Include="wwwroot\ComingSoon\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.woff2" />
+    <None Include="wwwroot\ComingSoon\fonts\font-awesome-4.7.0\less\animated.less" />
+    <None Include="wwwroot\ComingSoon\fonts\font-awesome-4.7.0\less\bordered-pulled.less" />
+    <None Include="wwwroot\ComingSoon\fonts\font-awesome-4.7.0\less\core.less" />
+    <None Include="wwwroot\ComingSoon\fonts\font-awesome-4.7.0\less\fixed-width.less" />
+    <None Include="wwwroot\ComingSoon\fonts\font-awesome-4.7.0\less\font-awesome.less" />
+    <None Include="wwwroot\ComingSoon\fonts\font-awesome-4.7.0\less\icons.less" />
+    <None Include="wwwroot\ComingSoon\fonts\font-awesome-4.7.0\less\larger.less" />
+    <None Include="wwwroot\ComingSoon\fonts\font-awesome-4.7.0\less\list.less" />
+    <None Include="wwwroot\ComingSoon\fonts\font-awesome-4.7.0\less\mixins.less" />
+    <None Include="wwwroot\ComingSoon\fonts\font-awesome-4.7.0\less\path.less" />
+    <None Include="wwwroot\ComingSoon\fonts\font-awesome-4.7.0\less\rotated-flipped.less" />
+    <None Include="wwwroot\ComingSoon\fonts\font-awesome-4.7.0\less\screen-reader.less" />
+    <None Include="wwwroot\ComingSoon\fonts\font-awesome-4.7.0\less\stacked.less" />
+    <None Include="wwwroot\ComingSoon\fonts\font-awesome-4.7.0\less\variables.less" />
+    <None Include="wwwroot\ComingSoon\fonts\font-awesome-4.7.0\scss\font-awesome.scss" />
+    <None Include="wwwroot\ComingSoon\fonts\font-awesome-4.7.0\scss\_animated.scss" />
+    <None Include="wwwroot\ComingSoon\fonts\font-awesome-4.7.0\scss\_bordered-pulled.scss" />
+    <None Include="wwwroot\ComingSoon\fonts\font-awesome-4.7.0\scss\_core.scss" />
+    <None Include="wwwroot\ComingSoon\fonts\font-awesome-4.7.0\scss\_fixed-width.scss" />
+    <None Include="wwwroot\ComingSoon\fonts\font-awesome-4.7.0\scss\_icons.scss" />
+    <None Include="wwwroot\ComingSoon\fonts\font-awesome-4.7.0\scss\_larger.scss" />
+    <None Include="wwwroot\ComingSoon\fonts\font-awesome-4.7.0\scss\_list.scss" />
+    <None Include="wwwroot\ComingSoon\fonts\font-awesome-4.7.0\scss\_mixins.scss" />
+    <None Include="wwwroot\ComingSoon\fonts\font-awesome-4.7.0\scss\_path.scss" />
+    <None Include="wwwroot\ComingSoon\fonts\font-awesome-4.7.0\scss\_rotated-flipped.scss" />
+    <None Include="wwwroot\ComingSoon\fonts\font-awesome-4.7.0\scss\_screen-reader.scss" />
+    <None Include="wwwroot\ComingSoon\fonts\font-awesome-4.7.0\scss\_stacked.scss" />
+    <None Include="wwwroot\ComingSoon\fonts\font-awesome-4.7.0\scss\_variables.scss" />
+    <None Include="wwwroot\ComingSoon\js\main.js" />
+    <None Include="wwwroot\ComingSoon\vendor\bootstrap\css\bootstrap-grid.css.map" />
+    <None Include="wwwroot\ComingSoon\vendor\bootstrap\css\bootstrap-grid.min.css.map" />
+    <None Include="wwwroot\ComingSoon\vendor\bootstrap\css\bootstrap-reboot.css.map" />
+    <None Include="wwwroot\ComingSoon\vendor\bootstrap\css\bootstrap-reboot.min.css.map" />
+    <None Include="wwwroot\ComingSoon\vendor\bootstrap\css\bootstrap.css.map" />
+    <None Include="wwwroot\ComingSoon\vendor\bootstrap\css\bootstrap.min.css.map" />
+    <None Include="wwwroot\ComingSoon\vendor\bootstrap\js\bootstrap.js" />
+    <None Include="wwwroot\ComingSoon\vendor\bootstrap\js\bootstrap.min.js" />
+    <None Include="wwwroot\ComingSoon\vendor\bootstrap\js\popper.js" />
+    <None Include="wwwroot\ComingSoon\vendor\bootstrap\js\popper.min.js" />
+    <None Include="wwwroot\ComingSoon\vendor\bootstrap\js\tooltip.js" />
+    <None Include="wwwroot\ComingSoon\vendor\countdowntime\countdowntime.js" />
+    <None Include="wwwroot\ComingSoon\vendor\countdowntime\moment-timezone-with-data.min.js" />
+    <None Include="wwwroot\ComingSoon\vendor\countdowntime\moment-timezone.min.js" />
+    <None Include="wwwroot\ComingSoon\vendor\countdowntime\moment.min.js" />
+    <None Include="wwwroot\ComingSoon\vendor\jquery\jquery-3.2.1.min.js" />
+    <None Include="wwwroot\ComingSoon\vendor\select2\select2.js" />
+    <None Include="wwwroot\ComingSoon\vendor\select2\select2.min.js" />
+    <None Include="wwwroot\ComingSoon\vendor\tilt\tilt.jquery.min.js" />
     <None Include="wwwroot\js\site.js" />
   </ItemGroup>
 

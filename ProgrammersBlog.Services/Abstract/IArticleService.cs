@@ -20,5 +20,7 @@ namespace ProgrammersBlog.Services.Abstract
         Task<IResult> Update(ArticleUpdateDto articleUpdateDto, string modifiedByName);
         Task<IResult> Delete(int articleId, string modifiedByName);             //Durumunu False yapacak
         Task<IResult> HardDelete(int articleId);                                //Tamamen veritabanından silecek. Tehlikeli
+        Task<IDataResult<int>> Count();
+        Task<IDataResult<int>> CountByIsDeleted();
     }
 }
