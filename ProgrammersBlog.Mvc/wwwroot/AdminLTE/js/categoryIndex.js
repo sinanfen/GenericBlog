@@ -5,6 +5,7 @@
             "<'row'<'col-sm-3'l><'col-sm-6 text-center'B><'col-sm-3'f>>" +
             "<'row'<'col-sm-12'tr>>" +
             "<'row'<'col-sm-5'i><'col-sm-7'p>>",
+        "order": [[6, "desc"]],
         buttons: [
             {
                 text: 'Ekle',
@@ -99,10 +100,8 @@
                     "1": "1 kayıt seçildi"
                 }
             }
-        },
-        "order": [[6, "desc"]]
-    }
-    );
+        }
+    });
     /* DataTables end here */
     /* Ajax GET / Getting the _CategoryAddPartial as Modal Form starts from here. */
 

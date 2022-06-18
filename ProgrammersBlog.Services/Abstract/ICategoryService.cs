@@ -11,16 +11,16 @@ namespace ProgrammersBlog.Services.Abstract
 {
     public interface ICategoryService
     {                                                                                       //Ful asenkron metod yazdığımız için hepsini Task yapıyoruz.
-        Task<IDataResult<CategoryDto>> Get(int categoryId);                                
-        Task<IDataResult<CategoryUpdateDto>> GetCategoryUpdateDto(int categoryId);
-        Task<IDataResult<CategoryListDto>> GetAll();                                        // Istersek de IList türünde Kategori lisetsi getirebiliyoruz.
-        Task<IDataResult<CategoryListDto>> GetAllByNoneDeleted();                           // Silinmemiş olan kategorileri getirecek.
-        Task<IDataResult<CategoryListDto>> GetAllByNoneDeletedAndActive();
-        Task<IDataResult<CategoryDto>> Add(CategoryAddDto categoryAddDto, string createdByName);             //Data Transfer Object (ViewModel gibi)
-        Task<IDataResult<CategoryDto>> Update(CategoryUpdateDto categoryUpdateDto, string modifiedByName);
-        Task<IDataResult<CategoryDto>> Delete(int categoryId, string modifiedByName);                        //Durumunu False yapacak
-        Task<IResult> HardDelete(int categoryId);                                           //Tamamen veritabanından silecek. Tehlikeli
-        Task<IDataResult<int>> Count();
-        Task<IDataResult<int>> CountByIsDeleted();
+        Task<IDataResult<CategoryDto>> GetAsync(int categoryId);                                
+        Task<IDataResult<CategoryUpdateDto>> GetCategoryUpdateDtoAsync(int categoryId);
+        Task<IDataResult<CategoryListDto>> GetAllAsync();                                        // Istersek de IList türünde Kategori lisetsi getirebiliyoruz.
+        Task<IDataResult<CategoryListDto>> GetAllByNoneDeletedAsync();                           // Silinmemiş olan kategorileri getirecek.
+        Task<IDataResult<CategoryListDto>> GetAllByNoneDeletedAndActiveAsync();
+        Task<IDataResult<CategoryDto>> AddAsync(CategoryAddDto categoryAddDto, string createdByName);             //Data Transfer Object (ViewModel gibi)
+        Task<IDataResult<CategoryDto>> UpdateAsync(CategoryUpdateDto categoryUpdateDto, string modifiedByName);
+        Task<IDataResult<CategoryDto>> DeleteAsync(int categoryId, string modifiedByName);                        //Durumunu False yapacak
+        Task<IResult> HardDeleteAsync(int categoryId);                                           //Tamamen veritabanından silecek. Tehlikeli
+        Task<IDataResult<int>> CountAsync();
+        Task<IDataResult<int>> CountByNonDeletedAsync();
     }
 }
