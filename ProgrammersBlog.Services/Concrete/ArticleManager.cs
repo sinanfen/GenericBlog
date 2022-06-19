@@ -100,7 +100,7 @@ namespace ProgrammersBlog.Services.Concrete
             return new DataResult<ArticleListDto>(ResultStatus.Error, Messages.Article.NotFound(isPlural: false), null);
         }
 
-        public async Task<IDataResult<ArticleListDto>> GetAllByNoneDeletedAsync()
+        public async Task<IDataResult<ArticleListDto>> GetAllByNonDeletedAsync()
         {
             var articles = await _unitOfWork.Articles.GetAllAsync(a => !a.IsDeleted, ar => ar.User, ar => ar.Category);
             if (articles.Count > -1)
@@ -114,7 +114,7 @@ namespace ProgrammersBlog.Services.Concrete
             return new DataResult<ArticleListDto>(ResultStatus.Error, Messages.Article.NotFound(isPlural: true), null);
         }
 
-        public async Task<IDataResult<ArticleListDto>> GetAllByNoneDeletedAndActiveAsync()
+        public async Task<IDataResult<ArticleListDto>> GetAllByNonDeletedAndActiveAsync()
         {
             var articles = await _unitOfWork.Articles.GetAllAsync(a => !a.IsDeleted && a.IsActive, ar => ar.User, ar => ar.Category); //Silinmemiş ve aktif olanları getir
             if (articles.Count > -1)
