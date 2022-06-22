@@ -1,0 +1,102 @@
+﻿@{
+    Layout = "_Layout";
+    ViewBag.Title = "Makale Ekle";
+}
+<ol class="breadcrumb mb-3 mt-2">
+    <li class="breadcrumb-item"><a asp-area="Admin" asp-controller="Home" asp-action="Index">Admin</a></li>
+    <li class="breadcrumb-item active"><a asp-area="Admin" asp-controller="Article" asp-action="Index">Makaleler</a></li>
+    <li class="breadcrumb-item active"><a asp-area="Admin" asp-controller="Article" asp-action="Add">Ekle</a></li>
+</ol>
+<form asp-controller="Article" asp-action="Add" method="post" enctype="multipart/form-data">
+    <div class="row mt-2">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <div class="form-group">
+                        <input type="text" id="articleTitle" placeholder="Makale Başlığı" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <textarea id="text-editor"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    Temel Konfigürasyonlar
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="categoryList">Kategori</label>
+                        <select id="categoryList" class="form-control">
+                            <option></option>
+                            <option>C#</option>
+                            <option>C++</option>
+                            <option>JavaScript</option>
+                            <option>Python</option>
+                            <option>Java</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="datePicker">Tarih</label>
+                        <input type="text" id="datePicker" class="form-control" value="@DateTime.Now.ToShortDateString()" />
+                    </div>
+                    <div class="form-group">
+                        <label for="thumbnailUpload">Küçük Resim</label>
+                        <input type="file" id="thumbnailUpload" accept="image/*" class="form-control-file" /> @*image/* -> tüm img türlerini kabul eder*@
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" id="isActive" class="form-check-input" />
+                        <label for="isActive" class="form-check-label">Aktif Mi?</label>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-block mt-4">Kaydet</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 mt-2">
+            <div class="card">
+                <div class="card-header">
+                    SEO Optimizasyonları
+                </div>
+                <div class="card-body">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="seoWriter">Yazar Adı</label>
+                            <input type="text" id="seoWriter" class="form-control" />
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="seoTags">Etiketler</label>
+                            <input type="text" id="seoTags" class="form-control" />
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label for="seoDescription">Makale Açıklaması</label>
+                            <textarea id="seoDescription" class="form-control"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+@section Scripts
+{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.25.1/trumbowyg.min.js" integrity="sha512-t4CFex/T+ioTF5y0QZnCY9r5fkE8bMf9uoNH2HNSwsiTaMQMO0C9KbKPMvwWNdVaEO51nDL3pAzg4ydjWXaqbg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.25.1/langs/tr.min.js" integrity="sha512-+HGzdrYvtA0U9cp5kJad8OpjTvUi6ywZ9z9kXFGiV3EaAR1II5X6lfulUm6/F9GKesHW+jHFfAqwXK0juybvMw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.25.1/plugins/colors/trumbowyg.colors.min.js" integrity="sha512-4QranVVhd9HLb3yDUL6q+zlHc5mEIcUrR5pfhdyyGzsqcH9vSROL0BgN8wW47mZ1tZ44tUvFkk/JXvhfNlzvHw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.25.1/plugins/emoji/trumbowyg.emoji.min.js" integrity="sha512-PPEK09bmt7tQg/qdNokvbckNVB4EqXTu+qi4X/j9XoFag6YspjU5xO/FXXCEjBxo1+Z41oOFvIyz5QkjSuTNsQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.25.1/plugins/fontfamily/trumbowyg.fontfamily.min.js" integrity="sha512-ha/jXUX4sZMHEvpHLtYOIvMDK8/a8ncRhAPSmQVUx/to+04w+zUBWWZHaPQMPt6qjx94V/lbE9ZEsTsb7F+sTw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.25.1/plugins/fontsize/trumbowyg.fontsize.min.js" integrity="sha512-eYBhHjpFi6wk8wWyuXYYu54CRcXA3bCFSkcrco4SR1nGtGSedgAXbMbm3l5X4IVEWD8U7Pur9yNjzYu8n4aIMA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="~/AdminLTE/js/articleAdd.js" type="application/ecmascript"></script>
+}
+@section Styles
+{
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.25.1/ui/trumbowyg.min.css" integrity="sha512-nwpMzLYxfwDnu68Rt9PqLqgVtHkIJxEPrlu3PfTfLQKVgBAlTKDmim1JvCGNyNRtyvCx1nNIVBfYm8UZotWd4Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.25.1/plugins/colors/ui/trumbowyg.colors.min.css" integrity="sha512-aE073TwNBnCl/Y99fSlH/29MS7CzKgrliM9rTVDURKiiGvapXN+hTmept74zsbcadVEzJ2RtfcyEyzySiYeJuA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.25.1/plugins/emoji/ui/trumbowyg.emoji.min.css" integrity="sha512-xpR3G7LZbpAnoUgES2Xu2Z/mK8NwejLjJpNHQtmdU36yGP2AS5kgpflPwv6vEurEeruDcghOtHkWNsOkwVx2ig==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdn.jsdelivr.net/npm/select2@@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="~/AdminLTE/css/select2-bootstrap4.min.css" rel="stylesheet" />
+}
