@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using ProgrammersBlog.Entities.ComplexTypes;
 using ProgrammersBlog.Entities.Dtos;
 using ProgrammersBlog.Mvc.Helpers.Abstract;
 using ProgrammersBlog.Shared.Utilities.Extensions;
@@ -16,7 +17,9 @@ namespace ProgrammersBlog.Mvc.Helpers.Concrete
     {
         private readonly IWebHostEnvironment _env;
         private readonly string _wwwroot;
-        private readonly string imgFolder = "img";
+        private const string imgFolder = "img";
+        private const string userImagesFolder = "userImages";
+        private const string postImagesFolder = "postImages";
 
         public ImageHelper(IWebHostEnvironment env)
         {
@@ -47,24 +50,44 @@ namespace ProgrammersBlog.Mvc.Helpers.Concrete
             }
         }
 
-        public async Task<IDataResult<ImageUploadedDto>> UploadUserImage(string userName, IFormFile pictureFile, string folderName = "userImages")
+        public async Task<IDataResult<ImageUploadedDto>> Upload(string name, IFormFile pictureFile, PictureType pictureType, string folderName = null)
         {
+            /* Eğer folderName değişkeni null gelir ise, o zaman fotoğraf tipine göre (PictureType) klasör adı ataması yapılır */
+            folderName ??= pictureType == PictureType.User ? userImagesFolder : postImagesFolder; 
+
+            /* Eğer folderName değişkeni ile gelen klasör adı sistemimizde mevcut değilse, yeni bir klasör oluşturulur. */
             if (!Directory.Exists($"{_wwwroot}/{imgFolder}/{folderName}")) //Eğer böyle bir klasör yok ise--
             {
                 Directory.CreateDirectory($"{_wwwroot}/{imgFolder}/{folderName}"); //Oluştur
             }
-            // sinanfen.png ama uzantısı farketmeksizin aldı
+
+            /* Fotoğrafın yüklenme sırasındaki ilk adı oldFileName adlı değişkene atanır. */
             string oldFileName = Path.GetFileNameWithoutExtension(pictureFile.FileName);
+
+            /* Fotoğrafın uzantısı fileExtension adlı değişkene atanır. */
             string fileExtension = Path.GetExtension(pictureFile.FileName);
             DateTime dateTime = DateTime.Now;
-            // SinanFen_587_5_12_3_10_2020.png
-            string newFileName = $"{userName}_{dateTime.FullDateAndTimeStringWithUnderscore()}{fileExtension}";
+            /*
+            Parametre ile gelen değerler kullanılarak yeni bir fotoğraf adı oluşturulur.
+            Örn: SinanFen_587_5_38_12_3_10_2020.png
+            */
+            string newFileName = $"{name}_{dateTime.FullDateAndTimeStringWithUnderscore()}{fileExtension}";
+
+            /* Kendi parametrelerimiz ile sistemimize uygun yeni bir dosya yolu (path) oluşturulur. */
             var path = Path.Combine($"{_wwwroot}/{imgFolder}/{folderName}", newFileName);
+
+            /* Sistemimiz için oluşturulan yeni dosya yoluna fotoğraf kopyalanır. */
             await using (var stream = new FileStream(path, FileMode.Create))
             {
                 await pictureFile.CopyToAsync(stream);
             }
-            return new DataResult<ImageUploadedDto>(ResultStatus.Success, $"{userName} adlı kullanıcının fotoğrafı başarıyla yüklenmiştir.", new ImageUploadedDto
+
+            /* Fotoğraf tipine göre kullanıcı için bir mesaj oluşturulur.(UserImage veya PostImage) */
+            string message = pictureType == PictureType.User
+                ? $"{name} adlı kullanıcının fotoğrafı başarıyla yüklenmiştir."
+                : $"{name} adlı makalenin fotoğrafı başarıyla yüklenmiştir.";
+
+            return new DataResult<ImageUploadedDto>(ResultStatus.Success, message, new ImageUploadedDto
             {
                 FullName = $"{folderName}/{newFileName}",
                 OldName = oldFileName,

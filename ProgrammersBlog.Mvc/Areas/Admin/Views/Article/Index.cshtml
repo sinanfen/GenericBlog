@@ -55,7 +55,7 @@
                 <tbody>
                     @foreach (var article in Model.Articles)
                     {
-                        <tr>
+                        <tr name="@article.Id">
                             <td>@article.Id</td>
                             <td>@article.Category.Name</td>
                             <td>@article.Title</td>
@@ -70,7 +70,11 @@
                             <td>@article.ModifiedDate.ToShortDateString()</td>
                             <td>@article.ModifiedByName</td>
                             <td>
-                                <button class="btn btn-primary btn-sm btn-update" data-id="@article.Id"><span class="fas fa-edit"></span></button>
+                                <a class="btn btn-primary btn-sm btn-update" data-id="@article.Id"
+                               asp-area="Admin" asp-controller="Article" asp-action="Update" asp-route-articleId="@article.Id">
+                                    <span class="fas fa-edit">
+                                    </span>
+                                </a>
                                 <button class="btn btn-danger btn-sm btn-delete" data-id="@article.Id"><span class="fas fa-minus-circle"></span></button>
                             </td>
                         </tr>
@@ -81,10 +85,10 @@
     </div>
 </div>
 @section Scripts
-{
+    {
     <script src="~/AdminLTE/js/articleIndex.js" type="application/ecmascript"></script>
 }
-@section Styles
-{
-   
+    @section Styles
+    {
+
 }

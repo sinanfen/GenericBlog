@@ -26,12 +26,12 @@ namespace ProgrammersBlog.Services.Concrete
             _mapper = mapper;
         }
 
-        public async Task<IResult> AddAsync(ArticleAddDto articleAddDto, string createdByName)
+        public async Task<IResult> AddAsync(ArticleAddDto articleAddDto, string createdByName, int userId)
         {
             var article = _mapper.Map<Article>(articleAddDto);
             article.CreatedByName = createdByName;
             article.ModifiedByName = createdByName;
-            article.UserId = 1;
+            article.UserId = userId;
             await _unitOfWork.Articles.AddAsync(article);
             await _unitOfWork.SaveAsync();
             return new Result(ResultStatus.Success, Messages.Article.Add(article.Title));
@@ -143,7 +143,8 @@ namespace ProgrammersBlog.Services.Concrete
 
         public async Task<IResult> UpdateAsync(ArticleUpdateDto articleUpdateDto, string modifiedByName)
         {
-            var article = _mapper.Map<Article>(articleUpdateDto);
+            var oldArticle = await _unitOfWork.Articles.GetAsync(a => a.Id == articleUpdateDto.Id);
+            var article = _mapper.Map<ArticleUpdateDto, Article>(articleUpdateDto, oldArticle);
             article.ModifiedByName = modifiedByName;
             await _unitOfWork.Articles.UpdateAsync(article);
             await _unitOfWork.SaveAsync();
@@ -173,6 +174,21 @@ namespace ProgrammersBlog.Services.Concrete
             else
             {
                 return new DataResult<int>(ResultStatus.Error, $"Beklenmeyen bir hata ile karşılaşıldı.", -1);
+            }
+        }
+
+        public async Task<IDataResult<ArticleUpdateDto>> GetArticleUpdateDtoAsync(int articleId)
+        {
+            var result = await _unitOfWork.Articles.AnyAsync(c => c.Id == articleId);
+            if (result)
+            {
+                var article = await _unitOfWork.Articles.GetAsync(c => c.Id == articleId);
+                var articleUpdateDto = _mapper.Map<ArticleUpdateDto>(article);
+                return new DataResult<ArticleUpdateDto>(ResultStatus.Success, articleUpdateDto);
+            }
+            else
+            {
+                return new DataResult<ArticleUpdateDto>(ResultStatus.Error, Messages.Category.NotFound(isPlural: false), null);
             }
         }
     }

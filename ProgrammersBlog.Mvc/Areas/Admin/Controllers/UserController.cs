@@ -14,6 +14,8 @@ using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authorization;
 using ProgrammersBlog.Mvc.Helpers.Abstract;
+using ProgrammersBlog.Entities.ComplexTypes;
+using NToastNotify;
 
 namespace ProgrammersBlog.Mvc.Areas.Admin.Controllers
 {
@@ -24,13 +26,15 @@ namespace ProgrammersBlog.Mvc.Areas.Admin.Controllers
         private readonly SignInManager<User> _signInManager;
         private readonly IMapper _mapper;
         private readonly IImageHelper _imageHelper;
+        private readonly IToastNotification _toastNotification;
 
-        public UserController(UserManager<User> userManager, IMapper mapper, SignInManager<User> signInManager, IImageHelper imageHelper)
+        public UserController(UserManager<User> userManager, IMapper mapper, SignInManager<User> signInManager, IImageHelper imageHelper, IToastNotification toastNotification)
         {
             _userManager = userManager;
             _mapper = mapper;
             _signInManager = signInManager;
             _imageHelper = imageHelper;
+            _toastNotification = toastNotification;
         }
 
         [Authorize(Roles = "admin")]
@@ -118,7 +122,7 @@ namespace ProgrammersBlog.Mvc.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                var uploadedImadeDtoResult = await _imageHelper.UploadUserImage(userAddDto.UserName, userAddDto.PictureFile);
+                var uploadedImadeDtoResult = await _imageHelper.Upload(userAddDto.UserName, userAddDto.PictureFile, PictureType.User);
                 userAddDto.Picture = uploadedImadeDtoResult.ResultStatus == ResultStatus.Success ? uploadedImadeDtoResult.Data.FullName : "userImages/defaultUser.png";
                 var user = _mapper.Map<User>(userAddDto);
                 var result = await _userManager.CreateAsync(user, userAddDto.Password);
@@ -216,7 +220,7 @@ namespace ProgrammersBlog.Mvc.Areas.Admin.Controllers
                 var oldUserPicture = oldUser.Picture;
                 if (userUpdateDto.PictureFile != null)
                 {
-                    var uploadedImadeDtoResult = await _imageHelper.UploadUserImage(userUpdateDto.UserName, userUpdateDto.PictureFile);
+                    var uploadedImadeDtoResult = await _imageHelper.Upload(userUpdateDto.UserName, userUpdateDto.PictureFile, PictureType.User);
                     userUpdateDto.Picture = uploadedImadeDtoResult.ResultStatus == ResultStatus.Success ? uploadedImadeDtoResult.Data.FullName : "userImages/defaultUser.png";
                     if (oldUserPicture != "userImages/defaultUser.png")
                     {
@@ -288,7 +292,7 @@ namespace ProgrammersBlog.Mvc.Areas.Admin.Controllers
                 var oldUserPicture = oldUser.Picture;
                 if (userUpdateDto.PictureFile != null)
                 {
-                    var uploadedImadeDtoResult = await _imageHelper.UploadUserImage(userUpdateDto.UserName, userUpdateDto.PictureFile);
+                    var uploadedImadeDtoResult = await _imageHelper.Upload(userUpdateDto.UserName, userUpdateDto.PictureFile, PictureType.User);
                     userUpdateDto.Picture = uploadedImadeDtoResult.ResultStatus == ResultStatus.Success ? uploadedImadeDtoResult.Data.FullName : "userImages/defaultUser.png";
                     if (oldUserPicture != "userImages/defaultUser.png")
                     {
@@ -303,7 +307,10 @@ namespace ProgrammersBlog.Mvc.Areas.Admin.Controllers
                     {
                         _imageHelper.Delete(oldUserPicture);
                     }
-                    TempData.Add("SuccessMessage", $"{updatedUser.UserName} adlı kullanıcı başarıyla güncellenmiştir.");
+                    _toastNotification.AddSuccessToastMessage($"Bilgileriniz başarıyla güncellenmiştir.", new ToastrOptions
+                    {
+                        Title = "Başarılı işlem!"
+                    });
                     return View(userUpdateDto);
                 }
                 else
@@ -344,7 +351,10 @@ namespace ProgrammersBlog.Mvc.Areas.Admin.Controllers
                         await _userManager.UpdateSecurityStampAsync(user);//SecurityStamp-> Yakın zamanda önemli bir değeri değiştirdiğimizi belirtir.
                         await _signInManager.SignOutAsync();//Kullanıcı çıkış yapacak. Güvenli giriş tekrar gerekecek.
                         await _signInManager.PasswordSignInAsync(user, userPasswordChangeDto.NewPassword, true, false); //RememberMe değeri -> true . | Güvenli giriş sağlanıyor
-                        TempData.Add("SuccessMessage", $"Şifreniz başarıyla değiştirilmiştir.");
+                        _toastNotification.AddSuccessToastMessage($"Şifreniz başarıyla değiştirilmiştir.", new ToastrOptions
+                        {
+                            Title = "Başarılı işlem!"
+                        });
                         return View();
                     }
                     else

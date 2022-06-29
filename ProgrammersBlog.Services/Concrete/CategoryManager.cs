@@ -111,7 +111,7 @@ namespace ProgrammersBlog.Services.Concrete
             });
         }
 
-        public async Task<IDataResult<CategoryListDto>> GetAllByNoneDeletedAsync()
+        public async Task<IDataResult<CategoryListDto>> GetAllByNonDeletedAsync()
         {
             var categories = await _unitOfWork.Categories.GetAllAsync(c => !c.IsDeleted); //Silinmemiş olanları getir
             if (categories.Count > -1) //hiç kategori olmamış olabilir
@@ -130,7 +130,7 @@ namespace ProgrammersBlog.Services.Concrete
             });
         }
 
-        public async Task<IDataResult<CategoryListDto>> GetAllByNoneDeletedAndActiveAsync()
+        public async Task<IDataResult<CategoryListDto>> GetAllByNonDeletedAndActiveAsync()
         {
             var categories = await _unitOfWork.Categories.GetAllAsync(c => !c.IsDeleted && c.IsActive); //Silinmemiş olanları getir
             if (categories.Count > -1)
