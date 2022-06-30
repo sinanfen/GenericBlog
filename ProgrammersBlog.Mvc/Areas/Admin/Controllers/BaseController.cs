@@ -8,6 +8,7 @@ namespace ProgrammersBlog.Mvc.Areas.Admin.Controllers
 {
     public class BaseController : Controller
     {
+        //Diger controllerde kullanılan ortak servisleri barındıran temel controller.
         public BaseController(UserManager<User> userManager, IMapper mapper, IImageHelper imageHelper)
         {
             UserManager = userManager;
