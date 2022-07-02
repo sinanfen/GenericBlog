@@ -1,21 +1,34 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using ProgrammersBlog.Entities.Concrete;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using ProgrammersBlog.Entities.Concrete;
 
 namespace ProgrammersBlog.Data.Concrete.EntityFramework.Mappings
 {
-    public class UserMap : IEntityTypeConfiguration<User>
+    public class UserMap:IEntityTypeConfiguration<User>
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
             builder.Property(u => u.Picture).IsRequired();
             builder.Property(u => u.Picture).HasMaxLength(250);
+            // Social Media Links
+            builder.Property(u => u.YoutubeLink).HasMaxLength(250);
+            builder.Property(u => u.TwitterLink).HasMaxLength(250);
+            builder.Property(u => u.InstagramLink).HasMaxLength(250);
+            builder.Property(u => u.FacebookLink).HasMaxLength(250);
+            builder.Property(u => u.LinkedInLink).HasMaxLength(250);
+            builder.Property(u => u.GitHubLink).HasMaxLength(250);
+            builder.Property(u => u.WebsiteLink).HasMaxLength(250);
+            // About
+            builder.Property(u => u.FirstName).HasMaxLength(30);
+            builder.Property(u => u.LastName).HasMaxLength(30);
+            builder.Property(u => u.About).HasMaxLength(1000);
+
             // Primary key
             builder.HasKey(u => u.Id);
 
@@ -24,7 +37,7 @@ namespace ProgrammersBlog.Data.Concrete.EntityFramework.Mappings
             builder.HasIndex(u => u.NormalizedEmail).HasDatabaseName("EmailIndex");
 
             // Maps to the AspNetUsers table
-            builder.ToTable("AspNetUsers");
+            builder.ToTable("Users");
 
             // A concurrency token for use with the optimistic concurrency checking
             builder.Property(u => u.ConcurrencyStamp).IsConcurrencyToken();
@@ -33,7 +46,7 @@ namespace ProgrammersBlog.Data.Concrete.EntityFramework.Mappings
             builder.Property(u => u.UserName).HasMaxLength(50);
             builder.Property(u => u.NormalizedUserName).HasMaxLength(50);
             builder.Property(u => u.Email).HasMaxLength(100);
-            builder.Property(u => u.NormalizedEmail).HasMaxLength(256);
+            builder.Property(u => u.NormalizedEmail).HasMaxLength(100);
 
             // The relationships between User and other entity types
             // Note that these relationships are configured with no navigation properties
@@ -58,13 +71,22 @@ namespace ProgrammersBlog.Data.Concrete.EntityFramework.Mappings
                 Email = "adminuser@gmail.com",
                 NormalizedEmail = "ADMINUSER@GMAIL.COM",
                 PhoneNumber = "+905555555555",
-                Picture = "defaultUser.png",
+                Picture = "/userImages/defaultUser.png",
+                FirstName = "Admin",
+                LastName = "User",
+                About = "Admin User of ProgrammersBlog",
+                TwitterLink = "https://twitter.com/adminuser",
+                InstagramLink = "https://instagram.com/adminuser",
+                YoutubeLink = "https://youtube.com/adminuser",
+                GitHubLink = "https://github.com/adminuser",
+                LinkedInLink = "https://linkedin.com/adminuser",
+                WebsiteLink = "https://programmersblog.com/",
+                FacebookLink = "https://facebook.com/adminuser",
                 EmailConfirmed = true,
                 PhoneNumberConfirmed = true,
                 SecurityStamp = Guid.NewGuid().ToString()
             };
             adminUser.PasswordHash = CreatePasswordHash(adminUser, "adminuser");
-
             var editorUser = new User
             {
                 Id = 2,
@@ -73,19 +95,30 @@ namespace ProgrammersBlog.Data.Concrete.EntityFramework.Mappings
                 Email = "editoruser@gmail.com",
                 NormalizedEmail = "EDITORUSER@GMAIL.COM",
                 PhoneNumber = "+905555555555",
-                Picture = "defaultUser.png",
+                Picture = "/userImages/defaultUser.png",
+                FirstName = "Admin",
+                LastName = "User",
+                About = "Editor User of ProgrammersBlog",
+                TwitterLink = "https://twitter.com/editoruser",
+                InstagramLink = "https://instagram.com/editoruser",
+                YoutubeLink = "https://youtube.com/editoruser",
+                GitHubLink = "https://github.com/editoruser",
+                LinkedInLink = "https://linkedin.com/editoruser",
+                WebsiteLink = "https://programmersblog.com/",
+                FacebookLink = "https://facebook.com/editoruser",
                 EmailConfirmed = true,
                 PhoneNumberConfirmed = true,
                 SecurityStamp = Guid.NewGuid().ToString()
             };
             editorUser.PasswordHash = CreatePasswordHash(editorUser, "editoruser");
 
-            builder.HasData(adminUser, editorUser);//User tablosunda hiçbir veri yoksa buradaki kullanıcılar veritabanı oluşurken eklenecektir.
+            builder.HasData(adminUser, editorUser);
         }
-        private string CreatePasswordHash(User user, string password)
+
+        private string CreatePasswordHash(User user,string password)
         {
             var passwordHasher = new PasswordHasher<User>();
-            return passwordHasher.HashPassword(user, password);
+            return passwordHasher.HashPassword(user,password );
         }
     }
 }

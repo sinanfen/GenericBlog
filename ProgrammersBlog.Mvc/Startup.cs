@@ -67,15 +67,14 @@ namespace ProgrammersBlog.Mvc
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-
+            //NOTE this line must be above .UseEndpoints() line.
+            app.UseNToastNotify();
             app.UseHttpsRedirection();
             app.UseSession();
             app.UseStaticFiles();
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
-            //NOTE this line must be above .UseEndpoints() line.
-            app.UseNToastNotify();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapAreaControllerRoute(

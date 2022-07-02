@@ -21,7 +21,7 @@ namespace ProgrammersBlog.Data.Concrete.EntityFramework.Mappings
             builder.Property(t => t.Name).HasMaxLength(256);
 
             // Maps to the AspNetUserTokens table
-            builder.ToTable("AspNetUserTokens");
+            builder.ToTable("UserTokens");
         }
     }
 }

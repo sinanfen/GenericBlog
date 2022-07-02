@@ -50,7 +50,7 @@ namespace ProgrammersBlog.Mvc.Areas.Admin.Controllers
         public async Task<IActionResult> GetDetail(int commentId)
         {
             var result = await _commentService.GetAsync(commentId);
-            if (result.ResultStatus==ResultStatus.Success)
+            if (result.ResultStatus == ResultStatus.Success)
             {
                 return PartialView("_CommentDetailPartial", result.Data);
             }
@@ -66,6 +66,17 @@ namespace ProgrammersBlog.Mvc.Areas.Admin.Controllers
         {
             var result = await _commentService.DeleteAsync(commentId, LoggedInUser.UserName);
             var commentResult = JsonSerializer.Serialize(result);
+            return Json(commentResult);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Approve(int commentId)
+        {
+            var result = await _commentService.ApproveAsync(commentId, LoggedInUser.UserName);
+            var commentResult = JsonSerializer.Serialize(result, new JsonSerializerOptions
+            {
+                ReferenceHandler = ReferenceHandler.Preserve
+            });
             return Json(commentResult);
         }
 
@@ -95,7 +106,7 @@ namespace ProgrammersBlog.Mvc.Areas.Admin.Controllers
                     {
                         CommentDto = result.Data,
                         CommentUpdatePartial = await this.RenderViewToStringAsync("_CommentUpdatePartial", commentUpdateDto)
-                    },new JsonSerializerOptions
+                    }, new JsonSerializerOptions
                     {
                         ReferenceHandler = ReferenceHandler.Preserve
                     });

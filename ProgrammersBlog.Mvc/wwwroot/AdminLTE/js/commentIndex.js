@@ -9,15 +9,6 @@
             "<'row'<'col-sm-5'i><'col-sm-7'p>>",
         buttons: [
             {
-                text: 'Ekle',
-                attr: {
-                    id: "btnAdd",
-                },
-                className: 'btn btn-success',
-                action: function (e, dt, node, config) {
-                }
-            },
-            {
                 text: 'Yenile',
                 className: 'btn btn-warning',
                 action: function (e, dt, node, config) {
@@ -204,16 +195,12 @@
                     success: function (data) {
                         const commentUpdateAjaxModel = jQuery.parseJSON(data);
                         console.log(commentUpdateAjaxModel);
-                        //if (commentUpdateAjaxModel) {
-                        //    const id = commentUpdateAjaxModel.CommentDto.Comment.Id;
-                        //    const tableRow = $(`[name="${id}"]`);
-                        //}
-                        const id = commentUpdateAjaxModel.CommentDto.Comment.Id;
-                        const tableRow = $(`[name="${id}"]`);
                         const newFormBody = $('.modal-body', commentUpdateAjaxModel.CommentUpdatePartial);
                         placeHolderDiv.find('.modal-body').replaceWith(newFormBody);
                         const isValid = newFormBody.find('[name="IsValid"]').val() === 'True';
                         if (isValid) {
+                            const id = commentUpdateAjaxModel.CommentDto.Comment.Id;
+                            const tableRow = $(`[name="${id}"]`);
                             placeHolderDiv.find('.modal').modal('hide');
                             dataTable.row(tableRow).data([
                                 commentUpdateAjaxModel.CommentDto.Comment.Id,
@@ -248,9 +235,10 @@
 
     });
 
+    // Get Detail Ajax Operation
 
-    //Get Detail Ajax Operation
     $(function () {
+
         const url = '/Admin/Comment/GetDetail/';
         const placeHolderDiv = $('#modalPlaceHolder');
         $(document).on('click',
@@ -265,7 +253,75 @@
                     toastr.error(`${err.responseText}`, 'Hata!');
                 });
             });
+
     });
+
+    /* Ajax POST / Deleting a Comment starts from here */
+
+    $(document).on('click',
+        '.btn-approve',
+        function (event) {
+            event.preventDefault();
+            const id = $(this).attr('data-id');
+            const tableRow = $(`[name="${id}"]`);
+            let commentText = tableRow.find('td:eq(2)').text();
+            commentText = commentText.length > 75 ? commentText.substring(0, 75) : commentText;
+            Swal.fire({
+                title: 'Onaylamak istediğinize emin misiniz?',
+                text: `${commentText} içerikli yorum onaylanacaktır!`,
+                icon: 'info',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Evet, onaylamak istiyorum.',
+                cancelButtonText: 'Hayır, onaylamak istemiyorum.'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: 'POST',
+                        dataType: 'json',
+                        data: { commentId: id },
+                        url: '/Admin/Comment/Approve/',
+                        success: function (data) {
+                            const commentResult = jQuery.parseJSON(data);
+                            console.log(commentResult);
+                            if (commentResult.Data) {
+                                dataTable.row(tableRow).data([
+                                    commentResult.Data.Comment.Id,
+                                    commentResult.Data.Comment.Article.Title,
+                                    commentResult.Data.Comment.Text.length > 75 ? commentResult.Data.Comment.Text.substring(0, 75) : commentResult.Data.Comment.Text,
+                                    `${commentResult.Data.Comment.IsActive ? "Evet" : "Hayır"}`,
+                                    `${commentResult.Data.Comment.IsDeleted ? "Evet" : "Hayır"}`,
+                                    `${convertToShortDate(commentResult.Data.Comment.CreatedDate)}`,
+                                    commentResult.Data.Comment.CreatedByName,
+                                    `${convertToShortDate(commentResult.Data.Comment.ModifiedDate)}`,
+                                    commentResult.Data.Comment.ModifiedByName,
+                                    getButtonsForDataTable(commentResult.Data.Comment)
+                                ]);
+                                tableRow.attr("name", `${id}`);
+                                dataTable.row(tableRow).invalidate();
+                                Swal.fire(
+                                    'Onaylandı!',
+                                    `${commentResult.Data.Comment.Id} no'lu yorum başarıyla onaylanmıştır.`,
+                                    'success'
+                                );
+
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Başarısız İşlem!',
+                                    text: `Beklenmedik bir hata ile karşılaşıldı.`,
+                                });
+                            }
+                        },
+                        error: function (err) {
+                            console.log(err);
+                            toastr.error(`${err.responseText}`, "Hata!");
+                        }
+                    });
+                }
+            });
+        });
 
     function getButtonsForDataTable(comment) {
         if (!comment.IsActive) {
