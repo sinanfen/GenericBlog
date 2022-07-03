@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <Content Remove="Areas\Admin\Views\Comment\_CommentDetailPartial.cshtml" />
+    <Content Remove="Areas\Admin\Views\Role\Index.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -35,6 +36,7 @@
     <None Include="Areas\Admin\Views\Comment\Index.cshtml" />
     <None Include="Areas\Admin\Views\Comment\_CommentDetailPartial.cshtml" />
     <None Include="Areas\Admin\Views\Comment\_CommentUpdatePartial.cshtml" />
+    <None Include="Areas\Admin\Views\Role\Index.cshtml" />
     <None Include="wwwroot\ComingSoon\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.svg" />
     <None Include="wwwroot\ComingSoon\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.woff2" />
     <None Include="wwwroot\ComingSoon\fonts\font-awesome-4.7.0\less\animated.less" />
