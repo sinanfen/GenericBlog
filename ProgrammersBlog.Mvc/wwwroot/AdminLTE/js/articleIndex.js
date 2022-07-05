@@ -12,10 +12,7 @@
                     id: "btnAdd",
                 },
                 className: 'btn btn-success',
-                action: function (e, dt, node, config) {
-                    let url = window.location.href;
-                    url = url.replace("/Index", ""); //Index değeri varsa bunu "" ile, boş bir string ile replace ettik. URL'ye sorunsuz ulaşması için.
-                    window.open(`${url}/Add`, "_self");
+                action: function (e, dt, node, config) {                   
                 }
             },
             {
