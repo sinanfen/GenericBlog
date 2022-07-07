@@ -17,10 +17,12 @@ namespace ProgrammersBlog.Services.Abstract
         Task<IDataResult<ArticleListDto>> GetAllByNonDeletedAsync();                // Silinmemiş olan makaleleri getirecek.
         Task<IDataResult<ArticleListDto>> GetAllByNonDeletedAndActiveAsync();       //Hem silinmemiş hem aktif olan makaleler
         Task<IDataResult<ArticleListDto>> GetAllByCategoryAsync(int categoryId);     //Kategoriye göre makale getir.
+        Task<IDataResult<ArticleListDto>> GetAllDeletedAsync();
         Task<IResult> AddAsync(ArticleAddDto articleAddDto, string createdByName, int userId);   //Data Transfer Object (ViewModel gibi)
         Task<IResult> UpdateAsync(ArticleUpdateDto articleUpdateDto, string modifiedByName);
         Task<IResult> DeleteAsync(int articleId, string modifiedByName);             //Durumunu False yapacak
         Task<IResult> HardDeleteAsync(int articleId);                                //Tamamen veritabanından silecek. Tehlikeli
+        Task<IResult> UndoDeleteAsync(int articleId, string modifiedByName);
         Task<IDataResult<int>> CountAsync();
         Task<IDataResult<int>> CountByNonDeletedAsync();
     }

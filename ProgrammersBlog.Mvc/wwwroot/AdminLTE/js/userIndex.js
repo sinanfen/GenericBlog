@@ -377,7 +377,7 @@
                         if (isValid) {
                             const id = userRoleAssignAjaxModel.UserDto.User.Id;
                             const tableRow = $(`[name="${id}"]`);
-                            //placeHolderDiv.find('.modal').modal('hide');
+                            placeHolderDiv.find('.modal').modal('hide');
                             toastr.success(`${userRoleAssignAjaxModel.UserDto.Message}`, "Başarılı İşlem!");
                         } else {
                             let summaryText = "";
