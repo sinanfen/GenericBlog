@@ -189,7 +189,7 @@ namespace ProgrammersBlog.Services.Concrete
             }
         }
 
-        public async Task<IDataResult<ArticleListDto>> GetAllDeletedAsync()
+        public async Task<IDataResult<ArticleListDto>> GetAllByDeletedAsync()
         {
             var articles = await UnitOfWork.Articles.GetAllAsync(a => a.IsDeleted, ar => ar.User, ar => ar.Category); //Silinmiş olanları getir
             if (articles.Count > -1)

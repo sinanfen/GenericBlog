@@ -89,7 +89,10 @@ namespace ProgrammersBlog.Mvc.Areas.Admin.Controllers
                     {
                         await UserManager.RemoveFromRoleAsync(user, roleAssignDto.RoleName);
                     }
+
                 }
+                await UserManager.UpdateSecurityStampAsync(user);//Kullanıcı 30dk sonra bu kontrolden geçtiğinde sistemden atılacak
+
                 var userRoleAssignAjaxViewModel = JsonSerializer.Serialize(new UserRoleAssignAjaxViewModel
                 {
                     UserDto = new UserDto
