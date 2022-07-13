@@ -48,13 +48,13 @@
                             if (i % 2 == 0)
                             {
                                 <li class="list-group-item list-group-item-primary">
-                                    <a asp-controller="Article" asp-action="Detail" asp-route-articleId="@Model.Articles[i].Id">@Model.Articles[i].Id</a>
+                                    <a asp-controller="Article" asp-action="Detail" asp-route-articleId="@Model.Articles[i].Id">@Model.Articles[i].Title</a>
                                 </li>
                             }
                             else
                             {
                                 <li class="list-group-item list-group-item-info">
-                                    <a asp-controller="Article" asp-action="Detail" asp-route-articleId="@Model.Articles[i].Id">@Model.Articles[i].Id</a>
+                                    <a asp-controller="Article" asp-action="Detail" asp-route-articleId="@Model.Articles[i].Id">@Model.Articles[i].Title</a>
                                 </li>
                             }
                         }
