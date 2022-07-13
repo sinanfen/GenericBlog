@@ -219,5 +219,15 @@ namespace ProgrammersBlog.Services.Concrete
             }
             return new Result(ResultStatus.Error, Messages.Article.NotFound(isPlural: false));
         }
+
+        public async Task<IDataResult<ArticleListDto>> GetAllByViewCountAsync(bool isAscending, int? takeSize)
+        {
+            var articles = await UnitOfWork.Articles.GetAllAsync(a => a.IsActive && !a.IsDeleted, a => a.Category, a => a.User);
+            var sortedArticles = isAscending ? articles.OrderBy(a => a.ViewCount) : articles.OrderByDescending(a => a.ViewCount);
+            return new DataResult<ArticleListDto>(ResultStatus.Success, new ArticleListDto
+            {
+                Articles = takeSize == null ? sortedArticles.ToList() : sortedArticles.Take(takeSize.Value).ToList()
+            });
+        }
     }
 }
