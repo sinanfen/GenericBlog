@@ -121,6 +121,45 @@
     /* DataTables end here */
     /* Ajax POST / Deleting a User starts here. */
 
+    //Trumbowyg
+    $('#text-editor').trumbowyg({
+        lang: 'tr',
+        btns: [
+            ['viewHTML'],
+            ['undo', 'redo'], // Only supported in Blink browsers
+            ['formatting'],
+            ['strong', 'em', 'del'],
+            ['superscript', 'subscript'],
+            ['link'],
+            ['insertImage'],
+            ['justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull'],
+            ['unorderedList', 'orderedList'],
+            ['horizontalRule'],
+            ['removeformat'],
+            ['fullscreen'],
+            ['foreColor', 'backColor'],
+            ['emoji'],
+            ['fontfamily'],
+            ['fontsize']
+        ],
+        plugins: {
+            fontsize: {
+                sizeList: [
+                    '12px',
+                    '14px',
+                    '16px'
+                ],
+                allowCustomSize: false
+            },
+            resizimg: {
+                minSize: 64,
+                step: 16,
+            }
+        }
+    });
+
+    //Trumbowyg
+
     $(document).on('click', '.btn-delete', function (event) { //.btn-delete butona atadığımız class ı kullanarak o objeyi yakalıyoruz. BU class bu işlem için butona eklendi
         event.preventDefault(); //Butonun kendi bir işlevi varsa bunu deaktif ediyoruz.
         const id = $(this).attr('data-id');

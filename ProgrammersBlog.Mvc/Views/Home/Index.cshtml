@@ -24,7 +24,7 @@
                     }
                     @(article.Content.Length>250 ? article.Content.Substring(0,250) : article.Content)
                 </p>
-                <a asp-controller="Article" asp-action="Detail" class="btn btn-primary">Devamını oku &rarr;</a>
+                <a asp-controller="Article" asp-action="Detail" asp-route-articleId="@article.Id" class="btn btn-primary">Devamını oku &rarr;</a>
             </div>
             <div class="card-footer text-muted">
                 @article.User.UserName tarafından @article.Date tarihinde paylaşıldı.
@@ -34,12 +34,50 @@
 
     <!-- Pagination -->
     <ul class="pagination justify-content-center mb-4">
-        <li class="page-item">
-            <a class="page-link" href="#">&larr; Eski</a>
-        </li>
-        <li class="page-item disabled">
-            <a class="page-link" href="#">Yeni &rarr;</a>
-        </li>
+        @{
+            @if (Model.ShowPrevious)
+            {
+                @if (Model.CategoryId != null)
+                {
+                    <li class="page-item">
+                        <a class="page-link" asp-route-currentPage="@(Model.CurrentPage-1)" asp-route-categoryId="@Model.CategoryId.Value">Önceki</a>
+                    </li>
+                }
+                else
+                {
+                    <li class="page-item">
+                        <a class="page-link" asp-route-currentPage="@(Model.CurrentPage-1)">Önceki</a>
+                    </li>
+                }
+            }
+            @for (var i = 1; i <= Model.TotalPages; i++)
+            {
+                <li class="page-item @(i==Model.CurrentPage ? "active" : "")">
+                    @if (Model.CategoryId != null)
+                    {
+                        <a class="page-link" asp-route-currentPage="@i" asp-route-categoryId="@Model.CategoryId.Value">@i</a>
+                    }
+                    else
+                    {
+                        <a class="page-link" asp-route-currentPage="@i">@i</a>
+                    }
+                </li>
+            }
+            @if (Model.ShowNext)
+            {
+                @if (Model.CategoryId != null)
+                {
+                    <li class="page-item">
+                        <a class="page-link" asp-route-currentPage="@(Model.CurrentPage+1)" asp-route-categoryId="@Model.CategoryId.Value">Sonraki</a>
+                    </li>
+                }
+                else
+                {
+                    <li class="page-item">
+                        <a class="page-link" asp-route-currentPage="@(Model.CurrentPage+1)">Sonraki</a>
+                    </li>
+                }
+            }
+        }
     </ul>
-
 </div>

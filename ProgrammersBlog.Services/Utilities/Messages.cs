@@ -58,17 +58,17 @@ namespace ProgrammersBlog.Services.Utilities
 
             public static string Update(string articleTitle)
             {
-                return $"{articleTitle} adlı kategori başarıyla güncellenmiştir.";
+                return $"{articleTitle} adlı makale başarıyla güncellenmiştir.";
             }
 
             public static string Delete(string articleTitle)
             {
-                return $"{articleTitle} adlı kategori başarıyla silinmiştir.";
+                return $"{articleTitle} adlı makale başarıyla silinmiştir.";
             }
 
             public static string HardDelete(string articleTitle)
             {
-                return $"{articleTitle} adlı kategori başarıyla veritabanından silinmiştir.";
+                return $"{articleTitle} adlı makale başarıyla veritabanından silinmiştir.";
             }
 
             public static string UndoDelete(string articleTitle)

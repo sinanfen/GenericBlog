@@ -39,16 +39,16 @@
                     </div>
                     <div class="form-group">
                         <label for="datepicker" asp-for="Date"></label>
-                        <input type="text" id="datepicker" class="form-control" value="@DateTime.Now.ToShortDateString()" asp-for="Date"/>
+                        <input type="text" id="datepicker" class="form-control" value="@DateTime.Now.ToShortDateString()" asp-for="Date" />
                         <span asp-validation-for="Date" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <label for="thumbnailUpload" asp-for="ThumbnailFile"></label>
-                        <input type="file" id="thumbnailUpload" accept="image/*" class="form-control-file" asp-for="ThumbnailFile"/>
+                        <input type="file" id="thumbnailUpload" accept="image/*" class="form-control-file" asp-for="ThumbnailFile" />
                         <span asp-validation-for="ThumbnailFile" class="text-danger"></span>
                     </div>
                     <div class="form-check">
-                        <input type="checkbox" id="isActive" class="form-check-input" asp-for="IsActive"/>
+                        <input type="checkbox" id="isActive" class="form-check-input" asp-for="IsActive" />
                         <label for="isActive" class="form-check-label" asp-for="IsActive"></label>
                         <span asp-validation-for="IsActive" class="text-danger"></span>
                     </div>
@@ -67,12 +67,12 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="seoWriter" asp-for="SeoAuthor"></label>
-                            <input type="text" id="seoWriter" class="form-control" asp-for="SeoAuthor"/>
+                            <input type="text" id="seoWriter" class="form-control" asp-for="SeoAuthor" />
                             <span asp-validation-for="SeoAuthor" class="text-danger"></span>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="seoTags" asp-for="SeoTags"></label>
-                            <input type="text" id="seoTags" class="form-control" asp-for="SeoTags"/>
+                            <input type="text" id="seoTags" class="form-control" asp-for="SeoTags" />
                             <span asp-validation-for="SeoTags" class="text-danger"></span>
                         </div>
                         <div class="form-group col-md-12">
@@ -87,19 +87,21 @@
     </div>
 </form>
 @section Scripts
-{
+    {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.23.0/trumbowyg.min.js" integrity="sha512-sffB9/tXFFTwradcJHhojkhmrCj0hWeaz8M05Aaap5/vlYBfLx5Y7woKi6y0NrqVNgben6OIANTGGlojPTQGEw==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.25.1/plugins/resizimg/trumbowyg.resizimg.min.js" integrity="sha512-ZFWCpQ44IAcwGKAV1TSNslN5jZBbLOanbtKXGpi/EDwW7HGAYbueYKe8JzwxkZ048btwFX+18O/d3TrRx8+jzA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.23.0/langs/tr.min.js" integrity="sha512-+HGzdrYvtA0U9cp5kJad8OpjTvUi6ywZ9z9kXFGiV3EaAR1II5X6lfulUm6/F9GKesHW+jHFfAqwXK0juybvMw==" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.23.0/plugins/colors/trumbowyg.colors.min.js" integrity="sha512-iT7g30i1//3OBZsfoc5XmlULnKQKyxir582Z9fIFWI6+ohfrTdns118QYhCTt0d09aRGcE7IRvCFjw2wngaqRQ==" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.23.0/plugins/emoji/trumbowyg.emoji.min.js" integrity="sha512-C1y8Ma4rukPZAgoB+9AWiKNMWXvWXGDygpcYuL/lM3YKUcZLUgFwF8brKYML73a5YeZ4y7hmY3604Tzx4f4k0Q==" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.23.0/plugins/fontfamily/trumbowyg.fontfamily.min.js" integrity="sha512-tDDpWlhruXFSzPin7PeSOo/ZklJv354ZUibgoTnthgO9lQUiNn4etCFGNwT4c3WUCZ1jWZgOVrXGMqiApe9sBg==" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.23.0/plugins/fontsize/trumbowyg.fontsize.min.js" integrity="sha512-DOJaq3OCe5hLSr73aQBMiJY4kc+L5UwessOl6g2oxyy7VDnZVWt+TgWVy2nh2ypf7bwoaxZmPnIMiRC5PNZecA==" crossorigin="anonymous"></script>
+    <script src="//rawcdn.githack.com/RickStrahl/jquery-resizable/0.35/dist/jquery-resizable.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@@4.1.0-beta.1/dist/js/select2.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA==" crossorigin="anonymous"></script>
     <script src="~/AdminLTE/js/articleAdd.js" type="application/ecmascript"></script>
 }
-@section Styles
-{
+    @section Styles
+    {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.23.0/ui/trumbowyg.min.css" integrity="sha512-iw/TO6rC/bRmSOiXlanoUCVdNrnJBCOufp2s3vhTPyP1Z0CtTSBNbEd5wIo8VJanpONGJSyPOZ5ZRjZ/ojmc7g==" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.23.0/plugins/colors/ui/trumbowyg.colors.min.css" integrity="sha512-8dXb2ITE13jLrqqGDVTU8kKl9vHZI9E4TpZGyfhevHeF+/cWWA17wVj+SKX3+QHqZISiGihaCOyK3nA152ShDg==" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.23.0/plugins/emoji/ui/trumbowyg.emoji.min.css" integrity="sha512-T2q2UM7Pm3t6Fu0VTRcuVMuaQf3/wP1aFi+/NyvpoVV0VBxN1Pqlmq57Jfg1IPRQCfFQOPLKBwoXA28+1gd/Ow==" crossorigin="anonymous" />

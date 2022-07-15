@@ -30,6 +30,10 @@
                     '16px'
                 ],
                 allowCustomSize: false
+            },
+            resizimg: {
+                minSize: 64,
+                step: 16,
             }
         }
     });
