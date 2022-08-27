@@ -5,12 +5,14 @@
     <div class="card my-4">
         <h5 class="card-header">Arama</h5>
         <div class="card-body">
-            <div class="input-group">
-                <input type="text" class="form-control" placeholder="Aranacak kelime...">
-                <span class="input-group-append">
-                    <button class="btn btn-secondary" type="button">Ara!</button>
-                </span>
-            </div>
+            <form asp-controller="Article" asp-action="Search" method="get">
+                <div class="input-group">
+                    <input type="text" class="form-control" name="keyword" placeholder="Aramak istediğiniz anahtar kelime...">
+                    <span class="input-group-append">
+                        <button class="btn btn-secondary" type="submit">Ara!</button>
+                    </span>
+                </div>
+            </form>
         </div>
     </div>
 

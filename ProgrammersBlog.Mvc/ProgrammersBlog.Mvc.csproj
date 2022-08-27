@@ -31,10 +31,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="Areas\Admin\Views\Comment\Index.cshtml" />
     <None Include="Areas\Admin\Views\Comment\_CommentDetailPartial.cshtml" />
     <None Include="Areas\Admin\Views\Comment\_CommentUpdatePartial.cshtml" />

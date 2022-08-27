@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using LinqKit;
+using Microsoft.EntityFrameworkCore;
 using ProgrammersBlog.Shared.Data.Abstract;
 using ProgrammersBlog.Shared.Entities.Abstract;
 using System;
@@ -78,10 +79,15 @@ namespace ProgrammersBlog.Shared.Data.Concrete.EntityFramework
             IQueryable<TEntity> query = _context.Set<TEntity>();
             if (predicates.Any())
             {
+                var predicateChain = PredicateBuilder.New<TEntity>(); //Burada LinqKit kullandık. Sebebi ise where koşulu tüm değerlerin "ve" && olduğu aşamada çalışıyor
+                //Bu hatalı bir yaklaşım.Aramak istenen kelimeyi "ve" şartıyla değil, "veya" şartıyla kullanabilmek için ekledik.
                 foreach (var predicate in predicates)
                 {
-                    query = query.Where(predicate);
+                    //predicate1 && predicate2 && predicate3 !== (Ve kullanmak yerine, veya kullandık. (Or, ||. veya)
+                    //predicate1 || predicate2 || gibi.
+                    predicateChain.Or(predicate);
                 }
+                query = query.Where(predicateChain);
             }
 
             if (includeProperties.Any())
