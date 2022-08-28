@@ -1,4 +1,5 @@
-﻿@model ProgrammersBlog.Entities.Dtos.ArticleDto
+﻿@using ProgrammersBlog.Entities.Dtos
+@model ProgrammersBlog.Entities.Dtos.ArticleDto
 @{
     Layout = "_ArticleLayout";
     ViewBag.Title = Model.Article.Title;
@@ -25,7 +26,7 @@
         <img class="img-fluid rounded" src="~/img/@Model.Article.Thumbnail" alt="@Model.Article.Title">
     </div>
     <hr>
-            
+
     <!-- Post Content -->
     @Html.Raw(@Model.Article.Content)
 
@@ -33,27 +34,23 @@
     <p class="text-center">Okunma Sayısı: <span class="badge badge-info"> @Model.Article.ViewCount</span> Youm Sayısı: <span class="badge badge-warning"> @Model.Article.CommentCount</span></p>
 
     <!-- Comments Form -->
-    <div class="card my-4">
-        <h5 class="card-header">Bir yorum ekle:</h5>
-        <div class="card-body">
-            <form>
-                <div class="form-group">
-                    <textarea class="form-control" rows="3"></textarea>
-                </div>
-                <button type="submit" class="btn btn-primary">Ekle</button>
-            </form>
-        </div>
-    </div>
+    <partial name="~/Views/Comment/_CommentAddPartial.cshtml" model="new CommentAddDto{ArticleId=Model.Article.Id}" />
 
-    @foreach (var comment in Model.Article.Comments)
-    {
-        <!-- Single Comment -->
-        <div class="media mb-4">
-            <img class="d-flex mr-3 rounded-circle"  src="https://randomuser.me/api/portraits/men/64.jpg" alt="">
-            <div class="media-body">
-                <h5 class="mt-0">@comment.CreatedByName</h5>
-                @comment.Text
+    <div id="comments">
+        @foreach (var comment in Model.Article.Comments)
+        {
+            <!-- Single Comment -->
+            <div class="media mb-4">
+                <img class="d-flex mr-3 rounded-circle" src="https://randomuser.me/api/portraits/men/64.jpg" alt="">
+                <div class="media-body">
+                    <h5 class="mt-0">@comment.CreatedByName</h5>
+                    @comment.Text
+                </div>
             </div>
-        </div>
-    }
+        }
+    </div>
 </div>
+
+@section Scripts{
+    <script src="~/BlogHome/js/articleDetail.js" type="text/ecmascript"></script>
+}
