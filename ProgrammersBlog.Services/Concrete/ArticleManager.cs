@@ -290,5 +290,18 @@ namespace ProgrammersBlog.Services.Concrete
                 IsAscending = isAscending
             });
         }
+
+        public async Task<IResult> IncreaseViewCountAsync(int articleId)
+        {
+            var article = await UnitOfWork.Articles.GetAsync(a => a.Id == articleId);
+            if (article == null)
+            {
+                return new Result(ResultStatus.Error, Messages.Article.NotFound(isPlural: false));
+            }
+            article.ViewCount += 1;
+            await UnitOfWork.Articles.UpdateAsync(article);
+            await UnitOfWork.SaveAsync();
+            return new Result(ResultStatus.Success, Messages.Article.IncreaseViewCount(article.Title));
+        }
     }
 }
