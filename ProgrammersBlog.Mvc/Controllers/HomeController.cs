@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using ProgrammersBlog.Entities.Concrete;
+using ProgrammersBlog.Entities.Dtos;
 using ProgrammersBlog.Services.Abstract;
 using System;
 using System.Collections.Generic;
@@ -30,9 +31,21 @@ namespace ProgrammersBlog.Mvc.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> About()
+        public IActionResult About()
         {
             return View(_aboutUsPageInfo);
+        }
+
+        [HttpGet]
+        public IActionResult Contact()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Contact(EmailSendDto emailSendDto)
+        {
+            return View();
         }
     }
 }
