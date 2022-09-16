@@ -39,6 +39,7 @@ namespace ProgrammersBlog.Mvc.Controllers
         [HttpGet]
         public IActionResult Contact()
         {
+            throw new NullReferenceException();
             return View();
         }
 
