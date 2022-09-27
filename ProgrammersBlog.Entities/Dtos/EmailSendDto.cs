@@ -18,7 +18,7 @@ namespace ProgrammersBlog.Entities.Dtos
         [DisplayName("E-Posta Adresiniz")]
         [DataType(DataType.EmailAddress)]
         [Required(ErrorMessage = "{0} alanı zorunludur")]
-        [MaxLength(10, ErrorMessage = "{0} alanı en fazla {1} karakterden oluşmalıdır.")]
+        [MaxLength(345, ErrorMessage = "{0} alanı en fazla {1} karakterden oluşmalıdır.")]
         [MinLength(10, ErrorMessage = "{0} alanı en az {1} karakterden oluşmalıdır.")]
         public string Email { get; set; }
         [DisplayName("Konu")]
