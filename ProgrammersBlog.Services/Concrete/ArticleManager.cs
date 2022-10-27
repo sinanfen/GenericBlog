@@ -246,8 +246,8 @@ namespace ProgrammersBlog.Services.Concrete
                 ? await UnitOfWork.Articles.GetAllAsync(a => a.IsActive && !a.IsDeleted, a => a.Category, a => a.User)
                 : await UnitOfWork.Articles.GetAllAsync(a => a.CategoryId == categoryId && a.IsActive && !a.IsDeleted, a => a.Category, a => a.User);
             var sortedArticles = isAscending
-                ? articles.OrderBy(a => a.Date).Skip((currentPage - 1) * pageSize).Take(pageSize).ToList()
-                : articles.OrderByDescending(a => a.Date).Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
+                ? articles.OrderBy(a => a.CreatedDate).Skip((currentPage - 1) * pageSize).Take(pageSize).ToList()
+                : articles.OrderByDescending(a => a.CreatedDate).Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
             return new DataResult<ArticleListDto>(ResultStatus.Success, new ArticleListDto
             {
                 Articles = sortedArticles,
@@ -266,8 +266,8 @@ namespace ProgrammersBlog.Services.Concrete
             {
                 var articles = await UnitOfWork.Articles.GetAllAsync(a => a.IsActive && !a.IsDeleted, a => a.Category, a => a.User);
                 var sortedArticles = isAscending
-                    ? articles.OrderBy(a => a.Date).Skip((currentPage - 1) * pageSize).Take(pageSize).ToList()
-                    : articles.OrderByDescending(a => a.Date).Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
+                    ? articles.OrderBy(a => a.CreatedDate).Skip((currentPage - 1) * pageSize).Take(pageSize).ToList()
+                    : articles.OrderByDescending(a => a.CreatedDate).Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
                 return new DataResult<ArticleListDto>(ResultStatus.Success, new ArticleListDto
                 {
                     Articles = sortedArticles,
@@ -286,8 +286,8 @@ namespace ProgrammersBlog.Services.Concrete
             }, a => a.Category, a => a.User);
 
             var searchedAndSortedArticles = isAscending
-                   ? searchedArticles.OrderBy(a => a.Date).Skip((currentPage - 1) * pageSize).Take(pageSize).ToList()
-                   : searchedArticles.OrderByDescending(a => a.Date).Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
+                   ? searchedArticles.OrderBy(a => a.CreatedDate).Skip((currentPage - 1) * pageSize).Take(pageSize).ToList()
+                   : searchedArticles.OrderByDescending(a => a.CreatedDate).Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
             return new DataResult<ArticleListDto>(ResultStatus.Success, new ArticleListDto
             {
                 Articles = searchedAndSortedArticles,
@@ -329,8 +329,8 @@ namespace ProgrammersBlog.Services.Concrete
                     {
                         case OrderBy.Date:
                             sortedArticles = isAscending
-                                ? userArticles.Where(a => a.CategoryId == categoryId).Take(takeSize).OrderBy(a => a.Date).ToList()
-                                : userArticles.Where(a => a.CategoryId == categoryId).Take(takeSize).OrderByDescending(a => a.Date).ToList();
+                                ? userArticles.Where(a => a.CategoryId == categoryId).Take(takeSize).OrderBy(a => a.CreatedDate).ToList()
+                                : userArticles.Where(a => a.CategoryId == categoryId).Take(takeSize).OrderByDescending(a => a.CreatedDate).ToList();
                             break;
                         case OrderBy.ViewCount:
                             sortedArticles = isAscending
@@ -349,8 +349,8 @@ namespace ProgrammersBlog.Services.Concrete
                     {
                         case OrderBy.Date:
                             sortedArticles = isAscending
-                                ? userArticles.Where(a => a.Date >= startAt && a.Date <= endAt).Take(takeSize).OrderBy(a => a.Date).ToList()
-                                : userArticles.Where(a => a.Date >= startAt && a.Date <= endAt).OrderByDescending(a => a.Date).ToList();
+                                ? userArticles.Where(a => a.Date >= startAt && a.Date <= endAt).Take(takeSize).OrderBy(a => a.CreatedDate).ToList()
+                                : userArticles.Where(a => a.Date >= startAt && a.Date <= endAt).OrderByDescending(a => a.CreatedDate).ToList();
                             break;
                         case OrderBy.ViewCount:
                             sortedArticles = isAscending
@@ -369,8 +369,8 @@ namespace ProgrammersBlog.Services.Concrete
                     {
                         case OrderBy.Date:
                             sortedArticles = isAscending
-                                ? userArticles.Where(a => a.ViewCount >= minViewCount && a.ViewCount <= maxViewCount).Take(takeSize).OrderBy(a => a.Date).ToList()
-                                : userArticles.Where(a => a.ViewCount >= minViewCount && a.ViewCount <= maxViewCount).OrderByDescending(a => a.Date).ToList();
+                                ? userArticles.Where(a => a.ViewCount >= minViewCount && a.ViewCount <= maxViewCount).Take(takeSize).OrderBy(a => a.CreatedDate).ToList()
+                                : userArticles.Where(a => a.ViewCount >= minViewCount && a.ViewCount <= maxViewCount).OrderByDescending(a => a.CreatedDate).ToList();
                             break;
                         case OrderBy.ViewCount:
                             sortedArticles = isAscending
@@ -389,8 +389,8 @@ namespace ProgrammersBlog.Services.Concrete
                     {
                         case OrderBy.Date:
                             sortedArticles = isAscending
-                                ? userArticles.Where(a => a.CommentCount >= minCommentcount && a.CommentCount <= maxCommentCount).Take(takeSize).OrderBy(a => a.Date).ToList()
-                                : userArticles.Where(a => a.CommentCount >= minCommentcount && a.CommentCount <= maxCommentCount).OrderByDescending(a => a.Date).ToList();
+                                ? userArticles.Where(a => a.CommentCount >= minCommentcount && a.CommentCount <= maxCommentCount).Take(takeSize).OrderBy(a => a.CreatedDate).ToList()
+                                : userArticles.Where(a => a.CommentCount >= minCommentcount && a.CommentCount <= maxCommentCount).OrderByDescending(a => a.CreatedDate).ToList();
                             break;
                         case OrderBy.ViewCount:
                             sortedArticles = isAscending

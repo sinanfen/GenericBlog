@@ -45,7 +45,7 @@
                 <a asp-controller="Article" asp-action="Detail" asp-route-articleId="@article.Id" class="btn btn-primary">Devamını oku &rarr;</a>
             </div>
             <div class="card-footer text-muted">
-                @article.User.UserName tarafından @article.Date tarihinde paylaşıldı.
+                @article.User.UserName tarafından @article.CreatedDate tarihinde paylaşıldı.
             </div>
         </div>
     }

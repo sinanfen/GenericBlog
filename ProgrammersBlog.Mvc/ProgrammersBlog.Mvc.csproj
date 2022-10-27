@@ -131,4 +131,8 @@
     </Content>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\img\serverImages\" />
+  </ItemGroup>
+
 </Project>

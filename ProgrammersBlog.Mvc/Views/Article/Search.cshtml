@@ -7,7 +7,7 @@
 }
 <div class="col-md-8">
 
-    <h1 class="my-4">
+    <h1 class="my-4" style="font-family:Tahoma">
         Arama Sonuçları
     </h1>
     <form>
@@ -35,7 +35,7 @@
         <div class="card mb-4">
             <img class="card-img-top" src="~/img/@article.Thumbnail" alt="@article.Title">
             <div class="card-body">
-                <h2 class="card-title">@article.Title</h2>
+                <h2 class="card-title" style="font-family:Tahoma">@article.Title</h2>
                 <p class="card-text">
                     @{
                         article.Content = regex.Replace(article.Content, "");
@@ -45,7 +45,7 @@
                 <a asp-controller="Article" asp-action="Detail" asp-route-articleId="@article.Id" class="btn btn-primary">Devamını oku &rarr;</a>
             </div>
             <div class="card-footer text-muted">
-                @article.User.UserName tarafından @article.Date tarihinde paylaşıldı.
+                @article.User.UserName tarafından @article.CreatedDate tarihinde paylaşıldı.
             </div>
         </div>
     }

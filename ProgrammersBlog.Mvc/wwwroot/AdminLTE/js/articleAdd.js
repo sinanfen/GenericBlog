@@ -4,6 +4,13 @@
     //Trumbowyg
     $('#text-editor').trumbowyg({
         lang: 'tr',
+        btnsDef: {
+            // Create a new dropdown
+            image: {
+                dropdown: ['insertImage', 'upload'],
+                ico: 'insertImage'
+            }
+        },
         btns: [
             ['viewHTML'],
             ['undo', 'redo'], // Only supported in Blink browsers
@@ -11,7 +18,7 @@
             ['strong', 'em', 'del'],
             ['superscript', 'subscript'],
             ['link'],
-            ['insertImage'],
+            ['image'],
             ['justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull'],
             ['unorderedList', 'orderedList'],
             ['horizontalRule'],
@@ -23,6 +30,14 @@
             ['fontsize']
         ],
         plugins: {
+            upload: {
+                serverPath: 'https://imgur.com/upload',
+                fileFieldName: 'image',
+                headers: {
+                    'Authorization': 'Client-ID xxxxxxxxxxxx'
+                },
+                urlPropertyName: 'data.link'
+            },
             fontsize: {
                 sizeList: [
                     '12px',
