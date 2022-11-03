@@ -1,14 +1,17 @@
 ﻿@using ProgrammersBlog.Entities.ComplexTypes
 @model ProgrammersBlog.Mvc.Areas.Admin.Models.ArticleRightSideBarWidgetOptionsViewModel
-
 @{
     Layout = "_Layout";
     ViewBag.Title = "Makale Sayfaları İçin Widget Ayarları";
 
 }
+<ol class="breadcrumb mb-3 mt-2">
+    <li class="breadcrumb-item"><a asp-area="Admin" asp-controller="Home" asp-action="Index">Admin</a></li>
+    <li class="breadcrumb-item active"><a asp-area="Admin" asp-controller="Options" asp-action="ArticleRightsideBarWidgetSettings">Makale Widget Ayarları</a></li>
+</ol>
 <div class="row">
     <div class="col-lg-8 offset-lg-2">
-        <div class="card mt-2 mb-1">
+        <div class="card mt-1 mb-1">
             <div class="card-header">
                 <h4 class="text-center"><span class="fas fa-edit"></span> Makale Sayfaları İçin Widget Ayarları </h4>
             </div>

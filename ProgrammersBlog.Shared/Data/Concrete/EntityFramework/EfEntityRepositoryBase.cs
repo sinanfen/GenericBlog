@@ -18,6 +18,8 @@ namespace ProgrammersBlog.Shared.Data.Concrete.EntityFramework
         public EfEntityRepositoryBase(DbContext context)
         {
             _context = context;
+            //_context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
+            //AsNoTracking() işlemini constructor içinden de bu şekilde uygulayabiliriz.
         }
 
         public async Task<TEntity> AddAsync(TEntity entity)
@@ -56,7 +58,7 @@ namespace ProgrammersBlog.Shared.Data.Concrete.EntityFramework
                     query = query.Include(includeProperty);
                 }
             }
-            return await query.ToListAsync();
+            return await query.AsNoTracking().ToListAsync();
         }
 
         public async Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> predicate, params Expression<Func<TEntity, object>>[] includeProperties)
@@ -71,7 +73,7 @@ namespace ProgrammersBlog.Shared.Data.Concrete.EntityFramework
                     query = query.Include(includeProperty);
                 }
             }
-            return await query.SingleOrDefaultAsync();
+            return await query.AsNoTracking().SingleOrDefaultAsync();
         }
 
         public async Task<IList<TEntity>> SearchAsync(IList<Expression<Func<TEntity, bool>>> predicates, params Expression<Func<TEntity, object>>[] includeProperties)
@@ -98,7 +100,9 @@ namespace ProgrammersBlog.Shared.Data.Concrete.EntityFramework
                 }
             }
 
-            return await query.ToListAsync();
+            return await query.AsNoTracking().ToListAsync();
+            //AsNoTracking() -> Bu sayede biz bu queryi (buradaki işlemleri) çektiğimiz eğer herhangi bir include yapmadıysak includ değerleri gelmeyecektir.
+            //Ya da bizler bir include eklediysek sadece include ettiğimiz değerler gelecektir.
         }
 
         public async Task<TEntity> UpdateAsync(TEntity entity)

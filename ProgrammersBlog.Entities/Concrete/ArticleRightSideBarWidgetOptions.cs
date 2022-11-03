@@ -18,7 +18,7 @@ namespace ProgrammersBlog.Entities.Concrete
         public string Header { get; set; }
         [DisplayName("Makale Sayısı")]
         [Required(ErrorMessage = "{0} alanı zorunludur.")]
-        [Range(0,50,ErrorMessage = "{0} alanı en az {1}, en fazla {2} olmalıdır.")]
+        [Range(0,20,ErrorMessage = "{0} alanı en az {1}, en fazla {2} olmalıdır.")]
         public int TakeSize { get; set; }
         [DisplayName("Kategori")]
         [Required(ErrorMessage = "{0} alanı zorunludur.")]
