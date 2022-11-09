@@ -69,14 +69,14 @@ namespace ProgrammersBlog.Mvc.Areas.Admin.Controllers
             return Json(userListDto);
         }
 
-        [Authorize(Roles = "SuperAdmin,Admin.Create")]
+        [Authorize(Roles = "SuperAdmin,User.Create")]
         [HttpGet]
         public IActionResult Add()
         {
             return PartialView("_UserAddPartial");
         }
 
-        [Authorize(Roles = "SuperAdmin,Admin.Create")]
+        [Authorize(Roles = "SuperAdmin,User.Create")]
         [HttpPost]
         public async Task<IActionResult> Add(UserAddDto userAddDto)
         {
@@ -123,7 +123,7 @@ namespace ProgrammersBlog.Mvc.Areas.Admin.Controllers
         }
 
 
-        [Authorize(Roles = "SuperAdmin,Admin.Delete")]
+        [Authorize(Roles = "SuperAdmin,User.Delete")]
         [HttpPost]
         public async Task<JsonResult> Delete(int userId)
         {
@@ -160,7 +160,7 @@ namespace ProgrammersBlog.Mvc.Areas.Admin.Controllers
             }
         }
 
-        [Authorize(Roles = "SuperAdmin,Admin.Update")]
+        [Authorize(Roles = "SuperAdmin,User.Update")]
         [HttpGet]
         public async Task<PartialViewResult> Update(int userId)
         {

@@ -12,7 +12,10 @@ namespace ProgrammersBlog.Shared.Data.Abstract
     {
         //Predicate filtremiz
         Task<T> GetAsync(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includeProperties); //GET Async method. || Expression -> var kullanici = repository.GetAsync(k=>k.Id ==15); gibi"
+        Task<T> GetAsyncV2(IList<Expression<Func<T, bool>>> predicates, IList<Expression<Func<T, object>>> includeProperties);
+        //if(isActive==true) predicates.Add() GetAasyncV2 in amacı
         Task<IList<T>> GetAllAsync(Expression<Func<T, bool>> predicate = null, params Expression<Func<T, object>>[] includeProperties); //Predicate null verdik çünkü bütün makaleleri de isteyebiliriz, veya sadece C# kategorisini isteyebiliriz.   
+        Task<IList<T>> GetAllAsyncV2(IList<Expression<Func<T, bool>>> predicates, IList<Expression<Func<T, object>>> includeProperties);
         Task<T> AddAsync(T entity);
         Task<T> UpdateAsync(T entity);
         Task DeleteAsync(T entity);

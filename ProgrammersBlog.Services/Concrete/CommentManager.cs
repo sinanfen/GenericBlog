@@ -32,7 +32,7 @@ namespace ProgrammersBlog.Services.Concrete
                     Comment = comment,
                 });
             }
-            return new DataResult<CommentDto>(ResultStatus.Error, Messages.Comment.NotFound(isPlural: false), new CommentDto
+            return new DataResult<CommentDto>(ResultStatus.Error, Messages.CommentMessage.NotFound(isPlural: false), new CommentDto
             {
                 Comment = null,
             });
@@ -49,7 +49,7 @@ namespace ProgrammersBlog.Services.Concrete
             }
             else
             {
-                return new DataResult<CommentUpdateDto>(ResultStatus.Error, Messages.Comment.NotFound(isPlural: false), null);
+                return new DataResult<CommentUpdateDto>(ResultStatus.Error, Messages.CommentMessage.NotFound(isPlural: false), null);
             }
         }
 
@@ -63,7 +63,7 @@ namespace ProgrammersBlog.Services.Concrete
                     Comments = comments,
                 });
             }
-            return new DataResult<CommentListDto>(ResultStatus.Error, Messages.Comment.NotFound(isPlural: true), new CommentListDto
+            return new DataResult<CommentListDto>(ResultStatus.Error, Messages.CommentMessage.NotFound(isPlural: true), new CommentListDto
             {
                 Comments = null,
             });
@@ -79,7 +79,7 @@ namespace ProgrammersBlog.Services.Concrete
                     Comments = comments,
                 });
             }
-            return new DataResult<CommentListDto>(ResultStatus.Error, Messages.Comment.NotFound(isPlural: true), new CommentListDto
+            return new DataResult<CommentListDto>(ResultStatus.Error, Messages.CommentMessage.NotFound(isPlural: true), new CommentListDto
             {
                 Comments = null,
             });
@@ -95,7 +95,7 @@ namespace ProgrammersBlog.Services.Concrete
                     Comments = comments,
                 });
             }
-            return new DataResult<CommentListDto>(ResultStatus.Error, Messages.Comment.NotFound(isPlural: true), new CommentListDto
+            return new DataResult<CommentListDto>(ResultStatus.Error, Messages.CommentMessage.NotFound(isPlural: true), new CommentListDto
             {
                 Comments = null,
             });
@@ -111,7 +111,7 @@ namespace ProgrammersBlog.Services.Concrete
                     Comments = comments,
                 });
             }
-            return new DataResult<CommentListDto>(ResultStatus.Error, Messages.Comment.NotFound(isPlural: true), new CommentListDto
+            return new DataResult<CommentListDto>(ResultStatus.Error, Messages.CommentMessage.NotFound(isPlural: true), new CommentListDto
             {
                 Comments = null,
             });
@@ -122,14 +122,14 @@ namespace ProgrammersBlog.Services.Concrete
             var article = await UnitOfWork.Articles.GetAsync(a => a.Id == commentAddDto.ArticleId);
             if (article == null)
             {
-                return new DataResult<CommentDto>(ResultStatus.Error, Messages.Article.NotFound(isPlural: false), null);
+                return new DataResult<CommentDto>(ResultStatus.Error, Messages.ArticleMessage.NotFound(isPlural: false), null);
             }
             var comment = Mapper.Map<Comment>(commentAddDto);
             var addedComment = await UnitOfWork.Comments.AddAsync(comment);
             article.CommentCount += 1;
             await UnitOfWork.Articles.UpdateAsync(article);
             await UnitOfWork.SaveAsync();
-            return new DataResult<CommentDto>(ResultStatus.Success, Messages.Comment.Add(commentAddDto.CreatedByName), new CommentDto
+            return new DataResult<CommentDto>(ResultStatus.Success, Messages.CommentMessage.Add(commentAddDto.CreatedByName), new CommentDto
             {
                 Comment = addedComment,
             });
@@ -143,7 +143,7 @@ namespace ProgrammersBlog.Services.Concrete
             var updatedComment = await UnitOfWork.Comments.UpdateAsync(comment);
             updatedComment.Article = await UnitOfWork.Articles.GetAsync(a => a.Id == updatedComment.ArticleId);
             await UnitOfWork.SaveAsync();
-            return new DataResult<CommentDto>(ResultStatus.Success, Messages.Comment.Update(comment.CreatedByName), new CommentDto
+            return new DataResult<CommentDto>(ResultStatus.Success, Messages.CommentMessage.Update(comment.CreatedByName), new CommentDto
             {
                 Comment = updatedComment,
             });
@@ -163,12 +163,12 @@ namespace ProgrammersBlog.Services.Concrete
                 article.CommentCount -= 1;
                 await UnitOfWork.Articles.UpdateAsync(article);
                 await UnitOfWork.SaveAsync();
-                return new DataResult<CommentDto>(ResultStatus.Success, Messages.Comment.Delete(deletedComment.CreatedByName), new CommentDto
+                return new DataResult<CommentDto>(ResultStatus.Success, Messages.CommentMessage.Delete(deletedComment.CreatedByName), new CommentDto
                 {
                     Comment = deletedComment,
                 });
             }
-            return new DataResult<CommentDto>(ResultStatus.Error, Messages.Comment.NotFound(isPlural: false), new CommentDto
+            return new DataResult<CommentDto>(ResultStatus.Error, Messages.CommentMessage.NotFound(isPlural: false), new CommentDto
             {
                 Comment = null,
             });
@@ -183,16 +183,16 @@ namespace ProgrammersBlog.Services.Concrete
                 {
                     await UnitOfWork.Comments.DeleteAsync(comment);
                     await UnitOfWork.SaveAsync();
-                    return new Result(ResultStatus.Success, Messages.Comment.HardDelete(comment.CreatedByName));
+                    return new Result(ResultStatus.Success, Messages.CommentMessage.HardDelete(comment.CreatedByName));
                 }
                 var article = comment.Article;
                 await UnitOfWork.Comments.DeleteAsync(comment);
                 article.CommentCount = await UnitOfWork.Comments.CountAsync(c => c.ArticleId == article.Id && !c.IsDeleted);
                 await UnitOfWork.Articles.UpdateAsync(article);
                 await UnitOfWork.SaveAsync();
-                return new Result(ResultStatus.Success, Messages.Comment.HardDelete(comment.CreatedByName));
+                return new Result(ResultStatus.Success, Messages.CommentMessage.HardDelete(comment.CreatedByName));
             }
-            return new Result(ResultStatus.Error, Messages.Comment.NotFound(isPlural: false));
+            return new Result(ResultStatus.Error, Messages.CommentMessage.NotFound(isPlural: false));
         }
 
         public async Task<IDataResult<int>> CountAsync()
@@ -234,12 +234,12 @@ namespace ProgrammersBlog.Services.Concrete
                 article.CommentCount = await UnitOfWork.Comments.CountAsync(c => c.ArticleId == article.Id && !c.IsDeleted);
                 await UnitOfWork.Articles.UpdateAsync(article);
                 await UnitOfWork.SaveAsync();
-                return new DataResult<CommentDto>(ResultStatus.Success, Messages.Comment.Approve(commentId), new CommentDto
+                return new DataResult<CommentDto>(ResultStatus.Success, Messages.CommentMessage.Approve(commentId), new CommentDto
                 {
                     Comment = updatedComment
                 });
             }
-            return new DataResult<CommentDto>(ResultStatus.Error, Messages.Comment.NotFound(isPlural: false), null);
+            return new DataResult<CommentDto>(ResultStatus.Error, Messages.CommentMessage.NotFound(isPlural: false), null);
         }
 
         public async Task<IDataResult<CommentDto>> UndoDeleteAsync(int commentId, string modifiedByName)
@@ -256,12 +256,12 @@ namespace ProgrammersBlog.Services.Concrete
                 article.CommentCount += 1;
                 await UnitOfWork.Articles.UpdateAsync(article);
                 await UnitOfWork.SaveAsync();
-                return new DataResult<CommentDto>(ResultStatus.Success, Messages.Comment.UndoDelete(deletedComment.CreatedByName), new CommentDto
+                return new DataResult<CommentDto>(ResultStatus.Success, Messages.CommentMessage.UndoDelete(deletedComment.CreatedByName), new CommentDto
                 {
                     Comment = deletedComment,
                 });
             }
-            return new DataResult<CommentDto>(ResultStatus.Error, Messages.Comment.NotFound(isPlural: false), new CommentDto
+            return new DataResult<CommentDto>(ResultStatus.Error, Messages.CommentMessage.NotFound(isPlural: false), new CommentDto
             {
                 Comment = null,
             });

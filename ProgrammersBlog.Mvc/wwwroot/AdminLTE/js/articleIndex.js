@@ -122,58 +122,6 @@
     /* Ajax POST / Deleting a User starts here. */
 
     //Trumbowyg
-    $('#text-editor').trumbowyg({
-        lang: 'tr',
-        btnsDef: {
-            // Create a new dropdown
-            image: {
-                dropdown: ['insertImage', 'upload'],
-                ico: 'insertImage'
-            }
-        },
-        btns: [
-            ['viewHTML'],
-            ['undo', 'redo'], // Only supported in Blink browsers
-            ['formatting'],
-            ['strong', 'em', 'del'],
-            ['superscript', 'subscript'],
-            ['link'],
-            ['image'],
-            ['justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull'],
-            ['unorderedList', 'orderedList'],
-            ['horizontalRule'],
-            ['removeformat'],
-            ['fullscreen'],
-            ['foreColor', 'backColor'],
-            ['emoji'],
-            ['fontfamily'],
-            ['fontsize']
-        ],
-        plugins: {
-            upload: {
-                serverPath: 'https://api.imgur.com/3/image',
-                fileFieldName: 'image',
-                headers: {
-                    'Authorization': 'Client-ID xxxxxxxxxxxx'
-                },
-                urlPropertyName: 'data.link'
-            },
-            fontsize: {
-                sizeList: [
-                    '12px',
-                    '14px',
-                    '16px',
-                    '24px',
-                    '32px'
-                ],
-                allowCustomSize: false
-            },
-            resizimg: {
-                minSize: 64,
-                step: 16,
-            }
-        }
-    });
 
     //Trumbowyg
 

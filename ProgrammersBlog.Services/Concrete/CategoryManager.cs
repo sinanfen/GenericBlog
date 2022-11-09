@@ -22,7 +22,7 @@ namespace ProgrammersBlog.Services.Concrete
         }
 
         /// <summary>
-        /// Verilen categoryAddDto ve createdByName parametrelerine ait bilgiler ile yeni bir Category ekler.
+        /// Verilen categoryAddDto ve createdByName parametrelerine ait bilgiler ile yeni bir CategoryMessage ekler.
         /// </summary>
         /// <param name="categoryAddDto">categoryAddDto tipinde eklenecek kategori bilgileri</param>
         /// <param name="createdByName">string tipinde kullanıcının kullanıcı adı</param>
@@ -35,11 +35,11 @@ namespace ProgrammersBlog.Services.Concrete
             //await _unitOfWork.Categories.AddAsync(category).ContinueWith(t => _unitOfWork.SaveAsync()); //İşlem bitirdiği gibi direkt Task ile devam ediyor. Çok hızlı şekilde bu adıma geçiyor.
             var addedCategory = await UnitOfWork.Categories.AddAsync(category);
             await UnitOfWork.SaveAsync();
-            return new DataResult<CategoryDto>(ResultStatus.Success, Messages.Category.Add(addedCategory.Name), new CategoryDto
+            return new DataResult<CategoryDto>(ResultStatus.Success, Messages.CategoryMessage.Add(addedCategory.Name), new CategoryDto
             {
                 Category = addedCategory,
                 ResultStatus = ResultStatus.Success,
-                Message = Messages.Category.Add(addedCategory.Name)
+                Message = Messages.CategoryMessage.Add(addedCategory.Name)
             });
         }
 
@@ -54,18 +54,18 @@ namespace ProgrammersBlog.Services.Concrete
                 category.ModifiedDate = DateTime.Now;
                 var deletedCategory = await UnitOfWork.Categories.UpdateAsync(category);
                 await UnitOfWork.SaveAsync();
-                return new DataResult<CategoryDto>(ResultStatus.Success, Messages.Category.Delete(deletedCategory.Name), new CategoryDto
+                return new DataResult<CategoryDto>(ResultStatus.Success, Messages.CategoryMessage.Delete(deletedCategory.Name), new CategoryDto
                 {
                     Category = deletedCategory,
                     ResultStatus = ResultStatus.Success,
-                    Message = Messages.Category.Delete(deletedCategory.Name)
+                    Message = Messages.CategoryMessage.Delete(deletedCategory.Name)
                 });
             }
-            return new DataResult<CategoryDto>(ResultStatus.Error, Messages.Category.NotFound(isPlural: false), new CategoryDto
+            return new DataResult<CategoryDto>(ResultStatus.Error, Messages.CategoryMessage.NotFound(isPlural: false), new CategoryDto
             {
                 Category = null,
                 ResultStatus = ResultStatus.Error,
-                Message = Messages.Category.NotFound(isPlural: false)
+                Message = Messages.CategoryMessage.NotFound(isPlural: false)
             });
         }
 
@@ -80,11 +80,11 @@ namespace ProgrammersBlog.Services.Concrete
                     ResultStatus = ResultStatus.Success
                 });
             }
-            return new DataResult<CategoryDto>(ResultStatus.Error, Messages.Category.NotFound(isPlural: false), new CategoryDto
+            return new DataResult<CategoryDto>(ResultStatus.Error, Messages.CategoryMessage.NotFound(isPlural: false), new CategoryDto
             {
                 Category = null,
                 ResultStatus = ResultStatus.Error,
-                Message = Messages.Category.NotFound(isPlural: false)
+                Message = Messages.CategoryMessage.NotFound(isPlural: false)
             });
         }
 
@@ -99,11 +99,11 @@ namespace ProgrammersBlog.Services.Concrete
                     ResultStatus = ResultStatus.Success
                 });
             }
-            return new DataResult<CategoryListDto>(ResultStatus.Error, Messages.Category.NotFound(isPlural: true), new CategoryListDto
+            return new DataResult<CategoryListDto>(ResultStatus.Error, Messages.CategoryMessage.NotFound(isPlural: true), new CategoryListDto
             {
                 Categories = null,
                 ResultStatus = ResultStatus.Error,
-                Message = Messages.Category.NotFound(isPlural: true)
+                Message = Messages.CategoryMessage.NotFound(isPlural: true)
             });
         }
 
@@ -118,11 +118,11 @@ namespace ProgrammersBlog.Services.Concrete
                     ResultStatus = ResultStatus.Success
                 });
             }
-            return new DataResult<CategoryListDto>(ResultStatus.Error, Messages.Category.NotFound(isPlural: true), new CategoryListDto
+            return new DataResult<CategoryListDto>(ResultStatus.Error, Messages.CategoryMessage.NotFound(isPlural: true), new CategoryListDto
             {
                 Categories = null,
                 ResultStatus = ResultStatus.Error,
-                Message = Messages.Category.NotFound(isPlural: true)
+                Message = Messages.CategoryMessage.NotFound(isPlural: true)
             });
         }
 
@@ -137,7 +137,7 @@ namespace ProgrammersBlog.Services.Concrete
                     ResultStatus = ResultStatus.Success
                 });
             }
-            return new DataResult<CategoryListDto>(ResultStatus.Error, Messages.Category.NotFound(isPlural: true), null);
+            return new DataResult<CategoryListDto>(ResultStatus.Error, Messages.CategoryMessage.NotFound(isPlural: true), null);
         }
 
         /// <summary>
@@ -156,7 +156,7 @@ namespace ProgrammersBlog.Services.Concrete
             }
             else
             {
-                return new DataResult<CategoryUpdateDto>(ResultStatus.Error, Messages.Category.NotFound(isPlural: false), null);
+                return new DataResult<CategoryUpdateDto>(ResultStatus.Error, Messages.CategoryMessage.NotFound(isPlural: false), null);
             }
         }
 
@@ -167,9 +167,9 @@ namespace ProgrammersBlog.Services.Concrete
             {
                 await UnitOfWork.Categories.DeleteAsync(category);
                 await UnitOfWork.SaveAsync();
-                return new Result(ResultStatus.Success, Messages.Category.HardDelete(category.Name));
+                return new Result(ResultStatus.Success, Messages.CategoryMessage.HardDelete(category.Name));
             }
-            return new Result(ResultStatus.Error, Messages.Category.NotFound(isPlural: false));
+            return new Result(ResultStatus.Error, Messages.CategoryMessage.NotFound(isPlural: false));
         }
 
         public async Task<IDataResult<CategoryDto>> UpdateAsync(CategoryUpdateDto categoryUpdateDto, string modifiedByName)
@@ -179,11 +179,11 @@ namespace ProgrammersBlog.Services.Concrete
             category.ModifiedByName = modifiedByName;
             var updatedCategory = await UnitOfWork.Categories.UpdateAsync(category);
             await UnitOfWork.SaveAsync();
-            return new DataResult<CategoryDto>(ResultStatus.Success, Messages.Category.Update(updatedCategory.Name), new CategoryDto
+            return new DataResult<CategoryDto>(ResultStatus.Success, Messages.CategoryMessage.Update(updatedCategory.Name), new CategoryDto
             {
                 Category = updatedCategory,
                 ResultStatus = ResultStatus.Success,
-                Message = Messages.Category.Update(updatedCategory.Name)
+                Message = Messages.CategoryMessage.Update(updatedCategory.Name)
             });
         }
 
@@ -224,7 +224,7 @@ namespace ProgrammersBlog.Services.Concrete
                     ResultStatus = ResultStatus.Success
                 });
             }
-            return new DataResult<CategoryListDto>(ResultStatus.Error, Messages.Category.NotFound(isPlural: true), null);
+            return new DataResult<CategoryListDto>(ResultStatus.Error, Messages.CategoryMessage.NotFound(isPlural: true), null);
         }
 
         public async Task<IDataResult<CategoryDto>> UndoDeleteAsync(int categoryId, string modifiedByName)
@@ -238,18 +238,18 @@ namespace ProgrammersBlog.Services.Concrete
                 category.ModifiedDate = DateTime.Now;
                 var deletedCategory = await UnitOfWork.Categories.UpdateAsync(category);
                 await UnitOfWork.SaveAsync();
-                return new DataResult<CategoryDto>(ResultStatus.Success, Messages.Category.UndoDelete(deletedCategory.Name), new CategoryDto
+                return new DataResult<CategoryDto>(ResultStatus.Success, Messages.CategoryMessage.UndoDelete(deletedCategory.Name), new CategoryDto
                 {
                     Category = deletedCategory,
                     ResultStatus = ResultStatus.Success,
-                    Message = Messages.Category.UndoDelete(deletedCategory.Name)
+                    Message = Messages.CategoryMessage.UndoDelete(deletedCategory.Name)
                 });
             }
-            return new DataResult<CategoryDto>(ResultStatus.Error, Messages.Category.NotFound(isPlural: false), new CategoryDto
+            return new DataResult<CategoryDto>(ResultStatus.Error, Messages.CategoryMessage.NotFound(isPlural: false), new CategoryDto
             {
                 Category = null,
                 ResultStatus = ResultStatus.Error,
-                Message = Messages.Category.NotFound(isPlural: false)
+                Message = Messages.CategoryMessage.NotFound(isPlural: false)
             });
         }
     }

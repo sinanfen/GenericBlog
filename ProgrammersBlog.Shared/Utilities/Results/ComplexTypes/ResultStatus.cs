@@ -11,6 +11,8 @@ namespace ProgrammersBlog.Shared.Utilities.Results.ComplexTypes
         Success = 0,
         Error = 1,
         Warning = 2, // ResultStatus.Warning
-        Info = 3 // ResultStatus.Info
+        Info = 3, // ResultStatus.Info
+        Authentication=4,
+        Authorization= 5
     }
 }

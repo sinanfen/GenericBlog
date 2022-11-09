@@ -3,14 +3,14 @@
 
     <div class="card my-4">
         <img src="~/img/@Model.User.Picture" class="card-img-top text-center image-thumbnail mt-1 mb-1" alt="@Model.User.UserName" />
-        <h5 class="card-header text-center">@Model.User.UserName</h5>
+        <h5 class="card-header text-center" style="font-family:Tahoma">@Model.User.UserName</h5>
         <div class="card-body">
             <p class="card-text text-center">@Model.User.About</p>
             <div class="card-footer text-center">
                 <p>Sosyal Medya Linkleri</p>
                 @if (Model.User.LinkedInLink != null)
                 {
-                    <a href="@Model.User.LinkedInLink" target="_blank"><span class="fab fa-linkedin" ></span></a>
+                    <a href="@Model.User.LinkedInLink" target="_blank"><span class="fa-linkedin"></span></a>
                 }
                 @if (Model.User.GitHubLink != null)
                 {

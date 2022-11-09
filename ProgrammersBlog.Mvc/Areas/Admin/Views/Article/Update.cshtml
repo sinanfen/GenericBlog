@@ -41,7 +41,7 @@
                     </div>
                     <div class="form-group">
                         <label for="datepicker" asp-for="Date"></label>
-                        <input type="text" id="datepicker" class="form-control" value="@DateTime.Now.ToShortDateString()" asp-for="Date" />
+                        <input type="text" id="datepicker" readonly="readonly" class="form-control" value="@DateTime.Now.ToShortDateString()" asp-for="Date" />
                         <span asp-validation-for="Date" class="text-danger"></span>
                     </div>
                     <div class="form-group">

@@ -87,7 +87,7 @@
             duration: 500,
             showAnim: "fold",
             showOptions: { direction: "down" },
-            minDate: -3,
+            minDate: -1,
             maxDate: +3
         });
     });

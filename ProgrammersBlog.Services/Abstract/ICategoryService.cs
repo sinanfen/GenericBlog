@@ -23,7 +23,7 @@ namespace ProgrammersBlog.Services.Abstract
         Task<IDataResult<CategoryListDto>> GetAllByNonDeletedAndActiveAsync();
         Task<IDataResult<CategoryListDto>> GetAllByDeletedAsync();
         /// <summary>
-        /// Verilen CategoryAddDto ve CreatedByName parametrelerine ait bilgiler ile yeni bir Category ekler.
+        /// Verilen CategoryAddDto ve CreatedByName parametrelerine ait bilgiler ile yeni bir CategoryMessage ekler.
         /// </summary>
         /// <param name="categoryAddDto">categoryAddDto tipinde eklenecek kategori bilgileri</param>
         /// <param name="createdByName">string tipinde kullanıcının kullanıcı adı</param>

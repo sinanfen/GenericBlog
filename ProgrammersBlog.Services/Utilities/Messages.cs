@@ -3,18 +3,32 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Model;
 
 namespace ProgrammersBlog.Services.Utilities
 {
     public static class Messages
     {
-        //Messagese.Category.NotFound()
-        public static class Category
+        public static class General
+        {
+            public static string ValidationError()
+            {
+                return $"Bir veya daha fazla validasyon hatası ile karşılaşıldı.";
+            }
+        }
+
+        //Messagese.CategoryMessage.NotFound()
+        public static class CategoryMessage
         {
             public static string NotFound(bool isPlural) //mesaj çogul mu?
             {
                 if (isPlural) return "Hiçbir kategori bulunamadı";
                 return "Böyle bir kategori bulunamadı";
+            }
+
+            public static string NotFoundById(int categoryId)
+            {
+                return $"{categoryId} kategori koduna ait bir kategori bulunamadı.";
             }
 
             public static string Add(string categoryName)
@@ -43,12 +57,17 @@ namespace ProgrammersBlog.Services.Utilities
             }
         }
 
-        public static class Article
+        public static class ArticleMessage
         {
             public static string NotFound(bool isPlural) //mesaj çogul mu?
             {
                 if (isPlural) return "Makaleler bulunamadı.";
                 return "Böyle bir makale bulunamadı";
+            }
+
+            public static string NotFoundById(int articleId)
+            {
+                return $"{articleId} makale koduna ait bir makale bulunamadı.";
             }
 
             public static string Add(string articleTitle)
@@ -82,7 +101,7 @@ namespace ProgrammersBlog.Services.Utilities
             }
         }
 
-        public static class Comment
+        public static class CommentMessage
         {
             public static string NotFound(bool isPlural)
             {
@@ -117,6 +136,45 @@ namespace ProgrammersBlog.Services.Utilities
             {
                 return $"{createdByName} tarafından eklenen yorum başarıyla arşivden geri getirilmiştir.";
             }
+        }
+
+        public static class UserMessage
+        {
+            //public static string NotFound(bool isPlural) //mesaj çogul mu?
+            //{
+            //    if (isPlural) return "Hiçbir kategori bulunamadı";
+            //    return "Böyle bir kategori bulunamadı";
+            //}
+
+            public static string NotFoundById(int userId)
+            {
+                return $"{userId} kullanıcı koduna ait bir kullanıcı bulunamadı.";
+            }
+
+            //public static string Add(string categoryName)
+            //{
+            //    return $"{categoryName} adlı kategori başarıyla eklenmiştir.";
+            //}
+
+            //public static string Update(string categoryName)
+            //{
+            //    return $"{categoryName} adlı kategori başarıyla güncellenmiştir.";
+            //}
+
+            //public static string Delete(string categoryName)
+            //{
+            //    return $"{categoryName} adlı kategori başarıyla silinmiştir.";
+            //}
+
+            //public static string HardDelete(string categoryName)
+            //{
+            //    return $"{categoryName} adlı kategori başarıyla veritabanından silinmiştir.";
+            //}
+
+            //public static string UndoDelete(string categoryName)
+            //{
+            //    return $"{categoryName} adlı kategori başarıyla arşivden geri getirilmiştir.";
+            //}
         }
     }
 }
