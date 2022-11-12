@@ -46,3 +46,8 @@ function getJsonNetObjectById(parentObj, id) {
     }
     return null;
 }
+
+function getTodaysDate() {
+    let today = new Date();
+    return `${today.getDate()}/${today.getMonth() + 1}/${today.getFullYear()}`; //getMonth()+1 ->> +1 yapmamın sebebi ay'ları 0'dan başlayarak saymasından dolayıdır. Son ay'ı 11 olarak yazdırır. Bu yüzden +1 değer ekledik
+}

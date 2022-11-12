@@ -51,7 +51,10 @@
             showAnim: "fold",
             showOptions: { direction: "down" },
            /* minDate: -3,*/
-            maxDate: 0
+            maxDate: 0,
+            onSelect: function (selectedDate) {
+                $("#endAtDatePicker").datepicker('option', 'minDate', selectedDate || getTodaysDate());
+            } //bir seçim yapıldığında çalışacak fonksiyondur
         });
         $("#endAtDatePicker").datepicker({
             closeText: "kapat",

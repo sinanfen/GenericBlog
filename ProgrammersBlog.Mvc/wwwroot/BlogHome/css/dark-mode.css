@@ -1,0 +1,139 @@
+﻿/**
+ * VARIABLES
+ */
+:root {
+    --bg: #f8fafc;
+    --panel-bg: #FFFFFF;
+    --panel-border: #CCCCCC;
+    --panel-title: #343f44;
+    --panel-text: #54666d;
+    --btn: #3eb0ef;
+}
+
+/**
+ * GENERIC STYLES 
+ */
+body {
+    position: relative;
+    height: 100vh;
+    padding: 0;
+    margin: 0;
+    font-family: 'Nunito Sans', sans-serif;
+    font-weight: 600;
+}
+
+/**
+ * TOGGLERS 
+ */
+#toggleMode {
+    visibility: hidden;
+}
+
+.toggleDark,
+.toggleLight {
+    cursor: pointer;
+    position: absolute;
+    z-index: 2;
+    top: 20px;
+    left: 20px;
+}
+
+.toggleDark {
+    display: block;
+    color: #222;
+}
+
+    .toggleDark:hover {
+        color: blue;
+    }
+
+.toggleLight {
+    display: none;
+    color: white;
+}
+
+#toggleMode:checked ~ .toggleDark {
+    display: none;
+}
+
+#toggleMode:checked ~ .toggleLight {
+    display: block;
+}
+
+/**
+ * CONTAINER 
+ */
+#container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--bg);
+    z-index: 1;
+    padding: 50px 20px;
+}
+
+#toggleMode:checked ~ #container {
+    --bg: #020202;
+    --panel-bg: #111413;
+    --panel-border: #1f2322;
+    --panel-title: #8e9294;
+    --panel-text: #505456;
+    --btn: #2962fe;
+    background-color: var(--bg);
+}
+
+/**
+ * PANEL 
+ */
+.panel {
+    margin-top: 20px;
+}
+
+    .panel .image {
+        width: 30%;
+        height: 300px;
+        background-size: cover;
+        background-position: center;
+        border-radius: 10px 0 0 10px;
+        float: left;
+    }
+
+    .panel .content {
+        width: 70%;
+        float: left;
+        padding: 20px;
+        background-color: var(--panel-bg);
+        height: 300px;
+        border-radius: 0 10px 10px 0;
+        border-top: 1px solid var(--panel-border);
+        border-right: 1px solid var(--panel-border);
+        border-bottom: 1px solid var(--panel-border);
+        box-sizing: border-box;
+    }
+
+        .panel .content h2 {
+            margin-top: 20px;
+            margin-bottom: 0;
+            color: var(--panel-title);
+        }
+
+        .panel .content p {
+            margin-top: 10px;
+            font-weight: 300;
+            color: var(--panel-text);
+        }
+
+        .panel .content button {
+            border: 0;
+            border-radius: 3px;
+            background-color: var(--btn);
+            padding: 10px 20px;
+            color: white;
+            cursor: pointer;
+        }
+
+            .panel .content button:hover {
+                opacity: 0.7;
+            }

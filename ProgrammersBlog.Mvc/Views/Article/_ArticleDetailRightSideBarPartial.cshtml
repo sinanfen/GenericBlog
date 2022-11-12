@@ -1,7 +1,8 @@
 ﻿@model ProgrammersBlog.Mvc.Models.ArticleDetailRightSideBarViewModel
+
 <div class="col-md-3">
 
-    <div class="card my-4">
+    <div class="card my-4" id="cardDark">
         <img src="~/img/@Model.User.Picture" class="card-img-top text-center image-thumbnail mt-1 mb-1" alt="@Model.User.UserName" />
         <h5 class="card-header text-center" style="font-family:Tahoma">@Model.User.UserName</h5>
         <div class="card-body">
@@ -67,4 +68,10 @@
             </div>
         </div>
     </div>
-</div>
+    </div>
+@*    <script>
+    const darkBox = document.getElementById('cardDark');
+    darkBox.addEventListener('change', () => {
+        document.getElementById('cardDark').classList.toggle('.card.dark');
+    })
+    </script>*@

@@ -7,9 +7,8 @@
     ViewBag.Author = Model.ArticleDto.Article.SeoAuthor;
     ViewBag.Tags = Model.ArticleDto.Article.SeoTags;
 }
-
 <!-- Post Content Column -->
-<div class="col-lg-9">
+<div class="col-lg-9" >
 
     <!-- Title -->
     <h1 class="mt-4" style="font-family:Tahoma">@Model.ArticleDto.Article.Title</h1>
@@ -28,7 +27,9 @@
     <hr>
 
     <!-- Post Content -->
+   
     @Html.Raw(@Model.ArticleDto.Article.Content)
+   
 
     <hr>
     <p class="text-center">Okunma Sayısı: <span class="badge badge-info"> @Model.ArticleDto.Article.ViewCount</span> Yorum Sayısı: <span class="badge badge-warning"> @Model.ArticleDto.Article.CommentCount</span></p>

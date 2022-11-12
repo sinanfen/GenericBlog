@@ -64,5 +64,11 @@ namespace ProgrammersBlog.Mvc.Controllers
             }
             return View(emailSendDto);
         }
+
+        [HttpGet]
+        public IActionResult DarkModeTest()
+        {
+            return View();
+        }
     }
 }

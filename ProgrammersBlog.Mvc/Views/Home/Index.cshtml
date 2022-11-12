@@ -6,10 +6,11 @@
     Regex regex = new Regex("<[^>]*>");
 }
 <div class="col-md-8">
-
-    <h1 class="my-4" style="font-family:Tahoma">
-        Son Paylaşılan Makaleler
-    </h1>
+    <div class="container">
+        <h1 class="my-4" style="font-family:Tahoma">
+            Son Paylaşılan Makaleler
+        </h1>
+    </div>
     <form>
         <div class="form-row">
             <input type="hidden" id="category-id" value="@(Model.CategoryId != null ? Model.CategoryId.Value : null)" />
