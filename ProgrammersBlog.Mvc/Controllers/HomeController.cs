@@ -12,6 +12,10 @@ using System.Threading.Tasks;
 
 namespace ProgrammersBlog.Mvc.Controllers
 {
+    //AttributeRouting
+    //Eğer herhangi bir controller üzerin route eklersek, o zaman o controller içerisindeki bütün metodlara Route("yol") vermeliyiz.Aksi takdirde çalışmayacaktır.
+    //Fakat default olarak bırakırsak değişikliğe gerek yoktur.
+    [Route("/")]
     public class HomeController : Controller
     {
         private readonly IArticleService _articleService;
@@ -29,6 +33,9 @@ namespace ProgrammersBlog.Mvc.Controllers
             _aboutUsPageInfoWriter = aboutUsPageInfoWriter;
         }
 
+        [Route("index")]
+        [Route("anasayfa")]
+        [Route("")]
         [HttpGet]
         public async Task<IActionResult> Index(int? categoryId, int currentPage = 1, int pageSize = 5, bool isAscending = false)
         {
@@ -38,12 +45,15 @@ namespace ProgrammersBlog.Mvc.Controllers
             return View(articleResult.Data);
         }
 
+        [Route("hakkimizda")]
+        [Route("hakkinda")]        
         [HttpGet]
         public IActionResult About()
         {         
             return View(_aboutUsPageInfo);
         }
 
+        [Route("iletisim")]
         [HttpGet]
         public IActionResult Contact()
         {
@@ -65,10 +75,10 @@ namespace ProgrammersBlog.Mvc.Controllers
             return View(emailSendDto);
         }
 
-        [HttpGet]
-        public IActionResult DarkModeTest()
-        {
-            return View();
-        }
+        //[HttpGet]
+        //public IActionResult DarkModeTest()
+        //{
+        //    return View();
+        //}
     }
 }

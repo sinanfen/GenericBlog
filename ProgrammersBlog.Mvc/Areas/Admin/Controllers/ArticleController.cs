@@ -181,6 +181,7 @@ namespace ProgrammersBlog.Mvc.Areas.Admin.Controllers
             return View(result.Data);
 
         }
+
         [Authorize(Roles = "SuperAdmin,Article.Read")]
         [HttpGet]
         public async Task<JsonResult> GetAllDeletedArticles()
@@ -192,6 +193,7 @@ namespace ProgrammersBlog.Mvc.Areas.Admin.Controllers
             });
             return Json(articles);
         }
+
         [Authorize(Roles = "SuperAdmin,Article.Update")]
         [HttpPost]
         public async Task<JsonResult> UndoDelete(int articleId)
@@ -200,6 +202,7 @@ namespace ProgrammersBlog.Mvc.Areas.Admin.Controllers
             var undoDeleteArticleResult = JsonSerializer.Serialize(result);
             return Json(undoDeleteArticleResult);
         }
+
         [Authorize(Roles = "SuperAdmin,Article.Delete")]
         [HttpPost]
         public async Task<JsonResult> HardDelete(int articleId)
@@ -207,6 +210,18 @@ namespace ProgrammersBlog.Mvc.Areas.Admin.Controllers
             var result = await _articleService.HardDeleteAsync(articleId);
             var hardDeletedArticleResult = JsonSerializer.Serialize(result);
             return Json(hardDeletedArticleResult);
+        }
+
+        [Authorize(Roles = "SuperAdmin,Article.Read")]
+        [HttpGet]
+        public async Task<JsonResult> GetAllByViewCount(bool isAscending,int takeSize)
+        {
+            var result = await _articleService.GetAllByViewCountAsync(isAscending,takeSize);
+            var articles = JsonSerializer.Serialize(result.Data.Articles, new JsonSerializerOptions
+            {
+                ReferenceHandler = ReferenceHandler.Preserve
+            });
+            return Json(articles);
         }
 
     }
