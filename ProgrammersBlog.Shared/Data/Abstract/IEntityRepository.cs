@@ -22,5 +22,6 @@ namespace ProgrammersBlog.Shared.Data.Abstract
         Task<IList<T>> SearchAsync(IList<Expression<Func<T,bool>>> predicates, params Expression<Func<T, object>>[] includeProperties);
         Task<bool> AnyAsync(Expression<Func<T, bool>> predicate); //Any, var mı anlamında kullanılmaktadır. Alper isimli bir kullanıcı var mı? .AnyAsync(u=>u.FirstName=="Alper"); gibi.
         Task<int> CountAsync(Expression<Func<T, bool>> predicate=null);
+        IQueryable<T> GetAsQueryable();
     }
 }

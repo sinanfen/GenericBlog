@@ -83,6 +83,12 @@ namespace ProgrammersBlog.Shared.Data.Concrete.EntityFramework
             //Bir tane veriyi getirmektense birden fazla veriyi liste olarak dönmüş oluruz.
         }
 
+        public IQueryable<TEntity> GetAsQueryable()
+        {
+            //Example: UnitOfWork.Articles.GetAsQueryable() --> Article nesnesini queryable olarak dönecektir.
+            return _context.Set<TEntity>().AsQueryable();
+        }
+
         public async Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> predicate, params Expression<Func<TEntity, object>>[] includeProperties)
         {
             IQueryable<TEntity> query = _context.Set<TEntity>();

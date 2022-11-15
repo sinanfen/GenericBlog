@@ -51,7 +51,7 @@ namespace ProgrammersBlog.Mvc.Helpers.Concrete
             }
         }
 
-        public async Task<IDataResult<ImageUploadedDto>> Upload(string name, IFormFile pictureFile, PictureType pictureType, string folderName = null)
+        public string Upload(string name, IFormFile pictureFile, PictureType pictureType, string folderName = null)
         {
             /* Eğer folderName değişkeni null gelir ise, o zaman fotoğraf tipine göre (PictureType) klasör adı ataması yapılır */
             folderName ??= pictureType == PictureType.User ? userImagesFolder : postImagesFolder; 
@@ -84,9 +84,9 @@ namespace ProgrammersBlog.Mvc.Helpers.Concrete
             var path = Path.Combine($"{_wwwroot}/{imgFolder}/{folderName}", newFileName);
 
             /* Sistemimiz için oluşturulan yeni dosya yoluna fotoğraf kopyalanır. */
-            await using (var stream = new FileStream(path, FileMode.Create))
+            using (var stream = new FileStream(path, FileMode.Create))
             {
-                await pictureFile.CopyToAsync(stream);
+                pictureFile.CopyToAsync(stream);
             }
 
             /* Fotoğraf tipine göre kullanıcı için bir mesaj oluşturulur.(UserImage veya PostImage) */
@@ -94,15 +94,7 @@ namespace ProgrammersBlog.Mvc.Helpers.Concrete
                 ? $"{name} adlı kullanıcının fotoğrafı başarıyla yüklenmiştir."
                 : $"{name} adlı makalenin fotoğrafı başarıyla yüklenmiştir.";
 
-            return new DataResult<ImageUploadedDto>(ResultStatus.Success, message, new ImageUploadedDto
-            {
-                FullName = $"{folderName}/{newFileName}",
-                OldName = oldFileName,
-                Extension = fileExtension,
-                FolderName = folderName,
-                Path = path,
-                Size = pictureFile.Length
-            });
+            return $"{folderName}/{newFileName}";
         }
     }
 }

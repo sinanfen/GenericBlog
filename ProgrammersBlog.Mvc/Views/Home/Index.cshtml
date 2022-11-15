@@ -1,4 +1,5 @@
 ﻿@using System.Text.RegularExpressions
+@using ProgrammersBlog.Mvc.Extensions;
 @model ProgrammersBlog.Entities.Dtos.ArticleListDto
 @{
     ViewBag.Title = "Anasayfa";
@@ -43,7 +44,8 @@
                     }
                     @(article.Content.Length>250 ? article.Content.Substring(0,250) : article.Content)
                 </p>
-                <a asp-controller="Article" asp-action="Detail" asp-route-articleId="@article.Id" class="btn btn-primary">Devamını oku &rarr;</a>
+                <a href="/@Url.FriendlyUrlHelper(article.Title)/@article.Id" class="btn btn-primary">Devamını oku &rarr;</a>
+                @* Burada <a "href" içerisinde Extensions/UrlExtension classı sayesinde dinamik bir URL oluşturduk. SEO Dostu bir işlemdir.*@
             </div>
             <div class="card-footer text-muted">
                 @article.User.UserName tarafından @article.CreatedDate tarihinde paylaşıldı.

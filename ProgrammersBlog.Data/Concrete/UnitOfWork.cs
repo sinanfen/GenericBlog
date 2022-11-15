@@ -21,12 +21,13 @@ namespace ProgrammersBlog.Data.Concrete
             _context = context;
         }
 
-        public IArticleRepository Articles => _articleRepository ?? new EfArticleRepository(_context); // ?? null ise demektir
+        //eğer _articleRepository null ise yeni bir ArticleRepository oluştur ve bunu bir önceki _articleRepository değerine ata.
+        public IArticleRepository Articles => _articleRepository ??= new EfArticleRepository(_context); 
         //açıklama: articleRepository'e ulaş. Yok veya null ise New'le ve context ile birlikte çalış.
 
-        public ICategoryRepository Categories => _categoryRepository ?? new EfCategoryRepository(_context);
+        public ICategoryRepository Categories => _categoryRepository ??= new EfCategoryRepository(_context);
 
-        public ICommentRepository Comments => _commentRepository ?? new EfCommentRepository(_context);
+        public ICommentRepository Comments => _commentRepository ??= new EfCommentRepository(_context);
 
         public async ValueTask DisposeAsync()
         {
