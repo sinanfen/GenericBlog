@@ -42,7 +42,7 @@
                     @{
                         article.Content = regex.Replace(article.Content, "");
                     }
-                    @(article.Content.Length>250 ? article.Content.Substring(0,250) : article.Content)
+                    @(article.Content.Length > 250 ? article.Content.Substring(0, 250) : article.Content)
                 </p>
                 <a href="/@Url.FriendlyUrlHelper(article.Title)/@article.Id" class="btn btn-primary">Devamını oku &rarr;</a>
                 @* Burada <a "href" içerisinde Extensions/UrlExtension classı sayesinde dinamik bir URL oluşturduk. SEO Dostu bir işlemdir.*@
@@ -105,17 +105,17 @@
 
 @section Scripts{
     <script>
-        $(document).ready(function() {
-            $(function() {
+        $(document).ready(function () {
+            $(function () {
                 const selectPageSize = $('#select-page-size');
                 const selectIsAscending = $('#select-is-ascending');
                 const categoryId = $('#category-id').val();
                 const currentPage = $('#current-page').val();
                 const categoryQuery = categoryId != null ? `&categoryId=${categoryId}` : null;
-                selectPageSize.on('change', function() {
+                selectPageSize.on('change', function () {
                     window.location = `/?pageSize=${selectPageSize.val()}&isAscending=${selectIsAscending.val()}${categoryQuery != null ? categoryQuery : null}&currentPage=${currentPage}`;
                 });
-                selectIsAscending.on('change', function() {
+                selectIsAscending.on('change', function () {
                     window.location = `/?pageSize=${selectPageSize.val()}&isAscending=${selectIsAscending.val()}${categoryQuery != null ? categoryQuery : null}&currentPage=${currentPage}`;
                 });
             });

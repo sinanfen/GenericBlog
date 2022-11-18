@@ -50,7 +50,7 @@ namespace ProgrammersBlog.Mvc.Controllers
                     _articleRightSideBarWidgetOptions.IsAscending, _articleRightSideBarWidgetOptions.TakeSize, _articleRightSideBarWidgetOptions.CategoryId,
                     _articleRightSideBarWidgetOptions.StartAt, _articleRightSideBarWidgetOptions.EndAt,
                     _articleRightSideBarWidgetOptions.MinViewCount, _articleRightSideBarWidgetOptions.MaxViewCount,
-                    _articleRightSideBarWidgetOptions.MinCommentCount,_articleRightSideBarWidgetOptions.MaxCommentCount);
+                    _articleRightSideBarWidgetOptions.MinCommentCount, _articleRightSideBarWidgetOptions.MaxCommentCount);
                 //await _articleService.IncreaseViewCountAsync(articleId);
                 return View(new ArticleDetailViewModel
                 {

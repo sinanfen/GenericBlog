@@ -424,7 +424,7 @@ namespace ProgrammersBlog.Services.Concrete
             var article = await UnitOfWork.Articles.GetAsyncV2(predicates, includes);
             if (article == null)
             {
-                return new DataResult<ArticleDto>(ResultStatus.Warning,Messages.General.ValidationError(),null,new List<ValidationError>
+                return new DataResult<ArticleDto>(ResultStatus.Warning, Messages.General.ValidationError(), null, new List<ValidationError>
                 {
                     new ValidationError
                     {
@@ -447,7 +447,7 @@ namespace ProgrammersBlog.Services.Concrete
             //predicates
             if (categoryId.HasValue)
             {
-                if(!await UnitOfWork.Categories.AnyAsync(c=>c.Id==categoryId.Value))
+                if (!await UnitOfWork.Categories.AnyAsync(c => c.Id == categoryId.Value))
                 {
                     return new DataResult<ArticleListDto>(ResultStatus.Warning, Messages.General.ValidationError(), null, new List<ValidationError>
                         {
@@ -458,7 +458,7 @@ namespace ProgrammersBlog.Services.Concrete
                             }
                         });
                 }
-                predicates.Add(a=>a.CategoryId==categoryId.Value);
+                predicates.Add(a => a.CategoryId == categoryId.Value);
             }
 
             if (userId.HasValue)
@@ -494,7 +494,7 @@ namespace ProgrammersBlog.Services.Concrete
                 case OrderByGeneral.Az:
                     sortedArticles = isAscending ? articles.OrderBy(a => a.Title) : articles.OrderByDescending(a => a.Title);
                     break;
-                    //Default CreatedDate
+                //Default CreatedDate
                 default:
                     sortedArticles = isAscending ? articles.OrderBy(a => a.CreatedDate) : articles.OrderByDescending(a => a.CreatedDate);
                     break;
@@ -512,6 +512,12 @@ namespace ProgrammersBlog.Services.Concrete
                 ResultStatus = ResultStatus.Success
             });
 
+        }
+
+        public async Task<IDataResult<ArticleListDto>> GetAllRandomlyAsync()
+        {
+            var articles = await UnitOfWork.Articles.GetAllAsync(a => a.IsActive && !a.IsDeleted, a => a.Category, a => a.User);
+            throw null;
         }
     }
 }

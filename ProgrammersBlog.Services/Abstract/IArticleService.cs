@@ -13,13 +13,14 @@ namespace ProgrammersBlog.Services.Abstract
     public interface IArticleService
     {
         Task<IDataResult<ArticleDto>> GetAsync(int articleId);                       //IDataResult içersinde istersek 1 makaleyi.
-        Task<IDataResult<ArticleDto>> GetByIdAsync(int articleId,bool includeCategory,bool includeComments, bool includeUser);
+        Task<IDataResult<ArticleDto>> GetByIdAsync(int articleId, bool includeCategory, bool includeComments, bool includeUser);
         Task<IDataResult<ArticleUpdateDto>> GetArticleUpdateDtoAsync(int articleId);
         Task<IDataResult<ArticleListDto>> GetAllAsyncV2
             (int? categoryId, int? userId, bool? isActive, bool? isDeleted,
-            int currentPage,int pageSize, OrderByGeneral orderBy,bool isAscending,
+            int currentPage, int pageSize, OrderByGeneral orderBy, bool isAscending,
             bool includeCategory, bool includeComments, bool includeUser);
         Task<IDataResult<ArticleListDto>> GetAllAsync();                             //Istersek de IList türünde makale lisetsi getirebiliyoruz.
+        Task<IDataResult<ArticleListDto>> GetAllRandomlyAsync();                    //Her kullanıldığında rastgele makale getirsin.
         Task<IDataResult<ArticleListDto>> GetAllByNonDeletedAsync();                // Silinmemiş olan makaleleri getirecek.
         Task<IDataResult<ArticleListDto>> GetAllByNonDeletedAndActiveAsync();       //Hem silinmemiş hem aktif olan makaleler
         Task<IDataResult<ArticleListDto>> GetAllByCategoryAsync(int categoryId);     //Kategoriye göre makale getir.

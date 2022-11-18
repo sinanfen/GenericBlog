@@ -46,10 +46,10 @@ namespace ProgrammersBlog.Mvc.Controllers
         }
 
         [Route("hakkimizda")]
-        [Route("hakkinda")]        
+        [Route("hakkinda")]
         [HttpGet]
         public IActionResult About()
-        {         
+        {
             return View(_aboutUsPageInfo);
         }
 
@@ -80,5 +80,12 @@ namespace ProgrammersBlog.Mvc.Controllers
         //{
         //    return View();
         //}
+
+        [Route("rastgele")]
+        [HttpGet]
+        public async Task<IActionResult> GetRandom()
+        {
+            return View();
+        }
     }
 }
