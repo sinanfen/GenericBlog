@@ -1,10 +1,15 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using NToastNotify;
+using NToastNotify.Helpers;
+using ProgrammersBlog.Data.Concrete;
 using ProgrammersBlog.Entities.Concrete;
 using ProgrammersBlog.Entities.Dtos;
 using ProgrammersBlog.Services.Abstract;
 using ProgrammersBlog.Shared.Utilities.Helpers.Abstract;
+using ProgrammersBlog.Shared.Utilities.Results.ComplexTypes;
+using ProgrammersBlog.Shared.Utilities.Results.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -81,10 +86,12 @@ namespace ProgrammersBlog.Mvc.Controllers
         //    return View();
         //}
 
-        [Route("rastgele")]
+        [Route("rastgele-makale")]
         [HttpGet]
         public async Task<IActionResult> GetRandom()
         {
+            //var articles = await _articleService.GetAllByNonDeletedAndActiveAsync();
+            
             return View();
         }
     }

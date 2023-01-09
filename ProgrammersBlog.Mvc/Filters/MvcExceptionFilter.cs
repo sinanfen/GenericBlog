@@ -46,6 +46,13 @@ namespace ProgrammersBlog.Mvc.Filters
                         result.StatusCode = 403;
                         _logger.LogError(context.Exception, context.Exception.Message);
                         break;
+                    case EntryPointNotFoundException:
+                        mvcErrorModel.Message = $"Üzgünüz, aradığınız sayfa bulunamadı.";
+                        mvcErrorModel.Detail = context.Exception.Message;
+                        result = new ViewResult { ViewName = "Error" }; //Bu hata için Error view'i görüntülenecek.
+                        result.StatusCode = 404;
+                        _logger.LogError(context.Exception, context.Exception.Message);
+                        break;
                     default:
                         mvcErrorModel.Message = $"Üzgünüz,işleminiz sırasında beklenmeyen bir hata meydana geldi. Sorunu en kısa sürede çözeceğiz.";
                         result = new ViewResult { ViewName = "Error" }; //Bu hata için Error view'i görüntülenecek.

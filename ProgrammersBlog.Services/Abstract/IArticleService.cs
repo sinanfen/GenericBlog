@@ -35,9 +35,9 @@ namespace ProgrammersBlog.Services.Abstract
         Task<IResult> IncreaseViewCountAsync(int articleId);
         Task<IResult> AddAsync(ArticleAddDto articleAddDto, string createdByName, int userId);   //Data Transfer Object (ViewModel gibi)
         Task<IResult> UpdateAsync(ArticleUpdateDto articleUpdateDto, string modifiedByName);
-        Task<IResult> DeleteAsync(int articleId, string modifiedByName);             //Durumunu False yapacak
+        Task<IDataResult<ArticleDto>> DeleteAsync(int articleId, string modifiedByName);             //Durumunu False yapacak
         Task<IResult> HardDeleteAsync(int articleId);                                //Tamamen veritabanından silecek. Tehlikeli
-        Task<IResult> UndoDeleteAsync(int articleId, string modifiedByName);
+        Task<IDataResult<ArticleDto>> UndoDeleteAsync(int articleId, string modifiedByName);
         Task<IDataResult<int>> CountAsync();
         Task<IDataResult<int>> CountByNonDeletedAsync();
     }

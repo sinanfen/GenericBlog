@@ -43,21 +43,46 @@ namespace ProgrammersBlog.Services.Concrete
             return new Result(ResultStatus.Success, Messages.ArticleMessage.Add(article.Title));
         }
 
-        public async Task<IResult> DeleteAsync(int articleId, string modifiedByName)
+        public async Task<IDataResult<ArticleDto>> DeleteAsync(int articleId, string modifiedByName)
         {
-            var result = await UnitOfWork.Articles.AnyAsync(a => a.Id == articleId);
-            if (result)
+            //IDataResult yerine IResult türünde geri dönüş sağlarken kullandığım ESKİ method aşağıdadır.
+            //IDataResult ve SweetAlert yapısı daha iyi çalıştığı ve göze hitap ettiği için ona geçiş yaptım.
+
+            //var result = await UnitOfWork.Articles.AnyAsync(a => a.Id == articleId);
+            //if (result)
+            //{
+            //    var article = await UnitOfWork.Articles.GetAsync(a => a.Id == articleId);
+            //    article.IsDeleted = true;
+            //    article.IsActive = false;
+            //    article.ModifiedByName = modifiedByName;
+            //    article.ModifiedDate = DateTime.Now;
+            //    await UnitOfWork.Articles.UpdateAsync(article);
+            //    await UnitOfWork.SaveAsync();
+            //    return new Result(ResultStatus.Success, Messages.ArticleMessage.Delete(article.Title));
+            //}
+            //return new Result(ResultStatus.Error, Messages.ArticleMessage.NotFound(isPlural: false));
+            var article = await UnitOfWork.Articles.GetAsync(a => a.Id == articleId);
+            if (article != null)
             {
-                var article = await UnitOfWork.Articles.GetAsync(a => a.Id == articleId);
                 article.IsDeleted = true;
                 article.IsActive = false;
                 article.ModifiedByName = modifiedByName;
                 article.ModifiedDate = DateTime.Now;
-                await UnitOfWork.Articles.UpdateAsync(article);
+                var deletedArticle = await UnitOfWork.Articles.UpdateAsync(article);
                 await UnitOfWork.SaveAsync();
-                return new Result(ResultStatus.Success, Messages.ArticleMessage.Delete(article.Title));
+                return new DataResult<ArticleDto>(ResultStatus.Success, Messages.ArticleMessage.Delete(deletedArticle.Title), new ArticleDto
+                {
+                    Article = deletedArticle,
+                    ResultStatus = ResultStatus.Success,
+                    Message = Messages.ArticleMessage.Delete(deletedArticle.Title)
+                });
             }
-            return new Result(ResultStatus.Error, Messages.ArticleMessage.NotFound(isPlural: false));
+            return new DataResult<ArticleDto>(ResultStatus.Error, Messages.ArticleMessage.NotFound(isPlural: false), new ArticleDto
+            {
+                Article = null,
+                ResultStatus = ResultStatus.Error,
+                Message = Messages.ArticleMessage.NotFound(isPlural: false)
+            });
         }
 
         public async Task<IDataResult<ArticleDto>> GetAsync(int articleId)
@@ -214,21 +239,30 @@ namespace ProgrammersBlog.Services.Concrete
             return new DataResult<ArticleListDto>(ResultStatus.Error, Messages.ArticleMessage.NotFound(isPlural: true), null);
         }
 
-        public async Task<IResult> UndoDeleteAsync(int articleId, string modifiedByName)
+        public async Task<IDataResult<ArticleDto>> UndoDeleteAsync(int articleId, string modifiedByName)
         {
-            var result = await UnitOfWork.Articles.AnyAsync(a => a.Id == articleId);
-            if (result)
+            var article = await UnitOfWork.Articles.GetAsync(a => a.Id == articleId);
+            if (article != null)
             {
-                var article = await UnitOfWork.Articles.GetAsync(a => a.Id == articleId);
                 article.IsDeleted = false;
                 article.IsActive = true;
                 article.ModifiedByName = modifiedByName;
                 article.ModifiedDate = DateTime.Now;
-                await UnitOfWork.Articles.UpdateAsync(article);
+                var deletedArticle = await UnitOfWork.Articles.UpdateAsync(article);
                 await UnitOfWork.SaveAsync();
-                return new Result(ResultStatus.Success, Messages.ArticleMessage.UndoDelete(article.Title));
+                return new DataResult<ArticleDto>(ResultStatus.Success, Messages.ArticleMessage.UndoDelete(article.Title), new ArticleDto
+                {
+                    Article = deletedArticle,
+                    ResultStatus = ResultStatus.Success,
+                    Message = Messages.ArticleMessage.UndoDelete(article.Title)
+                });
             }
-            return new Result(ResultStatus.Error, Messages.ArticleMessage.NotFound(isPlural: false));
+            return new DataResult<ArticleDto>(ResultStatus.Error, Messages.ArticleMessage.NotFound(isPlural: false), new ArticleDto
+            {
+                Article = null,
+                ResultStatus = ResultStatus.Error,
+                Message = Messages.ArticleMessage.NotFound(isPlural: false)
+            });
         }
 
         public async Task<IDataResult<ArticleListDto>> GetAllByViewCountAsync(bool isAscending, int? takeSize)
@@ -516,8 +550,22 @@ namespace ProgrammersBlog.Services.Concrete
 
         public async Task<IDataResult<ArticleListDto>> GetAllRandomlyAsync()
         {
-            var articles = await UnitOfWork.Articles.GetAllAsync(a => a.IsActive && !a.IsDeleted, a => a.Category, a => a.User);
+            //var random = new Random();
+            //var articles = await UnitOfWork.Articles.GetAllAsync(a => a.IsActive && !a.IsDeleted, a => a.Category, a => a.User);
+            //articles.OrderBy(a => random.Next()).Take(3);
+            //if (articles.Count > 0)
+            //{
+            //    return new DataResult<ArticleListDto>(ResultStatus.Success, new ArticleListDto
+            //    {
+            //        Articles = articles,
+            //        ResultStatus = ResultStatus.Success
+            //    });
+            //}
+            //return new DataResult<ArticleListDto>(ResultStatus.Error, Messages.ArticleMessage.NotFound(isPlural: true), null);
+
             throw null;
+
+
         }
     }
 }

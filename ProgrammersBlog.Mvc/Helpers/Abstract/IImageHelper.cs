@@ -8,7 +8,9 @@ namespace ProgrammersBlog.Mvc.Helpers.Abstract
 {
     public interface IImageHelper
     {
-        string Upload(string name, IFormFile pictureFile, PictureType pictureType, string folderName = null);
+        //string Upload(string name, IFormFile pictureFile, PictureType pictureType, string folderName = null);
+        //IDataResult<ImageDeletedDto> Delete(string pictureName);
+        Task<IDataResult<ImageUploadedDto>> Upload(string name, IFormFile pictureFile, PictureType pictureType, string folderName = null);
         IDataResult<ImageDeletedDto> Delete(string pictureName);
     }
 }

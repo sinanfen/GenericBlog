@@ -23,7 +23,7 @@ namespace ProgrammersBlog.Services.Concrete
         }
 
         /// <summary>
-        /// Verilen categoryAddDto ve createdByName parametrelerine ait bilgiler ile yeni bir CategoryMessage ekler.
+        /// Verilen categoryAddDto ve createdByName parametrelerine ait bilgiler ile yeni bir Category ve CategoryMessage ekler.
         /// </summary>
         /// <param name="categoryAddDto">categoryAddDto tipinde eklenecek kategori bilgileri</param>
         /// <param name="createdByName">string tipinde kullanıcının kullanıcı adı</param>
@@ -89,6 +89,7 @@ namespace ProgrammersBlog.Services.Concrete
                 ResultStatus = ResultStatus.Error,
                 Message = Messages.CategoryMessage.NotFound(isPlural: false)
             });
+            //return null;
         }
 
         public async Task<IDataResult<CategoryListDto>> GetAllAsync()

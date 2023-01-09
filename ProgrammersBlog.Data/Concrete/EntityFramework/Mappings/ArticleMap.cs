@@ -39,7 +39,8 @@ namespace ProgrammersBlog.Data.Concrete.EntityFramework.Mappings
             builder.Property(a => a.IsActive).IsRequired();
             builder.Property(a => a.IsDeleted).IsRequired();
             builder.Property(a => a.Note).HasMaxLength(500);
-            builder.HasOne<Category>(a => a.Category).WithMany(c => c.Articles).HasForeignKey(a => a.CategoryId);//Bir kategori birden çok makalesi olur - HasOne bir kategoriye ihtiyacı var. WithMany kategorinin birden çok makalesi olur
+            builder.HasOne<Category>(a => a.Category).WithMany(c => c.Articles).HasForeignKey(a => a.CategoryId);
+            //Bir kategori birden çok makalesi olur - HasOne bir kategoriye ihtiyacı var. WithMany kategorinin birden çok makalesi olur
             builder.HasOne<User>(a => a.User).WithMany(u => u.Articles).HasForeignKey(a => a.UserId); //Bir makale oluşurken hem bir kategoriye hem de bir kullanıcıya ihtiyaç duyacak.
             builder.ToTable("Articles");
 

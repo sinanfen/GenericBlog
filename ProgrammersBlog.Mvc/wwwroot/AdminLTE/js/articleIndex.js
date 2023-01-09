@@ -30,7 +30,7 @@
                         success: function (data) {
                             const articleResult = jQuery.parseJSON(data);
                             dataTable.clear();
-                            console.log(articleResult);
+                            /*console.log(articleResult);*/
                             if (articleResult.Data.ResultStatus === 0) {
                                 let categoriesArray = [];
                                 $.each(articleResult.Data.Articles.$values,
@@ -45,8 +45,8 @@
                                                 return category.$id === newArticle.Category.$ref;
                                             });
                                         }
-                                        console.log(newArticle);
-                                        console.log(newCategory);
+                                        //console.log(newArticle);
+                                        //console.log(newCategory);
                                         const newTableRow = dataTable.row.add([
                                             newArticle.Id,
                                             newCategory.Name,
@@ -147,11 +147,11 @@
                     data: { articleId: id },
                     url: '/Admin/Article/Delete/',
                     success: function (data) {
-                        const articleResult = jQuery.parseJSON(data);
-                        if (articleResult.ResultStatus === 0) {
+                        const articleDto = jQuery.parseJSON(data);
+                        if (articleDto.ResultStatus === 0) {
                             Swal.fire(
                                 'Silindi!',
-                                `${articleResult.Message}`,
+                                `${articleDto.Article.Title} başlıklı makale başarıyla silinmiştir.`,
                                 "success"
                             );
 
@@ -160,7 +160,7 @@
                             Swal.fire({
                                 icon: 'error',
                                 title: 'Başarısız işlem.',
-                                text: `${articleResult.Message}`
+                                text: `${articleDto.Message}`
                             });
                         }
                     },
@@ -172,4 +172,7 @@
             }
         });
     });
+
+
+
 });
