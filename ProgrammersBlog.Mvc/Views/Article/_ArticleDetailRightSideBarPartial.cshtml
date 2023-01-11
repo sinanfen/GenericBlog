@@ -4,7 +4,7 @@
 
     <div class="card my-4" id="cardDark">
         <img src="~/img/@Model.User.Picture" class="card-img-top text-center image-thumbnail mt-1 mb-1" alt="@Model.User.UserName" />
-        <h5 class="card-header text-center" style="font-family:Tahoma">@Model.User.UserName</h5>
+        <h5 class="card-header align-content-center" style="font-family:Tahoma; text-align:center;">@Model.User.UserName</h5>
         <div class="card-body">
             <p class="card-text text-center">@Model.User.About</p>
             @if (Model.User.InstagramLink != null || Model.User.TwitterLink != null
@@ -50,7 +50,7 @@
 
     <!-- Side Widget -->
     <div class="card my-4">
-        <h5 class="card-header">@Model.Header</h5>
+        <h5 class="card-header" style="font-family:Tahoma;">@Model.Header</h5>
         <div class="card-body">
             <div class="row">
                 <div class="col-lg-12">

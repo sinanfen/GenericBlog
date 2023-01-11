@@ -59,6 +59,7 @@ namespace ProgrammersBlog.Mvc.Controllers
         }
 
         [Route("iletisim")]
+        [Route("contact")]
         [HttpGet]
         public IActionResult Contact()
         {

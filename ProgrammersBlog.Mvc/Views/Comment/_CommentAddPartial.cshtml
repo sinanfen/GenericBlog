@@ -1,7 +1,7 @@
 ﻿@model ProgrammersBlog.Entities.Dtos.CommentAddDto
 <!-- Comments Form -->
 <div class="card my-4">
-    <h5 class="card-header">Bir yorum ekle:</h5>
+    <h5 class="card-header" style="font-family:Tahoma;">Bir yorum ekle:</h5>
     <div class="card-body form-card">
         <form asp-controller="Comment" asp-action="Add" method="post" id="form-comment-add">
             <input name="IsValid" type="hidden" value="@ViewData.ModelState.IsValid.ToString()" />
