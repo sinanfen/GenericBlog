@@ -25,9 +25,10 @@
                     <div class="sb-nav-link-icon"><i class="fas fa-comments"></i></div>
                     Yorumlar
                 </a>
-                <div class="sb-sidenav-menu-heading">Kullanıcılar</div>
                 @if (Model.Roles.Any(r => r.Equals("SuperAdmin") || r.Equals("Role.Read")))
                 {
+                <div class="sb-sidenav-menu-heading">Kullanıcılar</div>
+                
                     <a class="nav-link" asp-area="Admin" asp-controller="Role" asp-action="Index">
                         <div class="sb-nav-link-icon"><i class="fas fa-user-shield"></i></div>
                         Roller
@@ -40,9 +41,10 @@
                         Kullanıcılar
                     </a>
                 }
-                <div class="sb-sidenav-menu-heading">Ayarlar</div>
-                @if (Model.Roles.Any(r => r.Equals("SuperAdmin"))) 
+                @if (Model.Roles.Any(r => r.Equals("SuperAdmin")))
                 {
+                <div class="sb-sidenav-menu-heading">Ayarlar</div>
+                
                     <a class="nav-link" asp-area="Admin" asp-controller="Options" asp-action="GeneralSettings">
                         <div class="sb-nav-link-icon"><i class="fas fa-tools"></i></div>
                         Genel Ayarlar
@@ -60,19 +62,22 @@
                         Hakkımızda Sayfa İçerikleri
                     </a>
                 }
-                <div class="sb-sidenav-menu-heading">Diğer</div>
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-                    <div class="sb-nav-link-icon"><i class="fas fa-archive"></i></div>
-                    Çöp Kutusu
-                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                </a>
-                <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
-                    <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link" asp-area="Admin" asp-controller="Category" asp-action="DeletedCategories">Kategoriler</a>
-                        <a class="nav-link" asp-area="Admin" asp-controller="Article" asp-action="DeletedArticles">Makaleler</a>
-                        <a class="nav-link" asp-area="Admin" asp-controller="Comment" asp-action="DeletedComments">Yorumlar</a>
-                    </nav>
-                </div>
+                @if (Model.Roles.Any(r => r.Equals("SuperAdmin")))
+                {
+                    <div class="sb-sidenav-menu-heading">Diğer</div>
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                        <div class="sb-nav-link-icon"><i class="fas fa-archive"></i></div>
+                        Çöp Kutusu
+                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                    </a>
+                    <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link" asp-area="Admin" asp-controller="Category" asp-action="DeletedCategories">Kategoriler</a>
+                            <a class="nav-link" asp-area="Admin" asp-controller="Article" asp-action="DeletedArticles">Makaleler</a>
+                            <a class="nav-link" asp-area="Admin" asp-controller="Comment" asp-action="DeletedComments">Yorumlar</a>
+                        </nav>
+                    </div>
+                }
             </div>
         </div>
         <div class="sb-sidenav-footer">

@@ -7,37 +7,44 @@
         <h5 class="card-header text-center" style="font-family:Tahoma">@Model.User.UserName</h5>
         <div class="card-body">
             <p class="card-text text-center">@Model.User.About</p>
-            <div class="card-footer text-center">
-                <p>Sosyal Medya Linkleri</p>
-                @if (Model.User.LinkedInLink != null)
-                {
-                    <a href="@Model.User.LinkedInLink" target="_blank"><span class="fa-linkedin"></span></a>
-                }
-                @if (Model.User.GitHubLink != null)
-                {
-                    <a href="@Model.User.GitHubLink" target="_blank"><span class="fab fa-github-square"></span></a>
-                }
-                @if (Model.User.TwitterLink != null)
-                {
-                    <a href="@Model.User.TwitterLink" target="_blank"><span class="fab fa-twitter-square"></span></a>
-                }
-                @if (Model.User.FacebookLink != null)
-                {
-                    <a href="@Model.User.FacebookLink" target="_blank"><span class="fab fa-facebook-square"></span></a>
-                }
-                @if (Model.User.InstagramLink != null)
-                {
-                    <a href="@Model.User.InstagramLink" target="_blank"><span class="fab fa-instagram-square"></span></a>
-                }
-                @if (Model.User.YoutubeLink != null)
-                {
-                    <a href="@Model.User.YoutubeLink" target="_blank"><span class="fab fa-youtube-square"></span></a>
-                }
-                @if (Model.User.WebsiteLink != null)
-                {
-                    <a href="@Model.User.WebsiteLink" target="_blank"><span class="fas fa-home"></span></a>
-                }
-            </div>
+            @if (Model.User.InstagramLink != null || Model.User.TwitterLink != null
+            || Model.User.GitHubLink != null || Model.User.YoutubeLink != null
+            || Model.User.FacebookLink != null || Model.User.WebsiteLink != null
+            || Model.User.LinkedInLink != null)
+            {
+                <div class="card-footer text-center">
+                    <p>Sosyal Medya Linkleri</p>
+                    @if (Model.User.LinkedInLink != null)
+                    {
+                        <a href="@Model.User.LinkedInLink" target="_blank"><span class="fa-linkedin"></span></a>
+                    }
+                    @if (Model.User.GitHubLink != null)
+                    {
+                        <a href="@Model.User.GitHubLink" target="_blank"><span class="fab fa-github-square"></span></a>
+                    }
+                    @if (Model.User.TwitterLink != null)
+                    {
+                        <a href="@Model.User.TwitterLink" target="_blank"><span class="fab fa-twitter-square"></span></a>
+                    }
+                    @if (Model.User.FacebookLink != null)
+                    {
+                        <a href="@Model.User.FacebookLink" target="_blank"><span class="fab fa-facebook-square"></span></a>
+                    }
+                    @if (Model.User.InstagramLink != null)
+                    {
+                        <a href="@Model.User.InstagramLink" target="_blank"><span class="fab fa-instagram-square"></span></a>
+                    }
+                    @if (Model.User.YoutubeLink != null)
+                    {
+                        <a href="@Model.User.YoutubeLink" target="_blank"><span class="fab fa-youtube-square"></span></a>
+                    }
+                    @if (Model.User.WebsiteLink != null)
+                    {
+                        <a href="@Model.User.WebsiteLink" target="_blank"><span class="fas fa-home"></span></a>
+                    }
+                </div>
+            }
+
         </div>
     </div>
 
@@ -68,11 +75,10 @@
             </div>
         </div>
     </div>
-    </div>
+</div>
 @*    <script>
     const darkBox = document.getElementById('cardDark');
     darkBox.addEventListener('change', () => {
         document.getElementById('cardDark').classList.toggle('.card.dark');
     })
     </script>*@
-   

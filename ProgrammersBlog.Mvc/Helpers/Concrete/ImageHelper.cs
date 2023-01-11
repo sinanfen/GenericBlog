@@ -134,6 +134,10 @@ namespace ProgrammersBlog.Mvc.Helpers.Concrete
 
             /* Fotoğrafın uzantısı fileExtension adlı değişkene atanır. */
             string fileExtension = Path.GetExtension(pictureFile.FileName);
+
+            Regex regex = new Regex("[$&+,:;=?@#|'<>.^*()%!-]");
+            name = regex.Replace(name, string.Empty);
+
             DateTime dateTime = DateTime.Now;
             /*
             Parametre ile gelen değerler kullanılarak yeni bir fotoğraf adı oluşturulur.
