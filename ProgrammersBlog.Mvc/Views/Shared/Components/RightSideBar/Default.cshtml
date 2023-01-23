@@ -1,4 +1,5 @@
-﻿@model ProgrammersBlog.Mvc.Models.RightSideBarViewModel
+﻿@using ProgrammersBlog.Mvc.Extensions;
+@model ProgrammersBlog.Mvc.Models.RightSideBarViewModel
 <div class="col-md-4">
 
     <!-- Search Widget -->
@@ -16,7 +17,7 @@
         </div>
     </div>
     <!-- Categories Widget -->
-    <div class="card my-4">
+   @* <div class="card my-4">
         <h5 class="card-header" style="font-family:Tahoma;">Rastgele Makale!</h5>
         <div class="card-body">
             <div class="row">
@@ -29,7 +30,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>*@
     <!-- Categories Widget -->
     <div class="card my-4">
         <h5 class="card-header" style="font-family:Tahoma;">Kategoriler</h5>
@@ -63,13 +64,16 @@
                             if (i % 2 == 0)
                             {
                                 <li class="list-group-item list-group-item-primary">
-                                    <a asp-controller="Article" asp-action="Detail" asp-route-articleId="@Model.Articles[i].Id">@Model.Articles[i].Title</a>
+                                    @*asp-controller="Article" asp-action="Detail" asp-route-articleId="@Model.ArticleListDto.Articles[i].Id"*@
+                                     <a href="/@Url.FriendlyUrlHelper(Model.Articles[i].Title)/@Model.Articles[i].Id">@Model.Articles[i].Title</a>
+                                    @*<a asp-controller="Article" asp-action="Detail" asp-route-articleId="@Model.Articles[i].Id">@Model.Articles[i].Title</a>*@
                                 </li>
                             }
                             else
                             {
                                 <li class="list-group-item list-group-item-info">
-                                    <a asp-controller="Article" asp-action="Detail" asp-route-articleId="@Model.Articles[i].Id">@Model.Articles[i].Title</a>
+                                    @*<a asp-controller="Article" asp-action="Detail" asp-route-articleId="@Model.Articles[i].Id">@Model.Articles[i].Title</a>*@
+                                    <a href="/@Url.FriendlyUrlHelper(Model.Articles[i].Title)/@Model.Articles[i].Id">@Model.Articles[i].Title</a>
                                 </li>
                             }
                         }

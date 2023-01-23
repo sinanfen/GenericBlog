@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using ProgrammersBlog.Data.Abstract;
+using ProgrammersBlog.Data.Concrete;
 using ProgrammersBlog.Entities.Concrete;
 using ProgrammersBlog.Entities.Dtos;
 using ProgrammersBlog.Services.Abstract;
@@ -255,6 +256,9 @@ namespace ProgrammersBlog.Services.Concrete
                 ResultStatus = ResultStatus.Error,
                 Message = Messages.CategoryMessage.NotFound(isPlural: false)
             });
+
         }
+
     }
+
 }

@@ -58,14 +58,16 @@ namespace ProgrammersBlog.Mvc.Controllers
             return View(_aboutUsPageInfo);
         }
 
-        [Route("iletisim")]
         [Route("contact")]
+        [Route("iletisim")]
         [HttpGet]
         public IActionResult Contact()
         {
             return View();
         }
 
+        [Route("contact")]
+        [Route("iletisim")]
         [HttpPost]
         public IActionResult Contact(EmailSendDto emailSendDto)
         {
@@ -74,7 +76,9 @@ namespace ProgrammersBlog.Mvc.Controllers
                 var result = _mailService.SendContactEmail(emailSendDto);
                 _toastNotification.AddSuccessToastMessage(result.Message, new ToastrOptions
                 {
-                    Title = "Başarılı İşlem"
+                    Title = "Başarılı İşlem",
+                    ShowDuration= 10,
+                    EscapeHtml= true
                 });
                 return View();
             }

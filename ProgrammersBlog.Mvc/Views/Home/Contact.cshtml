@@ -1,4 +1,5 @@
-﻿@model ProgrammersBlog.Entities.Dtos.EmailSendDto
+﻿@using ProgrammersBlog.Mvc.Extensions;
+@model ProgrammersBlog.Entities.Dtos.EmailSendDto
 @{
     Layout = "_ContactLayout";
     ViewBag.Title = "İletişim";
@@ -19,12 +20,15 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <input type="text" class="form-control" required placeholder="İsminiz *" asp-for="Name" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <input type="email" class="form-control" required placeholder="E-Posta Adresiniz *" asp-for="Email" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <input type="text" class="form-control" required placeholder="Konu / Başlık *" asp-for="Subject" />
+                    <span asp-validation-for="Subject" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <button type="submit" class="btnContact">Gönder</button>
@@ -33,6 +37,7 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <textarea class="form-control" required placeholder="Mesajınız... *" asp-for="Message" style="width: 100%; height: 150px;"></textarea>
+                    <span asp-validation-for="Message" class="text-danger"></span>
                 </div>
             </div>
         </div>

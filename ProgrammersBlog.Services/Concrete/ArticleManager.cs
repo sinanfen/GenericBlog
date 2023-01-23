@@ -172,6 +172,16 @@ namespace ProgrammersBlog.Services.Concrete
                 return new Result(ResultStatus.Success, Messages.ArticleMessage.HardDelete(article.Title));
             }
             return new Result(ResultStatus.Error, Messages.ArticleMessage.NotFound(isPlural: false));
+
+            //var article = await UnitOfWork.Articles.GetAsync(a => a.Id == articleId);
+            //if (article == null)
+            //{
+            //    return new Result(ResultStatus.Error, Messages.ArticleMessage.NotFound(isPlural: false));
+            //}
+            //article.ViewCount += 1;
+            //await UnitOfWork.Articles.UpdateAsync(article);
+            //await UnitOfWork.SaveAsync();
+            //return new Result(ResultStatus.Success, Messages.ArticleMessage.IncreaseViewCount(article.Title));
         }
 
         public async Task<IResult> UpdateAsync(ArticleUpdateDto articleUpdateDto, string modifiedByName)
@@ -318,9 +328,9 @@ namespace ProgrammersBlog.Services.Concrete
                 (a)=>a.Title.Contains(keyword),
                 (a)=>a.Category.Name.Contains(keyword),
                 (a)=>a.SeoDescription.Contains(keyword),
-                (a)=>a.SeoTags.Contains(keyword),
+                (a)=>a.SeoTags.Contains(keyword)
             }, a => a.Category, a => a.User);
-
+            
             var searchedAndSortedArticles = isAscending
                    ? searchedArticles.OrderBy(a => a.CreatedDate).Skip((currentPage - 1) * pageSize).Take(pageSize).ToList()
                    : searchedArticles.OrderByDescending(a => a.CreatedDate).Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();

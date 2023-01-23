@@ -21,7 +21,7 @@ namespace ProgrammersBlog.Services.Concrete
 
         public MailManager(IOptions<SmtpSettings> smtpSettings)
         {
-            _smtpSettings=smtpSettings.Value;
+            _smtpSettings = smtpSettings.Value;
         }
 
         public IResult Send(EmailSendDto emailSendDto)
@@ -56,7 +56,7 @@ namespace ProgrammersBlog.Services.Concrete
                 To = { new MailAddress("sinanfen1401@hotmail.com") },
                 Subject = emailSendDto.Subject,
                 IsBodyHtml = true,
-                Body = $"Gönderen Kişi: {emailSendDto.Name}, Gönderen E-Posta Adresi: {emailSendDto.Email}<br/> {emailSendDto.Message}"
+                Body = $"<br/> Gönderen Kişi: {emailSendDto.Name}<br/> Gönderen E-Posta Adresi: {emailSendDto.Email}<br/> Mesaj: {emailSendDto.Message}",
             };
             SmtpClient smtpClient = new SmtpClient
             {
@@ -65,7 +65,7 @@ namespace ProgrammersBlog.Services.Concrete
                 EnableSsl = true,
                 UseDefaultCredentials = false,
                 Credentials = new NetworkCredential(_smtpSettings.Username, _smtpSettings.Password),
-                DeliveryMethod=SmtpDeliveryMethod.Network
+                DeliveryMethod = SmtpDeliveryMethod.Network
             };
             smtpClient.Send(message);
 

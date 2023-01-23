@@ -38,7 +38,7 @@ namespace ProgrammersBlog.Mvc.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var result = await _articleService.GetAllByNonDeletedAndActiveAsync();
+            var result = await _articleService.GetAllAsync();
             if (result.ResultStatus == ResultStatus.Success) return View(result.Data);
             return NotFound();
         }
