@@ -32,5 +32,5 @@ Bu dinamik proje kapsamında iki farklı panel bulunmaktadır; kullanıcı ve y�
  - Admin panelinin ana sayfasını görüntüleme yetkisine sahip olan herhangi bir kullanıcı profilindeki kişisel bilgilerini veya avatar(küçük görseli) güncelleyebilir. Şifresini değiştirebilir. 
  ### Bu projenin detaylı videosunu incelemek için:
 
-[<img src="https://i.postimg.cc/cLjZwP2K/final.jpg" width="50%">](https://youtu.be/26r4PK7FEcA "Generic Blog")
+[<img src="https://i.postimg.cc/cLjZwP2K/final.jpg" width="100%">](https://youtu.be/26r4PK7FEcA "Generic Blog")
 
