@@ -260,7 +260,6 @@
             '#btnUpdate',
             function (event) {
                 event.preventDefault();
-
                 const form = $('#form-user-update');
                 const actionUrl = form.attr('action');
                 const dataToSend = new FormData(form.get(0));

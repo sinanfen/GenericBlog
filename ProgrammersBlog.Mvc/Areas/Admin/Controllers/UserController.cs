@@ -52,7 +52,7 @@ namespace ProgrammersBlog.Mvc.Areas.Admin.Controllers
             return PartialView("_GetDetailPartial", new UserDto { User = user });
         }
 
-
+        //userIndex.js de "Yenile" butonu için kullanılan method.
         [Authorize(Roles = "SuperAdmin,User.Read")]
         [HttpGet]
         public async Task<JsonResult> GetAllUsers()
