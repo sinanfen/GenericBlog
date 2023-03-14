@@ -1,11 +1,11 @@
-﻿@*@using System.Text.RegularExpressions
+﻿@using System.Text.RegularExpressions
 @using ProgrammersBlog.Mvc.Extensions;
 @model ProgrammersBlog.Entities.Dtos.ArticleListDto
 @{
     ViewBag.Title = "Anasayfa";
     Layout = "_ArticleLayout";
     Regex regex = new Regex("<[^>]*>");
-}*@
+}
 @{
     ViewBag.Title = "Anasayfa";
     Layout = "_ArticleLayout";
@@ -16,78 +16,35 @@
     <h1 class="text-body"><span>Şansını Dene ve Makaleleri <strong style="color:#0f2428;">Karıştır</strong></span></h1>
 </div>
 <div class="jumbotron col-md-12">
-    @* @foreach (var article in Model.Articles)
-    {*@
-    <div class="row">
-        <div class="col-md-4">
-            <!-- Blog Post -->
-            <div class="card mb-4">
-                <img class="card-img-top" src="https://burst.shopifycdn.com/photos/fog-on-dark-waters-edge.jpg?width=1200&format=pjpg&exif=1&iptc=1" @*src="~/img/@article.Thumbnail" alt="@article.Title"*@>
-                <div class="card-body">
-                    <h2 class="card-title" style="font-family:Tahoma">Başlık</h2>
-                    <p class="card-text">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
-                        @* @{
-                        article.Content = regex.Replace(article.Content, "");
-                        }
-                        @(article.Content.Length > 250 ? article.Content.Substring(0, 250) : article.Content)*@
-                    </p>
-                    <a @*href="/@Url.FriendlyUrlHelper(article.Title)/@article.Id"*@ class="btn btn-primary">Devamını oku &rarr;</a>
-                    @* Burada <a "href" içerisinde Extensions/UrlExtension classı sayesinde dinamik bir URL oluşturduk. SEO Dostu bir işlemdir.*@
-                </div>
-                <div class="card-footer text-muted">
-                    @*  @article.User.UserName tarafından @article.CreatedDate tarihinde paylaşıldı.*@
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <!-- Blog Post -->
-            <div class="card mb-4">
-                <img class="card-img-top" src="https://burst.shopifycdn.com/photos/fog-on-dark-waters-edge.jpg?width=1200&format=pjpg&exif=1&iptc=1" @*src="~/img/@article.Thumbnail" alt="@article.Title"*@>
-                <div class="card-body">
-                    <h2 class="card-title" style="font-family:Tahoma">Başlık</h2>
-                    <p class="card-text">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
-                        @* @{
-                        article.Content = regex.Replace(article.Content, "");
-                        }
-                        @(article.Content.Length > 250 ? article.Content.Substring(0, 250) : article.Content)*@
-                    </p>
-                    <a @*href="/@Url.FriendlyUrlHelper(article.Title)/@article.Id"*@ class="btn btn-primary">Devamını oku &rarr;</a>
-                    @* Burada <a "href" içerisinde Extensions/UrlExtension classı sayesinde dinamik bir URL oluşturduk. SEO Dostu bir işlemdir.*@
-                </div>
-                <div class="card-footer text-muted">
-                    @*  @article.User.UserName tarafından @article.CreatedDate tarihinde paylaşıldı.*@
+   
+        <div class="row">
+        @foreach (var article in Model.Articles.OrderBy(x => Guid.NewGuid()).Take(3).ToList())
+        {
+            <div class="col-md-4">
+                <!-- Blog Post -->
+                <div class="card mb-4" style="max-height:100%;">
+                    <img class="card-img-top" src="~/img/@article.Thumbnail" style="height:275px;" alt="@article.Title">
+                    <div class="card-body">
+                        <h2 class="card-title" style="font-family:Tahoma">@(article.Title.Length > 18 ? article.Title.Substring(0,16) : article.Title)</h2>
+                        <p class="card-text">
+                            
+                            @{
+                                article.Content = regex.Replace(article.Content, "");
+                            }
+                            @(article.Content.Length > 250 ? article.Content.Substring(0, 200) : article.Content)
+                        </p>
+                        <a href="/@Url.FriendlyUrlHelper(article.Title)/@article.Id" class="btn btn-primary">Devamını oku &rarr;</a>                      
+                    </div>
+                    <div class="card-footer text-muted">
+                        @article.User.UserName tarafından @article.CreatedDate tarihinde paylaşıldı.
+                    </div>
                 </div>
             </div>
+        }
         </div>
-        <div class="col-md-4">
-            <!-- Blog Post -->
-            <div class="card mb-4">
-                <img class="card-img-top" src="https://burst.shopifycdn.com/photos/fog-on-dark-waters-edge.jpg?width=1200&format=pjpg&exif=1&iptc=1" @*src="~/img/@article.Thumbnail" alt="@article.Title"*@>
-                <div class="card-body">
-                    <h2 class="card-title" style="font-family:Tahoma">Başlık</h2>
-                    <p class="card-text">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
-                        @* @{
-                        article.Content = regex.Replace(article.Content, "");
-                        }
-                        @(article.Content.Length > 250 ? article.Content.Substring(0, 250) : article.Content)*@
-                    </p>
-                    <a @*href="/@Url.FriendlyUrlHelper(article.Title)/@article.Id"*@ class="btn btn-primary">Devamını oku &rarr;</a>
-                    @* Burada <a "href" içerisinde Extensions/UrlExtension classı sayesinde dinamik bir URL oluşturduk. SEO Dostu bir işlemdir.*@
-                </div>
-                <div class="card-footer text-muted">
-                    @*  @article.User.UserName tarafından @article.CreatedDate tarihinde paylaşıldı.*@
-                </div>
-            </div>
-        </div>
+    <div class="col-md-12 d-flex justify-content-center mb-4">
+
+        <a href="" class="btn btn-primary btn-lg"><i class="fas fa-random" style="margin-right: 0.5em;"></i><strong style="color:#ffffff">Karıştır</strong></a>
+
     </div>
-</div>
-@* }*@
-
-<div class="col-md-12 d-flex justify-content-center mb-4">
-
-    <a href="" class="btn btn-primary btn-lg"><i class="fas fa-random" style="margin-right: 0.5em;"></i><strong style="color:#ffffff">Karıştır</strong></a>
-
 </div>

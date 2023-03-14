@@ -95,9 +95,9 @@ namespace ProgrammersBlog.Mvc.Controllers
         [HttpGet]
         public async Task<IActionResult> GetRandom()
         {
-            //var articles = await _articleService.GetAllByNonDeletedAndActiveAsync();
-            
-            return View();
+            var result = await _articleService.GetAllByNonDeletedAndActiveAsync();
+            if (result.ResultStatus == ResultStatus.Success) return View(result.Data);
+            return NotFound();
         }
     }
 }
