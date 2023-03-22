@@ -53,7 +53,7 @@
                     </tr>
                 </tfoot>
                 <tbody>
-                    @foreach (var article in Model.Articles)
+                    @foreach (var article in Model.Articles.OrderByDescending(x => x.ModifiedDate))
                     {
                         <tr name="@article.Id">
                             <td>@article.Id</td>
@@ -88,14 +88,14 @@
     {
     <script src="~/AdminLTE/js/articleIndex.js" type="application/ecmascript"></script>
     <script>
-        $(document).ready(function() {
-            $('#btnAdd').click(function() {
+        $(document).ready(function () {
+            $('#btnAdd').click(function () {
                 window.location.href = '@Url.Action("Add","Article")';
             })
         })
     </script>
 }
-    @section Styles
+@section Styles
     {
 
 }

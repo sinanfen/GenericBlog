@@ -1,6 +1,12 @@
 ﻿$(document).ready(function () {
     /* DataTables start here. */
     const dataTable = $('#articlesTable').DataTable({
+        order: [[11, 'desc']],
+        fields: [
+            {
+                displayFormat: 'dd/MM/YYYY',
+            }
+        ],
         dom:
             "<'row'<'col-sm-3'l><'col-sm-6 text-center'B><'col-sm-3'f>>" +
             "<'row'<'col-sm-12'tr>>" +

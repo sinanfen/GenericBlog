@@ -53,7 +53,7 @@
                         </tr>
                     </tfoot>
                     <tbody>
-                        @foreach (var category in Model.Categories)
+                        @foreach (var category in Model.Categories.OrderByDescending(x => x.Id))
                         {
                             <tr name="@category.Id">
                                 <td>@category.Id</td>
