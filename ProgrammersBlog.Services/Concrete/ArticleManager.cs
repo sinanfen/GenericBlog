@@ -231,7 +231,7 @@ namespace ProgrammersBlog.Services.Concrete
             }
             else
             {
-                return new DataResult<ArticleUpdateDto>(ResultStatus.Error, Messages.CategoryMessage.NotFound(isPlural: false), null);
+                return new DataResult<ArticleUpdateDto>(ResultStatus.Error, Messages.ArticleMessage.NotFound(isPlural: false), null);
             }
         }
 
@@ -291,6 +291,7 @@ namespace ProgrammersBlog.Services.Concrete
             var articles = categoryId == null
                 ? await UnitOfWork.Articles.GetAllAsync(a => a.IsActive && !a.IsDeleted, a => a.Category, a => a.User)
                 : await UnitOfWork.Articles.GetAllAsync(a => a.CategoryId == categoryId && a.IsActive && !a.IsDeleted, a => a.Category, a => a.User);
+
             var sortedArticles = isAscending
                 ? articles.OrderBy(a => a.CreatedDate).Skip((currentPage - 1) * pageSize).Take(pageSize).ToList()
                 : articles.OrderByDescending(a => a.CreatedDate).Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
@@ -555,26 +556,6 @@ namespace ProgrammersBlog.Services.Concrete
                 TotalCount = articles.Count,
                 ResultStatus = ResultStatus.Success
             });
-
-        }
-
-        public async Task<IDataResult<ArticleListDto>> GetAllRandomlyAsync()
-        {
-            //var random = new Random();
-            //var articles = await UnitOfWork.Articles.GetAllAsync(a => a.IsActive && !a.IsDeleted, a => a.Category, a => a.User);
-            //articles.OrderBy(a => random.Next()).Take(3);
-            //if (articles.Count > 0)
-            //{
-            //    return new DataResult<ArticleListDto>(ResultStatus.Success, new ArticleListDto
-            //    {
-            //        Articles = articles,
-            //        ResultStatus = ResultStatus.Success
-            //    });
-            //}
-            //return new DataResult<ArticleListDto>(ResultStatus.Error, Messages.ArticleMessage.NotFound(isPlural: true), null);
-
-            throw null;
-
 
         }
     }

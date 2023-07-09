@@ -19,15 +19,14 @@ namespace ProgrammersBlog.Services.Abstract
             (int? categoryId, int? userId, bool? isActive, bool? isDeleted,
             int currentPage, int pageSize, OrderByGeneral orderBy, bool isAscending,
             bool includeCategory, bool includeComments, bool includeUser);
-        Task<IDataResult<ArticleListDto>> GetAllAsync();                             //Istersek de IList türünde makale lisetsi getirebiliyoruz.
-        Task<IDataResult<ArticleListDto>> GetAllRandomlyAsync();                    //Her kullanıldığında rastgele makale getirsin.
+        Task<IDataResult<ArticleListDto>> GetAllAsync();                             //Istersek de IList türünde makale lisetsi getirebiliyoruz.                                                        
         Task<IDataResult<ArticleListDto>> GetAllByNonDeletedAsync();                // Silinmemiş olan makaleleri getirecek.
         Task<IDataResult<ArticleListDto>> GetAllByNonDeletedAndActiveAsync();       //Hem silinmemiş hem aktif olan makaleler
         Task<IDataResult<ArticleListDto>> GetAllByCategoryAsync(int categoryId);     //Kategoriye göre makale getir.
         Task<IDataResult<ArticleListDto>> GetAllByDeletedAsync();
         Task<IDataResult<ArticleListDto>> GetAllByViewCountAsync(bool isAscending, int? takeSize);
         Task<IDataResult<ArticleListDto>> GetAllByPagingAsync(int? categoryId, int currentPage = 1, int pageSize = 5, bool isAscending = false);
-        Task<IDataResult<ArticleListDto>> GetAllByUserIdOnFilter
+        Task<IDataResult<ArticleListDto>> GetAllByUserIdOnFilter //Anasayfa'da (Yazarın Diğer Makaleleri) kısmı içn kullanıldı.
             (int userId, FilterBy filterBy, OrderBy orderBy,
             bool isAscending, int takeSize, int categoryId, DateTime startAt, DateTime endAt,
             int minViewCount, int maxViewCount, int minCommentcount, int maxCommentCount);

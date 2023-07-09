@@ -3,6 +3,17 @@
     Layout = "_Layout";
     ViewBag.Title = "Makale Ekle";
 }
+@section Styles
+    {
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.9.3/ui/trumbowyg.min.css" integrity="sha512-jeTJbMCqbuiOSiGtfEpcjaTnRUsDxxva0pz2Uld3Qf2amhMC4+2T2IaW5lNmH4Ok29xAEuK+fwm+n5Uox9oqgA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.23.0/plugins/colors/ui/trumbowyg.colors.min.css" integrity="sha512-8dXb2ITE13jLrqqGDVTU8kKl9vHZI9E4TpZGyfhevHeF+/cWWA17wVj+SKX3+QHqZISiGihaCOyK3nA152ShDg==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.23.0/plugins/emoji/ui/trumbowyg.emoji.min.css" integrity="sha512-T2q2UM7Pm3t6Fu0VTRcuVMuaQf3/wP1aFi+/NyvpoVV0VBxN1Pqlmq57Jfg1IPRQCfFQOPLKBwoXA28+1gd/Ow==" crossorigin="anonymous" />
+    <link href="https://cdn.jsdelivr.net/npm/select2@@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/cupertino/jquery-ui.min.css" integrity="sha512-ug/p2fTnYRx/TfVgL8ejTWolaq93X+48/FLS9fKf7AiazbxHkSEENdzWkOxbjJO/X1grUPt9ERfBt21iLh2dxg==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/cupertino/theme.min.css" integrity="sha512-adRIgePtMQgAVB+Mfkhl+Nyva/WllWlFzJyyhYCjznU3Di+Z4SsYi1Rqsep11PYLpUsW/SjE4NXUkIjabQJCOQ==" crossorigin="anonymous" />
+    <link href="~/AdminLTE/css/select2-bootstrap4.min.css" rel="stylesheet" />
+
+}
 <ol class="breadcrumb mb-3 mt-2">
     <li class="breadcrumb-item"><a asp-area="Admin" asp-controller="Home" asp-action="Index">Admin</a></li>
     <li class="breadcrumb-item active"><a asp-area="Admin" asp-controller="Article" asp-action="Index">Makaleler</a></li>
@@ -101,14 +112,4 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA==" crossorigin="anonymous"></script>
     <script src="~/AdminLTE/js/articleAdd.js" type="application/ecmascript"></script>
 }
-    @section Styles
-    {
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.9.3/ui/trumbowyg.min.css" integrity="sha512-jeTJbMCqbuiOSiGtfEpcjaTnRUsDxxva0pz2Uld3Qf2amhMC4+2T2IaW5lNmH4Ok29xAEuK+fwm+n5Uox9oqgA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.23.0/plugins/colors/ui/trumbowyg.colors.min.css" integrity="sha512-8dXb2ITE13jLrqqGDVTU8kKl9vHZI9E4TpZGyfhevHeF+/cWWA17wVj+SKX3+QHqZISiGihaCOyK3nA152ShDg==" crossorigin="anonymous" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.23.0/plugins/emoji/ui/trumbowyg.emoji.min.css" integrity="sha512-T2q2UM7Pm3t6Fu0VTRcuVMuaQf3/wP1aFi+/NyvpoVV0VBxN1Pqlmq57Jfg1IPRQCfFQOPLKBwoXA28+1gd/Ow==" crossorigin="anonymous" />
-    <link href="https://cdn.jsdelivr.net/npm/select2@@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/cupertino/jquery-ui.min.css" integrity="sha512-ug/p2fTnYRx/TfVgL8ejTWolaq93X+48/FLS9fKf7AiazbxHkSEENdzWkOxbjJO/X1grUPt9ERfBt21iLh2dxg==" crossorigin="anonymous" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/cupertino/theme.min.css" integrity="sha512-adRIgePtMQgAVB+Mfkhl+Nyva/WllWlFzJyyhYCjznU3Di+Z4SsYi1Rqsep11PYLpUsW/SjE4NXUkIjabQJCOQ==" crossorigin="anonymous" />
-    <link href="~/AdminLTE/css/select2-bootstrap4.min.css" rel="stylesheet" />
-
-}
+   
