@@ -14,7 +14,7 @@
     </div>
     <form>
         <div class="form-row">
-            <input type="hidden" id="category-id" value="@(Model.CategoryId != null ? Model.CategoryId.Value : null)" />
+            <input type="hidden" id="category-id" value="@(Model.CategoryId != null ? Model.CategoryId.Value : 1)" />
             <input type="hidden" id="current-page" value="@Model.CurrentPage" />
             <div class="form-group col-md-6">
                 <select class="form-control" id="select-page-size">
