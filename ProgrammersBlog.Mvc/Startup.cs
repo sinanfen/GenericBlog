@@ -1,4 +1,3 @@
-using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -59,7 +58,7 @@ namespace ProgrammersBlog.Mvc
             services.AddSession();
             services.AddAutoMapper(typeof(CategoryProfile), typeof(ArticleProfile), typeof(UserProfile), typeof(ViewModelsProfile), typeof(CommentProfile));
             services.LoadMyServices(connectionString: Configuration.GetConnectionString("LocalDB"));
-            services.AddScoped<IImageHelper,ImageHelper>();
+            services.AddScoped<IImageHelper, ImageHelper>();
             services.ConfigureApplicationCookie(options =>
             {
                 options.LoginPath = new PathString("/Admin/Auth/Login");
@@ -96,7 +95,7 @@ namespace ProgrammersBlog.Mvc
             app.UseNToastNotify();
             app.UseHttpsRedirection();
             app.UseSession();
-            app.UseStaticFiles();            
+            app.UseStaticFiles();
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
@@ -109,9 +108,9 @@ namespace ProgrammersBlog.Mvc
                     );
                 //Bu þekilde artýk URL -> Article/Detail/5 yerine .netcore-ile-gelen-yenilikler þeklinde oluþacak.
                 endpoints.MapControllerRoute(
-                        name:"article",
-                        pattern:"{title}/{articleId}",
-                        defaults:new {controller="Article",action="Detail" }
+                        name: "article",
+                        pattern: "{title}/{articleId}",
+                        defaults: new { controller = "Article", action = "Detail" }
                     );
                 endpoints.MapDefaultControllerRoute();
             });
