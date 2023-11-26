@@ -58,7 +58,23 @@
                                 <td>@user.FirstName</td>
                                 <td>@user.LastName</td>
                                 <td>@user.PhoneNumber</td>
-                                <td>@(user.About.Length > 75 ? user.About.Substring(0, 75) : user.About)</td>
+                                @{
+                                    if (user.About != null)
+                                    {
+                                        if (user.About.Length > 75)
+                                        {
+                                            <td>@user.About.Substring(0, 75);</td>
+                                        }
+                                        else
+                                        {
+                                            <td>@user.About</td>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <td>-</td>
+                                    }
+                                }
                                 <td><img src="~/img/@user.Picture" alt="@user.UserName" class="my-image-table" /></td>
                                 <td style="width:150px;">
                                     <button class="btn btn-info btn-sm btn-detail" data-id="@user.Id"><span class="fas fa-newspaper"></span></button>
@@ -82,6 +98,6 @@
     </div>
 }
 @section Scripts
-    {
+{
     <script src="~/AdminLTE/js/userIndex.js" type="application/ecmascript"></script>
 }

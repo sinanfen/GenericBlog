@@ -13,22 +13,31 @@
                     Blog Modülü
                 </a>
                 <div class="sb-sidenav-menu-heading">İçerikler</div>
-                <a class="nav-link" asp-area="Admin" asp-controller="Category" asp-action="Index">
-                    <div class="sb-nav-link-icon"><i class="fas fa-th-list"></i></div>
-                    Kategoriler
-                </a>
-                <a class="nav-link" asp-area="Admin" asp-controller="Article" asp-action="Index">
-                    <div class="sb-nav-link-icon"><i class="fas fa-file-alt"></i></div>
-                    Makaleler
-                </a>
-                <a class="nav-link" asp-area="Admin" asp-controller="Comment" asp-action="Index">
-                    <div class="sb-nav-link-icon"><i class="fas fa-comments"></i></div>
-                    Yorumlar
-                </a>
+                @if (Model.Roles.Any(r => r.Equals("SuperAdmin") || r.Equals("Category.Read")))
+                {
+                    <a class="nav-link" asp-area="Admin" asp-controller="Category" asp-action="Index">
+                        <div class="sb-nav-link-icon"><i class="fas fa-th-list"></i></div>
+                        Kategoriler
+                    </a>
+                }
+                @if (Model.Roles.Any(r => r.Equals("SuperAdmin") || r.Equals("Article.Read")))
+                {
+                    <a class="nav-link" asp-area="Admin" asp-controller="Article" asp-action="Index">
+                        <div class="sb-nav-link-icon"><i class="fas fa-file-alt"></i></div>
+                        Makaleler
+                    </a>
+                }
+                @if (Model.Roles.Any(r => r.Equals("SuperAdmin") || r.Equals("Comment.Read")))
+                {
+                    <a class="nav-link" asp-area="Admin" asp-controller="Comment" asp-action="Index">
+                        <div class="sb-nav-link-icon"><i class="fas fa-comments"></i></div>
+                        Yorumlar
+                    </a>
+                }
                 @if (Model.Roles.Any(r => r.Equals("SuperAdmin") || r.Equals("Role.Read")))
                 {
-                <div class="sb-sidenav-menu-heading">Kullanıcılar</div>
-                
+                    <div class="sb-sidenav-menu-heading">Kullanıcılar</div>
+
                     <a class="nav-link" asp-area="Admin" asp-controller="Role" asp-action="Index">
                         <div class="sb-nav-link-icon"><i class="fas fa-user-shield"></i></div>
                         Roller
@@ -43,8 +52,8 @@
                 }
                 @if (Model.Roles.Any(r => r.Equals("SuperAdmin")))
                 {
-                <div class="sb-sidenav-menu-heading">Ayarlar</div>
-                
+                    <div class="sb-sidenav-menu-heading">Ayarlar</div>
+
                     <a class="nav-link" asp-area="Admin" asp-controller="Options" asp-action="GeneralSettings">
                         <div class="sb-nav-link-icon"><i class="fas fa-tools"></i></div>
                         Genel Ayarlar

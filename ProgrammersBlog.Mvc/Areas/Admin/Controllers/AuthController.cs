@@ -93,7 +93,15 @@ namespace ProgrammersBlog.Mvc.Areas.Admin.Controllers
                 if (result.Succeeded)
                 {
                     await _userManager.Users.AsNoTracking().SingleOrDefaultAsync(u => u.Id == user.Id);
-                    await _userManager.AddToRoleAsync(user, "SuperAdmin");
+                    await _userManager.AddToRoleAsync(user, "AdminArea.Home.Read");
+                    await _userManager.AddToRoleAsync(user, "Article.Create");
+                    await _userManager.AddToRoleAsync(user, "Article.Read");
+                    await _userManager.AddToRoleAsync(user, "Article.Update");
+                    await _userManager.AddToRoleAsync(user, "Article.Delete");
+                    //Article.Create
+                    //Article.Read
+                    //Article.Update
+                    //Article.Delete
                     await _userManager.UpdateSecurityStampAsync(user);
 
                     _toastNotification.AddSuccessToastMessage("Kayıt işleminiz başarıyla tamamlandı.", new ToastrOptions
@@ -103,7 +111,6 @@ namespace ProgrammersBlog.Mvc.Areas.Admin.Controllers
 
                     return RedirectToAction("Login", "Auth", new { Area = "Admin" });
                 }
-
                 else
                 {
                     foreach (var error in result.Errors)
